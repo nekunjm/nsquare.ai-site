@@ -1,0 +1,15 @@
+# Sensitive
+.env
+
+# Dependencies
+node_modules/
+
+# Claude Code config
+.claude/
+
+# Temporary files
+temporary screenshots/
+
+# OS files
+.DS_Store
+Thumbs.db

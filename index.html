@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nsquare.ai — AI Automation for Mumbai Businesses</title>
+  <meta name="description" content="Custom AI workflows and automation that save Mumbai businesses hours every week. From workflow automation to intelligent integrations.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#00A7B3',
+            'brand-glow': 'rgba(0, 167, 179, 0.2)',
+            surface: '#111111',
+            elevated: '#1A1A1A',
+            base: '#0A0A0A',
+          },
+          fontFamily: {
+            heading: ['Montserrat', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0A0A0A;
+      color: #F0F0F0;
+      overflow-x: hidden;
+    }
+
+    /* ══════════════════════════════════════════════════ */
+    /* CURSOR GLOW                                       */
+    /* ══════════════════════════════════════════════════ */
+    .cursor-glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 167, 179, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+    .cursor-glow.active { opacity: 1; }
+
+    /* ══════════════════════════════════════════════════ */
+    /* HERO                                              */
+    /* ══════════════════════════════════════════════════ */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .hero-bg::before,
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.3;
+      animation: float 8s ease-in-out infinite alternate;
+    }
+    .hero-bg::before {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, #00A7B3 0%, transparent 70%);
+      top: -10%; right: -5%;
+    }
+    .hero-bg::after {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, #007A83 0%, transparent 70%);
+      bottom: -15%; left: -10%;
+      animation-delay: -4s;
+    }
+    .hero-orb-3 {
+      position: absolute;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 167, 179, 0.15) 0%, transparent 70%);
+      filter: blur(80px);
+      top: 40%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: float 10s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, -40px) scale(1.1); }
+    }
+
+    /* ── Floating SVG Paths ── */
+    .floating-paths {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .floating-paths svg {
+      width: 100%;
+      height: 100%;
+      color: #00A7B3;
+    }
+    .floating-paths path {
+      stroke: currentColor;
+      fill: none;
+      animation: pathFlow var(--path-duration, 22s) linear infinite;
+    }
+    @keyframes pathFlow {
+      0%   { stroke-dashoffset: 0;  }
+      100% { stroke-dashoffset: -2; }
+    }
+
+    .dot-grid {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-image: radial-gradient(rgba(0, 167, 179, 0.12) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    /* ── Hero text stagger ── */
+    .hero-text-1 { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
+    .hero-text-2 { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards; }
+    .hero-text-3 { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards; }
+    .hero-text-4 { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards; }
+    .hero-visual { opacity: 0; transform: translateY(30px) scale(0.97); animation: fadeUpScale 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUpScale {
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ── Workflow mockup card ── */
+    .workflow-card {
+      background: rgba(17, 17, 17, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 167, 179, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 60px rgba(0, 167, 179, 0.05);
+    }
+    .workflow-node {
+      transition: box-shadow 0.4s, border-color 0.4s;
+    }
+    .workflow-node.active {
+      border-color: #00A7B3;
+      box-shadow: 0 0 16px rgba(0, 167, 179, 0.4);
+    }
+    .workflow-connector {
+      height: 2px;
+      background: linear-gradient(90deg, rgba(0, 167, 179, 0.1), rgba(0, 167, 179, 0.1));
+      position: relative;
+      overflow: hidden;
+    }
+    .workflow-connector::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #00A7B3, rgba(0, 167, 179, 0.3));
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: connectorPulse 3s ease-in-out infinite;
+    }
+    @keyframes connectorPulse {
+      0%, 100% { transform: scaleX(0); opacity: 0; }
+      30% { transform: scaleX(1); opacity: 1; }
+      60% { transform: scaleX(1); opacity: 0; }
+    }
+
+    /* ── Workflow node sequential glow ── */
+    .workflow-node:nth-child(1) .node-ping { animation: nodePing 3s ease-in-out infinite 0s; }
+    .workflow-node:nth-child(3) .node-ping { animation: nodePing 3s ease-in-out infinite 0.8s; }
+    .workflow-node:nth-child(5) .node-ping { animation: nodePing 3s ease-in-out infinite 1.6s; }
+    @keyframes nodePing {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 167, 179, 0); border-color: rgba(0, 167, 179, 0.2); }
+      20% { box-shadow: 0 0 20px 4px rgba(0, 167, 179, 0.3); border-color: #00A7B3; }
+      50% { box-shadow: 0 0 0 0 rgba(0, 167, 179, 0); border-color: rgba(0, 167, 179, 0.2); }
+    }
+
+    /* ══════════════════════════════════════════════════ */
+    /* NOISE TEXTURE                                     */
+    /* ══════════════════════════════════════════════════ */
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    /* ══════════════════════════════════════════════════ */
+    /* SECTION DECORATIVE BACKGROUNDS                    */
+    /* ══════════════════════════════════════════════════ */
+    .section-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .section-dot-grid {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: radial-gradient(rgba(0, 167, 179, 0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, black 20%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, black 20%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* ══════════════════════════════════════════════════ */
+    /* SCROLL REVEAL                                     */
+    /* ══════════════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-scale {
+      opacity: 0;
+      transform: translateY(28px) scale(0.96);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── Stagger children ── */
+    .stagger > [class*="reveal"]:nth-child(1) { transition-delay: 0ms; }
+    .stagger > [class*="reveal"]:nth-child(2) { transition-delay: 150ms; }
+    .stagger > [class*="reveal"]:nth-child(3) { transition-delay: 300ms; }
+    .stagger > [class*="reveal"]:nth-child(4) { transition-delay: 450ms; }
+
+    /* ══════════════════════════════════════════════════ */
+    /* NAVBAR                                            */
+    /* ══════════════════════════════════════════════════ */
+    .nav-scrolled {
+      background: rgba(10, 10, 10, 0.8) !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .nav-link {
+      position: relative;
+      transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1.5px;
+      background: #00A7B3;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-link:hover { color: #00A7B3; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:focus-visible { outline: 2px solid #00A7B3; outline-offset: 4px; border-radius: 2px; }
+
+    /* ══════════════════════════════════════════════════ */
+    /* SERVICE CARDS                                     */
+    /* ══════════════════════════════════════════════════ */
+    .service-card {
+      position: relative;
+      background: #111111;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+      transform-style: preserve-3d;
+      perspective: 800px;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(0, 167, 179, 0.0), rgba(0, 167, 179, 0.0));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      transition: background 0.5s;
+      pointer-events: none;
+    }
+    .service-card:hover::before {
+      background: conic-gradient(from var(--card-angle, 0deg), #00A7B3, rgba(0, 167, 179, 0.1), #00A7B3, rgba(0, 167, 179, 0.1), #00A7B3);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0, 167, 179, 0.12), 0 4px 16px rgba(0, 0, 0, 0.3);
+    }
+    .service-card .card-glow {
+      position: absolute;
+      top: -20px; left: -20px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 167, 179, 0.15), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+    }
+    .service-card:hover .card-glow {
+      opacity: 1;
+    }
+
+    /* ══════════════════════════════════════════════════ */
+    /* BUTTONS                                           */
+    /* ══════════════════════════════════════════════════ */
+    .btn-brand {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 0 rgba(0, 167, 179, 0);
+    }
+    .btn-brand:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 30px rgba(0, 167, 179, 0.35);
+    }
+    .btn-brand:active { transform: scale(0.98); }
+    .btn-brand:focus-visible { outline: 2px solid #00A7B3; outline-offset: 3px; }
+
+    /* ── Nav CTA ── */
+    .nav-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 20px;
+      border-radius: 9999px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      color: #00A7B3;
+      border: 1.5px solid rgba(0, 167, 179, 0.4);
+      background: transparent;
+      text-decoration: none;
+      transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-cta-btn:hover {
+      background: #00A7B3;
+      border-color: #00A7B3;
+      color: #0A0A0A;
+      box-shadow: 0 0 20px rgba(0, 167, 179, 0.25);
+    }
+    .nav-cta-btn:focus-visible { outline: 2px solid #00A7B3; outline-offset: 3px; }
+
+    /* ── Slide icon button ── */
+    .btn-slide {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      height: 48px;
+      border-radius: 9999px;
+      background: #00A7B3;
+      color: #0A0A0A;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      padding-left: 56px;
+      padding-right: 24px;
+      overflow: hidden;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  padding-right 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 0 rgba(0, 167, 179, 0);
+    }
+    .btn-slide:hover {
+      padding-left: 24px;
+      padding-right: 56px;
+      box-shadow: 0 0 28px rgba(0, 167, 179, 0.35);
+    }
+    .btn-slide:active { opacity: 0.9; }
+    .btn-slide:focus-visible { outline: 2px solid #00A7B3; outline-offset: 3px; }
+    .btn-slide .btn-slide-text {
+      position: relative;
+      z-index: 10;
+      white-space: nowrap;
+    }
+    .btn-slide .btn-slide-icon {
+      position: absolute;
+      left: 4px;
+      width: 40px;
+      height: 40px;
+      border-radius: 9999px;
+      background: #0A0A0A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+    .btn-slide:hover .btn-slide-icon {
+      left: calc(100% - 44px);
+      transform: rotate(45deg);
+    }
+    .btn-slide .btn-slide-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: #00A7B3;
+    }
+
+    /* ══════════════════════════════════════════════════ */
+    /* SECTION GLOW DIVIDER                              */
+    /* ══════════════════════════════════════════════════ */
+    .section-glow {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 167, 179, 0.3), transparent);
+    }
+
+    /* ══════════════════════════════════════════════════ */
+    /* MARQUEE TICKER                                    */
+    /* ══════════════════════════════════════════════════ */
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      gap: 32px;
+    }
+    .marquee-row-1 .marquee-track {
+      animation: marqueeLeft 30s linear infinite;
+    }
+    .marquee-row-2 .marquee-track {
+      animation: marqueeRight 35s linear infinite;
+    }
+    @keyframes marqueeLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes marqueeRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .marquee-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 100px;
+      background: rgba(17, 17, 17, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: 500;
+      color: #A0A0A0;
+      flex-shrink: 0;
+    }
+    .marquee-pill svg { flex-shrink: 0; }
+
+    /* ══════════════════════════════════════════════════ */
+    /* HOW IT WORKS — PULSE RINGS                        */
+    /* ══════════════════════════════════════════════════ */
+    .step-circle {
+      position: relative;
+    }
+    .step-circle .ping-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0, 167, 179, 0.4);
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    .step-circle.animate .ping-ring {
+      animation: sonarPing 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    .step-circle.animate .ping-ring:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+    @keyframes sonarPing {
+      0% { opacity: 0.6; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.8); }
+    }
+
+    /* ── Animated connector ── */
+    .hiw-connector {
+      position: absolute;
+      top: 32px;
+      height: 2px;
+      background: rgba(0, 167, 179, 0.1);
+      overflow: hidden;
+    }
+    .hiw-connector::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #00A7B3, rgba(0, 167, 179, 0.4));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hiw-connector.animate::after {
+      transform: scaleX(1);
+    }
+
+    /* ══════════════════════════════════════════════════ */
+    /* CONTACT GLASS CARD                                */
+    /* ══════════════════════════════════════════════════ */
+    .contact-glass {
+      background: rgba(17, 17, 17, 0.6);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0, 167, 179, 0.1);
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-input {
+      transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .form-input:focus {
+      border-color: #00A7B3;
+      box-shadow: 0 0 0 3px rgba(0, 167, 179, 0.15);
+      outline: none;
+    }
+
+    /* ══════════════════════════════════════════════════ */
+    /* FAQ ACCORDION                                     */
+    /* ══════════════════════════════════════════════════ */
+    .faq-item {
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      background: #111111;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .faq-item.open {
+      border-color: rgba(0, 167, 179, 0.2);
+      box-shadow: 0 4px 20px rgba(0, 167, 179, 0.05);
+    }
+    .faq-btn {
+      width: 100%;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      color: #F0F0F0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .faq-btn:hover { color: #00A7B3; }
+    .faq-btn:focus-visible { outline: 2px solid #00A7B3; outline-offset: -2px; border-radius: 16px; }
+    .faq-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0, 167, 179, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      border-color: #00A7B3;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 0 24px;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+      padding: 0 24px 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cursor glow -->
+  <div id="cursor-glow" class="cursor-glow" aria-hidden="true"></div>
+
+  <!-- Noise texture overlay -->
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- NAVBAR                                          -->
+  <!-- ════════════════════════════════════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: transparent;">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center shrink-0" aria-label="nsquare.ai home">
+        <img src="brand_assets/nsquare.ai white text.png" alt="nsquare.ai" class="h-7" />
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="nav-link text-sm font-medium text-gray-400">About</a>
+        <a href="#services" class="nav-link text-sm font-medium text-gray-400">Services</a>
+        <a href="#how-it-works" class="nav-link text-sm font-medium text-gray-400">How it Works</a>
+        <a href="#faq" class="nav-link text-sm font-medium text-gray-400">FAQ</a>
+        <a href="#contact" class="nav-cta-btn">Get in Touch</a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden text-gray-400 p-2 -mr-2" aria-label="Open menu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" style="background: rgba(10,10,10,0.95); backdrop-filter: blur(16px);">
+      <a href="#about" class="block py-3 text-sm text-gray-400 border-b border-white/5">About</a>
+      <a href="#services" class="block py-3 text-sm text-gray-400 border-b border-white/5">Services</a>
+      <a href="#how-it-works" class="block py-3 text-sm text-gray-400 border-b border-white/5">How it Works</a>
+      <a href="#faq" class="block py-3 text-sm text-gray-400 border-b border-white/5">FAQ</a>
+      <a href="#contact" class="block py-3 text-sm font-semibold" style="color:#00A7B3;">Get in Touch</a>
+    </div>
+  </nav>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- HERO                                            -->
+  <!-- ════════════════════════════════════════════════ -->
+  <section class="relative min-h-screen flex items-center overflow-hidden">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-orb-3"></div>
+    </div>
+    <!-- Floating animated paths -->
+    <div class="floating-paths" id="floating-paths-1" aria-hidden="true"></div>
+    <div class="floating-paths" id="floating-paths-2" aria-hidden="true"></div>
+    <!-- Dark gradient overlay to keep text readable -->
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 70% 80% at 30% 50%, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.85) 100%);" aria-hidden="true"></div>
+    <div class="dot-grid" aria-hidden="true"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-20 w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Left: Text -->
+      <div class="lg:text-left text-center">
+        <h1 class="font-heading font-extrabold leading-none" style="letter-spacing: -0.03em;">
+          <span class="hero-text-1 block text-5xl sm:text-6xl lg:text-7xl text-white">Automate the</span>
+          <span class="hero-text-1 block text-5xl sm:text-6xl lg:text-7xl text-white">busywork.</span>
+          <span class="hero-text-2 block text-5xl sm:text-6xl lg:text-7xl mt-2 text-brand">Focus on growth.</span>
+        </h1>
+        <p class="hero-text-3 mt-6 text-lg sm:text-xl text-gray-400 max-w-lg lg:mx-0 mx-auto font-body" style="line-height: 1.7;">
+          Custom AI workflows that save Mumbai businesses hours every week.
+        </p>
+        <div class="hero-text-4 mt-10 flex gap-4 lg:justify-start justify-center">
+          <a href="#contact" class="btn-slide">
+            <span class="btn-slide-text">Get Started</span>
+            <span class="btn-slide-icon">
+              <svg fill="none" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Animated workflow mockup -->
+      <div class="hero-visual hidden lg:block">
+        <div class="workflow-card p-8">
+          <!-- Title bar -->
+          <div class="flex items-center gap-2 mb-6">
+            <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
+            <span class="text-xs text-gray-500 ml-3 font-body">workflow.nsquare.ai</span>
+          </div>
+
+          <!-- Workflow nodes -->
+          <div class="flex items-center gap-0">
+            <!-- Node 1 -->
+            <div class="workflow-node flex-1 border border-brand/20 rounded-xl p-4 bg-base/50 relative">
+              <div class="ping-ring"></div>
+              <div class="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center mb-3">
+                <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+              </div>
+              <p class="text-xs font-semibold text-white">Order Received</p>
+              <p class="text-xs text-gray-500 mt-0.5">via WhatsApp</p>
+            </div>
+
+            <!-- Connector -->
+            <div class="workflow-connector w-8 flex-shrink-0"></div>
+
+            <!-- Node 2 -->
+            <div class="workflow-node flex-1 border border-brand/20 rounded-xl p-4 bg-base/50 relative">
+              <div class="ping-ring"></div>
+              <div class="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center mb-3">
+                <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+              </div>
+              <p class="text-xs font-semibold text-white">AI Processes</p>
+              <p class="text-xs text-gray-500 mt-0.5">categorize & route</p>
+            </div>
+
+            <!-- Connector -->
+            <div class="workflow-connector w-8 flex-shrink-0"></div>
+
+            <!-- Node 3 -->
+            <div class="workflow-node flex-1 border border-brand/20 rounded-xl p-4 bg-base/50 relative">
+              <div class="ping-ring"></div>
+              <div class="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center mb-3">
+                <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+              </div>
+              <p class="text-xs font-semibold text-white">Team Notified</p>
+              <p class="text-xs text-gray-500 mt-0.5">instant update</p>
+            </div>
+          </div>
+
+          <!-- Status bar -->
+          <div class="mt-6 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+              <span class="text-xs text-gray-500">Live — 3 workflows active</span>
+            </div>
+            <span class="text-xs text-brand font-medium">12 tasks automated today</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 opacity-40" aria-hidden="true">
+      <div class="w-5 h-8 border-2 border-gray-500 rounded-full flex items-start justify-center p-1">
+        <div class="w-1 h-2 bg-gray-400 rounded-full" style="animation: fadeUp 1.5s ease-in-out infinite;"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- ABOUT                                           -->
+  <!-- ════════════════════════════════════════════════ -->
+  <section id="about" class="py-24 sm:py-32 relative overflow-hidden">
+    <!-- Decorative bg -->
+    <div class="section-orb" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,167,179,0.08), transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%);" aria-hidden="true"></div>
+
+    <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+      <div class="reveal">
+        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">About nsquare.ai</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
+          Intelligent automation,<br class="hidden sm:block"> built for real businesses.
+        </h2>
+      </div>
+      <div class="reveal mt-8">
+        <p class="text-gray-400 text-lg leading-relaxed" style="line-height: 1.8;">
+          nsquare.ai builds custom AI-powered workflows for Mumbai businesses that are ready to scale — without scaling their headcount. From automating repetitive operations to integrating the tools you already use, every solution is designed around how your business actually works.
+        </p>
+      </div>
+      <div class="reveal mt-14 grid grid-cols-3 gap-8">
+        <div>
+          <p class="text-4xl font-heading font-bold text-brand" data-counter="10" data-suffix="+">0</p>
+          <p class="text-sm text-gray-500 mt-2">Workflows Built</p>
+        </div>
+        <div>
+          <p class="text-4xl font-heading font-bold text-brand" data-counter="50" data-suffix="+">0</p>
+          <p class="text-sm text-gray-500 mt-2">Hours Saved Monthly</p>
+        </div>
+        <div>
+          <p class="text-4xl font-heading font-bold text-brand" data-counter="100" data-suffix="%">0</p>
+          <p class="text-sm text-gray-500 mt-2">Custom Built</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- SERVICES                                        -->
+  <!-- ════════════════════════════════════════════════ -->
+  <section id="services" class="py-24 sm:py-32 relative overflow-hidden">
+    <!-- Decorative bg -->
+    <div class="section-dot-grid" aria-hidden="true"></div>
+    <div class="section-orb" style="width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,167,179,0.06), transparent 70%); top: -10%; right: -5%;" aria-hidden="true"></div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <div class="text-center reveal">
+        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">Services</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
+          What nsquare.ai builds for you
+        </h2>
+      </div>
+
+      <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger">
+        <!-- Card 1 -->
+        <div class="service-card reveal-scale p-7" data-tilt>
+          <div class="card-glow"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 rounded-xl bg-brand/10 flex items-center justify-center mb-5">
+              <svg class="w-7 h-7 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 010 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 010-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <h3 class="font-heading font-semibold text-lg text-white mb-3">Workflow Automation</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Repetitive tasks on autopilot — order processing, follow-ups, scheduling, and more.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="service-card reveal-scale p-7" data-tilt>
+          <div class="card-glow"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 rounded-xl bg-brand/10 flex items-center justify-center mb-5">
+              <svg class="w-7 h-7 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/></svg>
+            </div>
+            <h3 class="font-heading font-semibold text-lg text-white mb-3">AI-Powered Insights</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Turn your data into decisions — sales trends, inventory alerts, customer behavior patterns.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="service-card reveal-scale p-7" data-tilt>
+          <div class="card-glow"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 rounded-xl bg-brand/10 flex items-center justify-center mb-5">
+              <svg class="w-7 h-7 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m9.86-2.556a4.5 4.5 0 00-1.242-7.244l-4.5-4.5a4.5 4.5 0 00-6.364 6.364L4.25 8.81"/></svg>
+            </div>
+            <h3 class="font-heading font-semibold text-lg text-white mb-3">Custom Integrations</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Connect your tools seamlessly — POS systems, WhatsApp, billing, CRM, and everything in between.</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="service-card reveal-scale p-7" data-tilt>
+          <div class="card-glow"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 rounded-xl bg-brand/10 flex items-center justify-center mb-5">
+              <svg class="w-7 h-7 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+            </div>
+            <h3 class="font-heading font-semibold text-lg text-white mb-3">Process Optimization</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Streamline operations end-to-end. Less manual work, fewer errors, faster results.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal mt-12 text-center">
+        <p class="text-gray-500 text-sm">From cafes and restaurants to retail, clinics, and logistics — nsquare.ai adapts to your industry.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- INTEGRATION TICKER                              -->
+  <!-- ════════════════════════════════════════════════ -->
+  <section class="py-20 sm:py-24 relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center reveal mb-12">
+        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">Integrations</p>
+        <h2 class="font-heading font-bold text-2xl sm:text-3xl text-white" style="letter-spacing: -0.03em;">
+          Works with the tools you already use
+        </h2>
+      </div>
+    </div>
+
+    <!-- Marquee row 1 -->
+    <div class="marquee-row-1 overflow-hidden mb-4">
+      <div class="marquee-track">
+        <span class="marquee-pill"><svg class="w-4 h-4 text-green-400" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 17.03c-.248.694-.916 1.363-1.883 1.537-.521.094-1.199.168-3.487-.749-2.926-1.173-4.81-4.154-4.955-4.348-.146-.193-1.183-1.573-1.183-3.001 0-1.427.749-2.131 1.015-2.422.267-.292.58-.365.773-.365.193 0 .387.002.556.01.178.008.418-.068.653.498.237.572.806 1.966.878 2.109.073.143.121.311.024.498-.097.186-.146.302-.29.465-.145.164-.305.366-.435.491-.145.14-.296.292-.127.572.169.28.75 1.237 1.61 2.003 1.106.985 2.038 1.291 2.327 1.435.29.145.459.121.628-.073.169-.193.724-.844.917-1.135.193-.29.387-.242.652-.145.266.097 1.685.795 1.973.94.29.145.483.217.556.338.072.121.072.7-.176 1.394z" fill-rule="evenodd"/></svg>WhatsApp</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="currentColor"><path d="M11.318 12.545H7.91v-1.909h3.41c.318 0 .636.318.636.954 0 .636-.318.955-.637.955zM14.728 9.09c0-.636-.318-.954-.636-.954H7.91V10h6.182c.318 0 .636-.318.636-.91zm.318 3.636c0-.636-.318-1.09-.636-1.09H7.91v2.182h6.5c.318 0 .636-.41.636-1.09z"/><path d="M19.09 0H4.91A2.182 2.182 0 002.727 2.182v19.636A2.182 2.182 0 004.91 24h14.18a2.182 2.182 0 002.183-2.182V2.182A2.182 2.182 0 0019.09 0zM16 13.227c0 1.59-1.227 2.773-2.727 2.773H6.545V8h6.728C14.773 8 16 9.136 16 10.636c0 .818-.364 1.5-.91 1.91.637.363 .91 1.044.91 1.681z"/></svg>Google Sheets</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.528 2.528 0 012.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 012.521 2.521 2.528 2.528 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.528 2.528 0 01-2.522 2.521h-2.522V8.834zm-1.27 0a2.528 2.528 0 01-2.523 2.521 2.527 2.527 0 01-2.52-2.521V2.522A2.527 2.527 0 0115.163 0a2.528 2.528 0 012.523 2.522v6.312zM15.163 18.956a2.528 2.528 0 012.523 2.522A2.528 2.528 0 0115.163 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zm0-1.27a2.527 2.527 0 01-2.52-2.523 2.527 2.527 0 012.52-2.52h6.314A2.528 2.528 0 0124 15.163a2.528 2.528 0 01-2.523 2.523h-6.314z"/></svg>Slack</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm0 4.8a7.2 7.2 0 110 14.4 7.2 7.2 0 010-14.4z"/><circle cx="12" cy="12" r="3.6"/></svg>n8n</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-orange-500" viewBox="0 0 24 24" fill="currentColor"><path d="M18.861 4.14L12 .001 5.14 4.14 12 8.28zM4.56 5.18L0 7.86v8.28l4.56 2.68V5.18zm14.88 0v13.64L24 16.14V7.86l-4.56-2.68zM5.14 19.86L12 24l6.86-4.14L12 15.72z"/></svg>Zapier</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>Gmail</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.98-.7-2.055-.607L2.543 2.573c-.466.046-.56.28-.374.466l2.29 1.169zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.166V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.934zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952l1.448.327s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933l3.222-.186zM1.936 1.035l13.682-.84C17.765.054 18.371.234 19.03.7l3.735 2.66c.467.326.607.467.607.886v14.27c0 .96-.42 1.54-1.682 1.634L6.453 21.15c-.935.047-1.402-.093-1.869-.7L1.376 16.5c-.514-.7-.748-1.213-.748-1.82V2.482c0-.747.42-1.354 1.308-1.447z"/></svg>Notion</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/></svg>Stripe</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="marquee-pill"><svg class="w-4 h-4 text-green-400" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 17.03c-.248.694-.916 1.363-1.883 1.537-.521.094-1.199.168-3.487-.749-2.926-1.173-4.81-4.154-4.955-4.348-.146-.193-1.183-1.573-1.183-3.001 0-1.427.749-2.131 1.015-2.422.267-.292.58-.365.773-.365.193 0 .387.002.556.01.178.008.418-.068.653.498.237.572.806 1.966.878 2.109.073.143.121.311.024.498-.097.186-.146.302-.29.465-.145.164-.305.366-.435.491-.145.14-.296.292-.127.572.169.28.75 1.237 1.61 2.003 1.106.985 2.038 1.291 2.327 1.435.29.145.459.121.628-.073.169-.193.724-.844.917-1.135.193-.29.387-.242.652-.145.266.097 1.685.795 1.973.94.29.145.483.217.556.338.072.121.072.7-.176 1.394z" fill-rule="evenodd"/></svg>WhatsApp</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="currentColor"><path d="M11.318 12.545H7.91v-1.909h3.41c.318 0 .636.318.636.954 0 .636-.318.955-.637.955zM14.728 9.09c0-.636-.318-.954-.636-.954H7.91V10h6.182c.318 0 .636-.318.636-.91zm.318 3.636c0-.636-.318-1.09-.636-1.09H7.91v2.182h6.5c.318 0 .636-.41.636-1.09z"/><path d="M19.09 0H4.91A2.182 2.182 0 002.727 2.182v19.636A2.182 2.182 0 004.91 24h14.18a2.182 2.182 0 002.183-2.182V2.182A2.182 2.182 0 0019.09 0zM16 13.227c0 1.59-1.227 2.773-2.727 2.773H6.545V8h6.728C14.773 8 16 9.136 16 10.636c0 .818-.364 1.5-.91 1.91.637.363 .91 1.044.91 1.681z"/></svg>Google Sheets</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.528 2.528 0 012.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 012.521 2.521 2.528 2.528 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.528 2.528 0 01-2.522 2.521h-2.522V8.834zm-1.27 0a2.528 2.528 0 01-2.523 2.521 2.527 2.527 0 01-2.52-2.521V2.522A2.527 2.527 0 0115.163 0a2.528 2.528 0 012.523 2.522v6.312zM15.163 18.956a2.528 2.528 0 012.523 2.522A2.528 2.528 0 0115.163 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zm0-1.27a2.527 2.527 0 01-2.52-2.523 2.527 2.527 0 012.52-2.52h6.314A2.528 2.528 0 0124 15.163a2.528 2.528 0 01-2.523 2.523h-6.314z"/></svg>Slack</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm0 4.8a7.2 7.2 0 110 14.4 7.2 7.2 0 010-14.4z"/><circle cx="12" cy="12" r="3.6"/></svg>n8n</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-orange-500" viewBox="0 0 24 24" fill="currentColor"><path d="M18.861 4.14L12 .001 5.14 4.14 12 8.28zM4.56 5.18L0 7.86v8.28l4.56 2.68V5.18zm14.88 0v13.64L24 16.14V7.86l-4.56-2.68zM5.14 19.86L12 24l6.86-4.14L12 15.72z"/></svg>Zapier</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>Gmail</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.98-.7-2.055-.607L2.543 2.573c-.466.046-.56.28-.374.466l2.29 1.169zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.166V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.934zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952l1.448.327s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933l3.222-.186zM1.936 1.035l13.682-.84C17.765.054 18.371.234 19.03.7l3.735 2.66c.467.326.607.467.607.886v14.27c0 .96-.42 1.54-1.682 1.634L6.453 21.15c-.935.047-1.402-.093-1.869-.7L1.376 16.5c-.514-.7-.748-1.213-.748-1.82V2.482c0-.747.42-1.354 1.308-1.447z"/></svg>Notion</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/></svg>Stripe</span>
+      </div>
+    </div>
+
+    <!-- Marquee row 2 -->
+    <div class="marquee-row-2 overflow-hidden">
+      <div class="marquee-track">
+        <span class="marquee-pill"><svg class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 01-1.93.07 4.28 4.28 0 004 2.98 8.521 8.521 0 01-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>Twitter / X</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>GitHub</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>Airtable</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L1.608 6v12L12 24l10.392-6V6L12 0zm-1.2 17.4H8.4V10.2h2.4v7.2zm4.8 0h-2.4V6.6h2.4v10.8z"/></svg>Power BI</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-blue-300" viewBox="0 0 24 24" fill="currentColor"><path d="M19.54 0c1.356 0 2.46 1.104 2.46 2.472v21.528l-2.58-2.28-1.452-1.344-1.536-1.428.636 2.22H3.06c-1.356 0-2.46-1.104-2.46-2.472V2.472C.6 1.104 1.704 0 3.06 0h16.48zM14.22 15.756c3.168-.096 4.392-2.184 4.392-2.184 0-4.632-2.064-8.388-2.064-8.388-2.064-1.548-4.032-1.506-4.032-1.506l-.2.228c2.436.756 3.564 1.848 3.564 1.848a11.748 11.748 0 00-7.14-1.14c-.168.024-.3.048-.456.084-.792.084-2.712.456-5.136 1.8-.408.228-.648.384-.648.384s1.188-1.152 3.768-1.908l-.144-.168s-1.968-.042-4.032 1.506c0 0-2.064 3.756-2.064 8.388 0 0 1.2 2.088 4.368 2.184 0 0 .528-.648 .96-1.2-1.824-.552-2.52-1.704-2.52-1.704l.408.252.048.036.047.027.014.006.047.027c.264.144.528.264.768.372a12.186 12.186 0 002.712.756c1.488.144 3.216.012 4.788-.756.492-.192.996-.444 1.524-.816 0 0-.72 1.176-2.592 1.716.432.552.948 1.176.948 1.176z"/></svg>Discord</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-green-300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm-.714 18.01H8.572v-1.5h2.714v1.5zm4.285-5.143c0 .857-.571 1.607-1.393 1.893v1.535H11.57v-1.535c-.821-.286-1.393-1.036-1.393-1.893h2.143c0 .357.286.643.643.643s.643-.286.643-.643-.286-.643-.643-.643c-1.571 0-2.857-1.286-2.857-2.857S11.393 6.51 12.964 6.51c1.571 0 2.857 1.286 2.857 2.857h-2.143a.643.643 0 11-1.285 0c0-.357.286-.643.643-.643s.643.286.643.643c1.571 0 2.857 1.286 2.857 2.857z"/></svg>Razorpay</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="marquee-pill"><svg class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 01-1.93.07 4.28 4.28 0 004 2.98 8.521 8.521 0 01-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>Twitter / X</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>GitHub</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>Airtable</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L1.608 6v12L12 24l10.392-6V6L12 0zm-1.2 17.4H8.4V10.2h2.4v7.2zm4.8 0h-2.4V6.6h2.4v10.8z"/></svg>Power BI</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-blue-300" viewBox="0 0 24 24" fill="currentColor"><path d="M19.54 0c1.356 0 2.46 1.104 2.46 2.472v21.528l-2.58-2.28-1.452-1.344-1.536-1.428.636 2.22H3.06c-1.356 0-2.46-1.104-2.46-2.472V2.472C.6 1.104 1.704 0 3.06 0h16.48zM14.22 15.756c3.168-.096 4.392-2.184 4.392-2.184 0-4.632-2.064-8.388-2.064-8.388-2.064-1.548-4.032-1.506-4.032-1.506l-.2.228c2.436.756 3.564 1.848 3.564 1.848a11.748 11.748 0 00-7.14-1.14c-.168.024-.3.048-.456.084-.792.084-2.712.456-5.136 1.8-.408.228-.648.384-.648.384s1.188-1.152 3.768-1.908l-.144-.168s-1.968-.042-4.032 1.506c0 0-2.064 3.756-2.064 8.388 0 0 1.2 2.088 4.368 2.184 0 0 .528-.648 .96-1.2-1.824-.552-2.52-1.704-2.52-1.704l.408.252.048.036.047.027.014.006.047.027c.264.144.528.264.768.372a12.186 12.186 0 002.712.756c1.488.144 3.216.012 4.788-.756.492-.192.996-.444 1.524-.816 0 0-.72 1.176-2.592 1.716.432.552.948 1.176.948 1.176z"/></svg>Discord</span>
+        <span class="marquee-pill"><svg class="w-4 h-4 text-green-300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm-.714 18.01H8.572v-1.5h2.714v1.5zm4.285-5.143c0 .857-.571 1.607-1.393 1.893v1.535H11.57v-1.535c-.821-.286-1.393-1.036-1.393-1.893h2.143c0 .357.286.643.643.643s.643-.286.643-.643-.286-.643-.643-.643c-1.571 0-2.857-1.286-2.857-2.857S11.393 6.51 12.964 6.51c1.571 0 2.857 1.286 2.857 2.857h-2.143a.643.643 0 11-1.285 0c0-.357.286-.643.643-.643s.643.286.643.643c1.571 0 2.857 1.286 2.857 2.857z"/></svg>Razorpay</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- HOW IT WORKS                                    -->
+  <!-- ════════════════════════════════════════════════ -->
+  <section id="how-it-works" class="py-24 sm:py-32 relative overflow-hidden">
+    <!-- Decorative bg -->
+    <div class="section-orb" style="width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(0,167,179,0.05), transparent 70%); top: 40%; left: 50%; transform: translate(-50%, -50%);" aria-hidden="true"></div>
+
+    <div class="max-w-5xl mx-auto px-6 relative z-10">
+      <div class="text-center reveal">
+        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">How it Works</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
+          Three steps to smarter operations
+        </h2>
+      </div>
+
+      <div class="mt-20 grid md:grid-cols-3 gap-12 md:gap-8 stagger relative" id="hiw-grid">
+        <!-- Connector line 1 -->
+        <div class="hiw-connector hidden md:block" style="left: calc(16.67% + 28px); width: calc(33.33% - 56px);" aria-hidden="true"></div>
+        <!-- Connector line 2 -->
+        <div class="hiw-connector hidden md:block" style="left: calc(50% + 28px); width: calc(33.33% - 56px);" aria-hidden="true"></div>
+
+        <!-- Step 1 -->
+        <div class="reveal text-center relative">
+          <div class="step-circle w-16 h-16 rounded-full border-2 border-brand bg-base flex items-center justify-center mx-auto relative z-10">
+            <div class="ping-ring"></div>
+            <div class="ping-ring"></div>
+            <span class="font-heading font-bold text-brand text-xl">1</span>
+          </div>
+          <h3 class="font-heading font-semibold text-xl text-white mt-6 mb-3">Discover</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">We learn how your business runs and where time is being wasted on tasks that could be automated.</p>
+          <p class="text-brand text-xs font-medium mt-3 opacity-70">Average: 1–2 conversations</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="reveal text-center relative">
+          <div class="step-circle w-16 h-16 rounded-full border-2 border-brand bg-base flex items-center justify-center mx-auto relative z-10">
+            <div class="ping-ring"></div>
+            <div class="ping-ring"></div>
+            <span class="font-heading font-bold text-brand text-xl">2</span>
+          </div>
+          <h3 class="font-heading font-semibold text-xl text-white mt-6 mb-3">Build</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">Custom AI workflows are designed and deployed — tailored to your exact processes and tools.</p>
+          <p class="text-brand text-xs font-medium mt-3 opacity-70">Delivered in days, not months</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="reveal text-center relative">
+          <div class="step-circle w-16 h-16 rounded-full border-2 border-brand bg-base flex items-center justify-center mx-auto relative z-10">
+            <div class="ping-ring"></div>
+            <div class="ping-ring"></div>
+            <span class="font-heading font-bold text-brand text-xl">3</span>
+          </div>
+          <h3 class="font-heading font-semibold text-xl text-white mt-6 mb-3">Scale</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">You save hours every week. As your business grows, the workflows are optimized and expanded with you.</p>
+          <p class="text-brand text-xs font-medium mt-3 opacity-70">Ongoing optimization included</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- CONTACT                                         -->
+  <!-- ════════════════════════════════════════════════ -->
+  <section id="contact" class="py-24 sm:py-32 relative overflow-hidden">
+    <!-- Decorative bg -->
+    <div class="section-orb" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,167,179,0.06), transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%);" aria-hidden="true"></div>
+
+    <div class="max-w-xl mx-auto px-6 relative z-10">
+      <div class="text-center reveal">
+        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">Contact</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
+          Let's automate your<br>next workflow
+        </h2>
+        <p class="text-gray-400 mt-4">Tell us about your business and we'll figure out the best way to help.</p>
+      </div>
+
+      <div class="reveal-scale mt-12">
+        <div class="contact-glass p-8 sm:p-10">
+          <form id="contact-form">
+            <div class="space-y-5">
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-300 mb-1.5">Name</label>
+                <input id="name" name="name" type="text" required
+                  class="form-input w-full px-4 py-3 rounded-xl bg-base border border-white/10 text-white text-sm placeholder-gray-600 font-body"
+                  placeholder="Your name">
+              </div>
+              <div>
+                <label for="business" class="block text-sm font-medium text-gray-300 mb-1.5">Business Name</label>
+                <input id="business" name="business" type="text"
+                  class="form-input w-full px-4 py-3 rounded-xl bg-base border border-white/10 text-white text-sm placeholder-gray-600 font-body"
+                  placeholder="Your business name">
+              </div>
+              <div>
+                <label for="contact-info" class="block text-sm font-medium text-gray-300 mb-1.5">Email or Phone</label>
+                <input id="contact-info" name="contact-info" type="text" required
+                  class="form-input w-full px-4 py-3 rounded-xl bg-base border border-white/10 text-white text-sm placeholder-gray-600 font-body"
+                  placeholder="How can we reach you?">
+              </div>
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-300 mb-1.5">Message</label>
+                <textarea id="message" name="message" rows="4"
+                  class="form-input w-full px-4 py-3 rounded-xl bg-base border border-white/10 text-white text-sm placeholder-gray-600 font-body resize-none"
+                  placeholder="Tell us about your business and what you'd like to automate..."></textarea>
+              </div>
+              <button type="submit"
+                class="btn-brand w-full py-3.5 rounded-xl font-heading font-semibold text-sm bg-brand" style="color: #0A0A0A;">
+                Send Message
+              </button>
+            </div>
+          </form>
+
+          <div id="form-success" class="hidden text-center py-8">
+            <div class="w-16 h-16 rounded-full bg-brand/10 flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            </div>
+            <h3 class="font-heading font-semibold text-xl text-white">Message received!</h3>
+            <p class="text-gray-400 mt-2 text-sm">We'll get back to you soon.</p>
+          </div>
+        </div>
+
+        <!-- Trust signals -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-500">
+          <span class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-brand/60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+            No commitment required
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-brand/60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Usually respond within 24 hours
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- FAQ                                             -->
+  <!-- ════════════════════════════════════════════════ -->
+  <section id="faq" class="py-24 sm:py-32 relative overflow-hidden">
+    <div class="section-orb" style="width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,167,179,0.04), transparent 70%); bottom: -10%; left: -5%;" aria-hidden="true"></div>
+
+    <div class="max-w-2xl mx-auto px-6 relative z-10">
+      <div class="text-center reveal">
+        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">FAQ</p>
+        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
+          Common questions
+        </h2>
+      </div>
+
+      <div class="mt-12 space-y-3 reveal" id="faq-list">
+        <div class="faq-item">
+          <button class="faq-btn">
+            How long does it take to build a workflow?
+            <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+          </button>
+          <div class="faq-answer">
+            <p class="text-sm text-gray-400 leading-relaxed">Most workflows are built and deployed within 3–7 days, depending on complexity. Simple automations can be live within 24–48 hours.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-btn">
+            Do I need any technical knowledge?
+            <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+          </button>
+          <div class="faq-answer">
+            <p class="text-sm text-gray-400 leading-relaxed">Not at all. nsquare.ai handles everything — from design to deployment. You just explain how your business works, and the rest is taken care of.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-btn">
+            What tools can you integrate with?
+            <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+          </button>
+          <div class="faq-answer">
+            <p class="text-sm text-gray-400 leading-relaxed">WhatsApp, Google Sheets, Slack, Gmail, Notion, POS systems, billing software, CRMs, and hundreds more. If it has an API, it can be connected.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-btn">
+            How much does it cost?
+            <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+          </button>
+          <div class="faq-answer">
+            <p class="text-sm text-gray-400 leading-relaxed">Every business is different, so pricing depends on the scope and complexity of the automation. Reach out for a free consultation — no commitment required.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-btn">
+            What happens after the workflow is built?
+            <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+          </button>
+          <div class="faq-answer">
+            <p class="text-sm text-gray-400 leading-relaxed">You get ongoing support and optimization. As your business evolves, the workflows are refined and expanded. Nothing is set-and-forget — it grows with you.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-btn">
+            Can you automate [specific task]?
+            <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+          </button>
+          <div class="faq-answer">
+            <p class="text-sm text-gray-400 leading-relaxed">Probably! From order management and customer follow-ups to invoice generation and inventory alerts — if it's repetitive, it can likely be automated. Just ask.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- FOOTER                                          -->
+  <!-- ════════════════════════════════════════════════ -->
+  <footer class="py-12 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <img src="brand_assets/nsquare.ai white text.png" alt="nsquare.ai" class="h-5" />
+          <span class="text-gray-600 text-sm">•</span>
+          <span class="text-gray-500 text-sm flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z"/></svg>
+            Mumbai, India
+          </span>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="mailto:hello@nsquare.ai" class="text-gray-500 text-sm hover:text-brand" style="transition: color 0.3s;">Email</a>
+          <a href="#" class="text-gray-500 text-sm hover:text-brand" style="transition: color 0.3s;">WhatsApp</a>
+          <a href="#" class="text-gray-500 text-sm hover:text-brand" style="transition: color 0.3s;">LinkedIn</a>
+        </div>
+      </div>
+      <div class="mt-8 text-center">
+        <p class="text-gray-600 text-xs">&copy; 2026 nsquare.ai. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- SCRIPTS                                         -->
+  <!-- ════════════════════════════════════════════════ -->
+  <script>
+    // ── Google Sheets form endpoint — paste your Apps Script web app URL here ──
+    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxR8sMYsILbvQY7FX24MONPA9fVH7NEgMnkBhEKogFBp0jfo5Tk0HrhMKY_VxYiTV-z/exec';
+
+    // ── Contact form → Google Sheets ──
+    document.getElementById('contact-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      const payload = {
+        name:     form.name.value,
+        business: form.business.value,
+        contact:  form['contact-info'].value,
+        message:  form.message.value,
+      };
+
+      try {
+        const params = new URLSearchParams(payload);
+        await fetch(SHEET_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
+        document.getElementById('form-success').classList.remove('hidden');
+        form.classList.add('hidden');
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+        alert('Something went wrong. Please try again.');
+      }
+    });
+
+    // ── Cursor glow ──
+    const cursorGlow = document.getElementById('cursor-glow');
+    let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorGlow.classList.add('active');
+    });
+    document.addEventListener('mouseleave', () => cursorGlow.classList.remove('active'));
+    function animateGlow() {
+      glowX += (mouseX - glowX) * 0.1;
+      glowY += (mouseY - glowY) * 0.1;
+      cursorGlow.style.left = glowX + 'px';
+      cursorGlow.style.top = glowY + 'px';
+      requestAnimationFrame(animateGlow);
+    }
+    animateGlow();
+
+    // ── Navbar scroll effect ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('nav-scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ── Mobile menu toggle ──
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const open = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden');
+      menuBtn.setAttribute('aria-expanded', !open);
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // ── Scroll reveal via Intersection Observer ──
+    const revealEls = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ── Animated counters ──
+    const counters = document.querySelectorAll('[data-counter]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.counter);
+          const suffix = el.dataset.suffix || '';
+          const duration = 1200;
+          const start = performance.now();
+          function update(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            const current = Math.round(eased * target);
+            el.textContent = current + suffix;
+            if (progress < 1) requestAnimationFrame(update);
+          }
+          requestAnimationFrame(update);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(el => counterObserver.observe(el));
+
+    // ── Card tilt effect ──
+    document.querySelectorAll('[data-tilt]').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `translateY(-8px) perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+
+    // ── How it Works — animate on scroll ──
+    const hiwGrid = document.getElementById('hiw-grid');
+    const hiwObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Animate connector lines
+          entry.target.querySelectorAll('.hiw-connector').forEach((c, i) => {
+            setTimeout(() => c.classList.add('animate'), 400 + i * 500);
+          });
+          // Animate pulse rings
+          entry.target.querySelectorAll('.step-circle').forEach((c, i) => {
+            setTimeout(() => c.classList.add('animate'), 200 + i * 500);
+          });
+          hiwObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    hiwObserver.observe(hiwGrid);
+
+    // ── Floating SVG Paths ──
+    function generatePaths(containerId, position) {
+      const container = document.getElementById(containerId);
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 696 316');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+
+      for (let i = 0; i < 36; i++) {
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const d = `M-${380 - i * 5 * position} -${189 + i * 6}C-${380 - i * 5 * position} -${189 + i * 6} -${312 - i * 5 * position} ${216 - i * 6} ${152 - i * 5 * position} ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${684 - i * 5 * position} ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`;
+        path.setAttribute('d', d);
+        path.setAttribute('stroke-width', (0.5 + i * 0.03).toFixed(2));
+        path.setAttribute('pathLength', '1');
+        path.setAttribute('stroke-dasharray', '0.3 0.7');
+        const strokeOpacity = (0.02 + i * 0.006).toFixed(3);
+        path.setAttribute('stroke-opacity', Math.min(strokeOpacity, 0.2));
+        path.setAttribute('stroke-width', (0.3 + i * 0.02).toFixed(2));
+        const duration = (18 + Math.random() * 12).toFixed(1);
+        const delay = (Math.random() * -25).toFixed(1);
+        path.style.setProperty('--path-duration', duration + 's');
+        path.style.animationDelay = delay + 's';
+        svg.appendChild(path);
+      }
+      container.appendChild(svg);
+    }
+    generatePaths('floating-paths-1', 1);
+    generatePaths('floating-paths-2', -1);
+
+    // ── FAQ accordion ──
+    document.getElementById('faq-list').addEventListener('click', (e) => {
+      const btn = e.target.closest('.faq-btn');
+      if (!btn) return;
+      const item = btn.parentElement;
+      const wasOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      // Toggle clicked
+      if (!wasOpen) item.classList.add('open');
+    });
+  </script>
+
+</body>
+</html>
