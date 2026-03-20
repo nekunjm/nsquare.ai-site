@@ -70,7 +70,7 @@
       position: absolute;
       border-radius: 50%;
       filter: blur(120px);
-      opacity: 0.3;
+      opacity: 0.55;
       animation: float 8s ease-in-out infinite alternate;
     }
     .hero-bg::before {
@@ -88,7 +88,7 @@
       position: absolute;
       width: 350px; height: 350px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 167, 179, 0.15) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(0, 167, 179, 0.32) 0%, transparent 70%);
       filter: blur(80px);
       top: 40%; left: 50%;
       transform: translate(-50%, -50%);
@@ -126,7 +126,7 @@
       position: absolute;
       inset: 0;
       z-index: 1;
-      background-image: radial-gradient(rgba(0, 167, 179, 0.12) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(0, 167, 179, 0.28) 1px, transparent 1px);
       background-size: 32px 32px;
       mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 100%);
       -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 100%);
@@ -467,20 +467,15 @@
       display: flex;
       width: max-content;
       gap: 32px;
-    }
-    .marquee-row-1 .marquee-track {
-      animation: marqueeLeft 30s linear infinite;
-    }
-    .marquee-row-2 .marquee-track {
-      animation: marqueeRight 35s linear infinite;
+      will-change: transform;
     }
     @keyframes marqueeLeft {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      from { transform: translateX(0); }
+      to   { transform: translateX(var(--mq-shift)); }
     }
     @keyframes marqueeRight {
-      0% { transform: translateX(-50%); }
-      100% { transform: translateX(0); }
+      from { transform: translateX(var(--mq-shift)); }
+      to   { transform: translateX(0); }
     }
     .marquee-pill {
       display: inline-flex;
@@ -671,7 +666,7 @@
     <div class="floating-paths" id="floating-paths-1" aria-hidden="true"></div>
     <div class="floating-paths" id="floating-paths-2" aria-hidden="true"></div>
     <!-- Dark gradient overlay to keep text readable -->
-    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 70% 80% at 30% 50%, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.85) 100%);" aria-hidden="true"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 70% 80% at 30% 50%, rgba(10,10,10,0.38) 0%, rgba(10,10,10,0.70) 100%);" aria-hidden="true"></div>
     <div class="dot-grid" aria-hidden="true"></div>
 
     <div class="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-20 w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -903,28 +898,12 @@
         <span class="marquee-pill"><svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>Gmail</span>
         <span class="marquee-pill"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.98-.7-2.055-.607L2.543 2.573c-.466.046-.56.28-.374.466l2.29 1.169zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.166V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.934zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952l1.448.327s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933l3.222-.186zM1.936 1.035l13.682-.84C17.765.054 18.371.234 19.03.7l3.735 2.66c.467.326.607.467.607.886v14.27c0 .96-.42 1.54-1.682 1.634L6.453 21.15c-.935.047-1.402-.093-1.869-.7L1.376 16.5c-.514-.7-.748-1.213-.748-1.82V2.482c0-.747.42-1.354 1.308-1.447z"/></svg>Notion</span>
         <span class="marquee-pill"><svg class="w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/></svg>Stripe</span>
-        <!-- Duplicate for seamless loop -->
-        <span class="marquee-pill"><svg class="w-4 h-4 text-green-400" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 17.03c-.248.694-.916 1.363-1.883 1.537-.521.094-1.199.168-3.487-.749-2.926-1.173-4.81-4.154-4.955-4.348-.146-.193-1.183-1.573-1.183-3.001 0-1.427.749-2.131 1.015-2.422.267-.292.58-.365.773-.365.193 0 .387.002.556.01.178.008.418-.068.653.498.237.572.806 1.966.878 2.109.073.143.121.311.024.498-.097.186-.146.302-.29.465-.145.164-.305.366-.435.491-.145.14-.296.292-.127.572.169.28.75 1.237 1.61 2.003 1.106.985 2.038 1.291 2.327 1.435.29.145.459.121.628-.073.169-.193.724-.844.917-1.135.193-.29.387-.242.652-.145.266.097 1.685.795 1.973.94.29.145.483.217.556.338.072.121.072.7-.176 1.394z" fill-rule="evenodd"/></svg>WhatsApp</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="currentColor"><path d="M11.318 12.545H7.91v-1.909h3.41c.318 0 .636.318.636.954 0 .636-.318.955-.637.955zM14.728 9.09c0-.636-.318-.954-.636-.954H7.91V10h6.182c.318 0 .636-.318.636-.91zm.318 3.636c0-.636-.318-1.09-.636-1.09H7.91v2.182h6.5c.318 0 .636-.41.636-1.09z"/><path d="M19.09 0H4.91A2.182 2.182 0 002.727 2.182v19.636A2.182 2.182 0 004.91 24h14.18a2.182 2.182 0 002.183-2.182V2.182A2.182 2.182 0 0019.09 0zM16 13.227c0 1.59-1.227 2.773-2.727 2.773H6.545V8h6.728C14.773 8 16 9.136 16 10.636c0 .818-.364 1.5-.91 1.91.637.363 .91 1.044.91 1.681z"/></svg>Google Sheets</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.528 2.528 0 012.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 012.521 2.521 2.528 2.528 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.528 2.528 0 01-2.522 2.521h-2.522V8.834zm-1.27 0a2.528 2.528 0 01-2.523 2.521 2.527 2.527 0 01-2.52-2.521V2.522A2.527 2.527 0 0115.163 0a2.528 2.528 0 012.523 2.522v6.312zM15.163 18.956a2.528 2.528 0 012.523 2.522A2.528 2.528 0 0115.163 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zm0-1.27a2.527 2.527 0 01-2.52-2.523 2.527 2.527 0 012.52-2.52h6.314A2.528 2.528 0 0124 15.163a2.528 2.528 0 01-2.523 2.523h-6.314z"/></svg>Slack</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm0 4.8a7.2 7.2 0 110 14.4 7.2 7.2 0 010-14.4z"/><circle cx="12" cy="12" r="3.6"/></svg>n8n</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-orange-500" viewBox="0 0 24 24" fill="currentColor"><path d="M18.861 4.14L12 .001 5.14 4.14 12 8.28zM4.56 5.18L0 7.86v8.28l4.56 2.68V5.18zm14.88 0v13.64L24 16.14V7.86l-4.56-2.68zM5.14 19.86L12 24l6.86-4.14L12 15.72z"/></svg>Zapier</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>Gmail</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.98-.7-2.055-.607L2.543 2.573c-.466.046-.56.28-.374.466l2.29 1.169zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.166V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.934zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952l1.448.327s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933l3.222-.186zM1.936 1.035l13.682-.84C17.765.054 18.371.234 19.03.7l3.735 2.66c.467.326.607.467.607.886v14.27c0 .96-.42 1.54-1.682 1.634L6.453 21.15c-.935.047-1.402-.093-1.869-.7L1.376 16.5c-.514-.7-.748-1.213-.748-1.82V2.482c0-.747.42-1.354 1.308-1.447z"/></svg>Notion</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/></svg>Stripe</span>
       </div>
     </div>
 
     <!-- Marquee row 2 -->
     <div class="marquee-row-2 overflow-hidden">
       <div class="marquee-track">
-        <span class="marquee-pill"><svg class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 01-1.93.07 4.28 4.28 0 004 2.98 8.521 8.521 0 01-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>Twitter / X</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>GitHub</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>Airtable</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L1.608 6v12L12 24l10.392-6V6L12 0zm-1.2 17.4H8.4V10.2h2.4v7.2zm4.8 0h-2.4V6.6h2.4v10.8z"/></svg>Power BI</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-blue-300" viewBox="0 0 24 24" fill="currentColor"><path d="M19.54 0c1.356 0 2.46 1.104 2.46 2.472v21.528l-2.58-2.28-1.452-1.344-1.536-1.428.636 2.22H3.06c-1.356 0-2.46-1.104-2.46-2.472V2.472C.6 1.104 1.704 0 3.06 0h16.48zM14.22 15.756c3.168-.096 4.392-2.184 4.392-2.184 0-4.632-2.064-8.388-2.064-8.388-2.064-1.548-4.032-1.506-4.032-1.506l-.2.228c2.436.756 3.564 1.848 3.564 1.848a11.748 11.748 0 00-7.14-1.14c-.168.024-.3.048-.456.084-.792.084-2.712.456-5.136 1.8-.408.228-.648.384-.648.384s1.188-1.152 3.768-1.908l-.144-.168s-1.968-.042-4.032 1.506c0 0-2.064 3.756-2.064 8.388 0 0 1.2 2.088 4.368 2.184 0 0 .528-.648 .96-1.2-1.824-.552-2.52-1.704-2.52-1.704l.408.252.048.036.047.027.014.006.047.027c.264.144.528.264.768.372a12.186 12.186 0 002.712.756c1.488.144 3.216.012 4.788-.756.492-.192.996-.444 1.524-.816 0 0-.72 1.176-2.592 1.716.432.552.948 1.176.948 1.176z"/></svg>Discord</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-green-300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm-.714 18.01H8.572v-1.5h2.714v1.5zm4.285-5.143c0 .857-.571 1.607-1.393 1.893v1.535H11.57v-1.535c-.821-.286-1.393-1.036-1.393-1.893h2.143c0 .357.286.643.643.643s.643-.286.643-.643-.286-.643-.643-.643c-1.571 0-2.857-1.286-2.857-2.857S11.393 6.51 12.964 6.51c1.571 0 2.857 1.286 2.857 2.857h-2.143a.643.643 0 11-1.285 0c0-.357.286-.643.643-.643s.643.286.643.643c1.571 0 2.857 1.286 2.857 2.857z"/></svg>Razorpay</span>
-        <!-- Duplicate for seamless loop -->
         <span class="marquee-pill"><svg class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 01-1.93.07 4.28 4.28 0 004 2.98 8.521 8.521 0 01-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>Twitter / X</span>
         <span class="marquee-pill"><svg class="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>GitHub</span>
         <span class="marquee-pill"><svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>Airtable</span>
@@ -1171,9 +1150,7 @@
           </span>
         </div>
         <div class="flex items-center gap-6">
-          <a href="mailto:hello@nsquare.ai" class="text-gray-500 text-sm hover:text-brand" style="transition: color 0.3s;">Email</a>
-          <a href="#" class="text-gray-500 text-sm hover:text-brand" style="transition: color 0.3s;">WhatsApp</a>
-          <a href="#" class="text-gray-500 text-sm hover:text-brand" style="transition: color 0.3s;">LinkedIn</a>
+          <a href="mailto:nekunjm@gmail.com" class="text-gray-500 text-sm hover:text-brand" style="transition: color 0.3s;">Email</a>
         </div>
       </div>
       <div class="mt-8 text-center">
@@ -1337,9 +1314,9 @@
         path.setAttribute('stroke-width', (0.5 + i * 0.03).toFixed(2));
         path.setAttribute('pathLength', '1');
         path.setAttribute('stroke-dasharray', '0.3 0.7');
-        const strokeOpacity = (0.02 + i * 0.006).toFixed(3);
-        path.setAttribute('stroke-opacity', Math.min(strokeOpacity, 0.2));
-        path.setAttribute('stroke-width', (0.3 + i * 0.02).toFixed(2));
+        const strokeOpacity = (0.07 + i * 0.012).toFixed(3);
+        path.setAttribute('stroke-opacity', Math.min(strokeOpacity, 0.45));
+        path.setAttribute('stroke-width', (0.5 + i * 0.035).toFixed(2));
         const duration = (18 + Math.random() * 12).toFixed(1);
         const delay = (Math.random() * -25).toFixed(1);
         path.style.setProperty('--path-duration', duration + 's');
@@ -1350,6 +1327,39 @@
     }
     generatePaths('floating-paths-1', 1);
     generatePaths('floating-paths-2', -1);
+
+    // ── Marquee: pixel-perfect seamless fill ──
+    function initMarquee(rowEl, reverse, duration) {
+      const track = rowEl.querySelector('.marquee-track');
+      const gap = 32; // must match CSS gap
+
+      // Snapshot originals before any cloning
+      const origItems = Array.from(track.children);
+
+      // Measure the true single-set width:
+      // flex scrollWidth = sum_of_item_widths + (n-1)*gap
+      // We need to shift by (scrollWidth + gap) so the seam is gap-consistent
+      const setWidth = track.scrollWidth;
+      const shift = setWidth + gap; // exact distance for one seamless loop
+
+      const vw = window.innerWidth;
+
+      // Clone until total track width fills at least 3× viewport
+      // (ensures content always covers the screen during animation + at loop point)
+      while (track.scrollWidth < vw * 3) {
+        origItems.forEach(el => track.appendChild(el.cloneNode(true)));
+      }
+
+      // Set the CSS variable used by the keyframes
+      track.style.setProperty('--mq-shift', `-${shift}px`);
+
+      // Apply animation
+      const animName = reverse ? 'marqueeRight' : 'marqueeLeft';
+      track.style.animation = `${animName} ${duration}s linear infinite`;
+    }
+
+    initMarquee(document.querySelector('.marquee-row-1'), false, 40);
+    initMarquee(document.querySelector('.marquee-row-2'), true,  35);
 
     // ── FAQ accordion ──
     document.getElementById('faq-list').addEventListener('click', (e) => {
