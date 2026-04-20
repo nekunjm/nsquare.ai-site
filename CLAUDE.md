@@ -50,6 +50,18 @@
 - **Never push to GitHub unless the user explicitly asks.** All changes are local-only (localhost preview) until told otherwise.
 - When asked to push, commit and push to `origin main`.
 
+## Copy Rules
+- **Never use em dashes (—) as separators in copy.** Replace with a colon, comma, or rephrase naturally. Em dashes feel AI-generated and are not standard in conversational business copy.
+- Hyphens in compound words (e.g. "end-to-end", "time-saving") and numeric ranges (e.g. "3–7 days") are fine.
+- All website copy lives in `copy.md`. When copy changes, update `copy.md` to match.
+
+## Copy.md Sync Rule
+- When `copy.md` is modified (flagged by git diff), read the file to understand what content changed
+- Identify which section/component on the webpage the copy refers to
+- Update the corresponding HTML/component in the webpage files to match the new copy
+- Only perform this sync action when `copy.md` has changes — check git status first
+- Re-screenshot after updating to verify changes appear correctly
+
 ## Hard Rules
 - Do not add sections, features, or content not in the reference
 - Do not "improve" a reference design — match it

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>nsquare.ai — AI Automation for Mumbai Businesses</title>
+  <title>nsquare.ai: AI Automation for Mumbai Businesses</title>
   <meta name="description" content="Custom AI workflows and automation that save Mumbai businesses hours every week. From workflow automation to intelligent integrations.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,596 +28,7 @@
       },
     }
   </script>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0A0A0A;
-      color: #F0F0F0;
-      overflow-x: hidden;
-    }
-
-    /* ══════════════════════════════════════════════════ */
-    /* CURSOR GLOW                                       */
-    /* ══════════════════════════════════════════════════ */
-    .cursor-glow {
-      position: fixed;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 167, 179, 0.07) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 1;
-      transform: translate(-50%, -50%);
-      transition: opacity 0.3s;
-      opacity: 0;
-    }
-    .cursor-glow.active { opacity: 1; }
-
-    /* ══════════════════════════════════════════════════ */
-    /* HERO                                              */
-    /* ══════════════════════════════════════════════════ */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      z-index: 0;
-    }
-    .hero-bg::before,
-    .hero-bg::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.55;
-      animation: float 8s ease-in-out infinite alternate;
-    }
-    .hero-bg::before {
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, #00A7B3 0%, transparent 70%);
-      top: -10%; right: -5%;
-    }
-    .hero-bg::after {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, #007A83 0%, transparent 70%);
-      bottom: -15%; left: -10%;
-      animation-delay: -4s;
-    }
-    .hero-orb-3 {
-      position: absolute;
-      width: 350px; height: 350px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 167, 179, 0.32) 0%, transparent 70%);
-      filter: blur(80px);
-      top: 40%; left: 50%;
-      transform: translate(-50%, -50%);
-      animation: float 10s ease-in-out infinite alternate-reverse;
-    }
-
-    @keyframes float {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(30px, -40px) scale(1.1); }
-    }
-
-    /* ── Floating SVG Paths ── */
-    .floating-paths {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .floating-paths svg {
-      width: 100%;
-      height: 100%;
-      color: #00A7B3;
-    }
-    .floating-paths path {
-      stroke: currentColor;
-      fill: none;
-      animation: pathFlow var(--path-duration, 22s) linear infinite;
-    }
-    @keyframes pathFlow {
-      0%   { stroke-dashoffset: 0;  }
-      100% { stroke-dashoffset: -2; }
-    }
-
-    .dot-grid {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background-image: radial-gradient(rgba(0, 167, 179, 0.28) 1px, transparent 1px);
-      background-size: 32px 32px;
-      mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 100%);
-    }
-
-    /* ── Hero text stagger ── */
-    .hero-text-1 { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
-    .hero-text-2 { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards; }
-    .hero-text-3 { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards; }
-    .hero-text-4 { opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards; }
-    .hero-visual { opacity: 0; transform: translateY(30px) scale(0.97); animation: fadeUpScale 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; }
-
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeUpScale {
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    /* ── Workflow mockup card ── */
-    .workflow-card {
-      background: rgba(17, 17, 17, 0.7);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(0, 167, 179, 0.15);
-      border-radius: 20px;
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 60px rgba(0, 167, 179, 0.05);
-    }
-    .workflow-node {
-      transition: box-shadow 0.4s, border-color 0.4s;
-    }
-    .workflow-node.active {
-      border-color: #00A7B3;
-      box-shadow: 0 0 16px rgba(0, 167, 179, 0.4);
-    }
-    .workflow-connector {
-      height: 2px;
-      background: linear-gradient(90deg, rgba(0, 167, 179, 0.1), rgba(0, 167, 179, 0.1));
-      position: relative;
-      overflow: hidden;
-    }
-    .workflow-connector::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, #00A7B3, rgba(0, 167, 179, 0.3));
-      transform: scaleX(0);
-      transform-origin: left;
-      animation: connectorPulse 3s ease-in-out infinite;
-    }
-    @keyframes connectorPulse {
-      0%, 100% { transform: scaleX(0); opacity: 0; }
-      30% { transform: scaleX(1); opacity: 1; }
-      60% { transform: scaleX(1); opacity: 0; }
-    }
-
-    /* ── Workflow node sequential glow ── */
-    .workflow-node:nth-child(1) .node-ping { animation: nodePing 3s ease-in-out infinite 0s; }
-    .workflow-node:nth-child(3) .node-ping { animation: nodePing 3s ease-in-out infinite 0.8s; }
-    .workflow-node:nth-child(5) .node-ping { animation: nodePing 3s ease-in-out infinite 1.6s; }
-    @keyframes nodePing {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 167, 179, 0); border-color: rgba(0, 167, 179, 0.2); }
-      20% { box-shadow: 0 0 20px 4px rgba(0, 167, 179, 0.3); border-color: #00A7B3; }
-      50% { box-shadow: 0 0 0 0 rgba(0, 167, 179, 0); border-color: rgba(0, 167, 179, 0.2); }
-    }
-
-    /* ══════════════════════════════════════════════════ */
-    /* NOISE TEXTURE                                     */
-    /* ══════════════════════════════════════════════════ */
-    .noise {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      pointer-events: none;
-      opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 256px 256px;
-    }
-
-    /* ══════════════════════════════════════════════════ */
-    /* SECTION DECORATIVE BACKGROUNDS                    */
-    /* ══════════════════════════════════════════════════ */
-    .section-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(100px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .section-dot-grid {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background-image: radial-gradient(rgba(0, 167, 179, 0.06) 1px, transparent 1px);
-      background-size: 40px 40px;
-      mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, black 20%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, black 20%, transparent 100%);
-      pointer-events: none;
-    }
-
-    /* ══════════════════════════════════════════════════ */
-    /* SCROLL REVEAL                                     */
-    /* ══════════════════════════════════════════════════ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-scale {
-      opacity: 0;
-      transform: translateY(28px) scale(0.96);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-scale.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-40px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-left.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(40px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-right.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    /* ── Stagger children ── */
-    .stagger > [class*="reveal"]:nth-child(1) { transition-delay: 0ms; }
-    .stagger > [class*="reveal"]:nth-child(2) { transition-delay: 150ms; }
-    .stagger > [class*="reveal"]:nth-child(3) { transition-delay: 300ms; }
-    .stagger > [class*="reveal"]:nth-child(4) { transition-delay: 450ms; }
-
-    /* ══════════════════════════════════════════════════ */
-    /* NAVBAR                                            */
-    /* ══════════════════════════════════════════════════ */
-    .nav-scrolled {
-      background: rgba(10, 10, 10, 0.8) !important;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .nav-link {
-      position: relative;
-      transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -2px; left: 0;
-      width: 0; height: 1.5px;
-      background: #00A7B3;
-      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .nav-link:hover { color: #00A7B3; }
-    .nav-link:hover::after { width: 100%; }
-    .nav-link:focus-visible { outline: 2px solid #00A7B3; outline-offset: 4px; border-radius: 2px; }
-
-    /* ══════════════════════════════════════════════════ */
-    /* SERVICE CARDS                                     */
-    /* ══════════════════════════════════════════════════ */
-    .service-card {
-      position: relative;
-      background: #111111;
-      border-radius: 20px;
-      overflow: hidden;
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                  box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-      transform-style: preserve-3d;
-      perspective: 800px;
-    }
-    .service-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(0, 167, 179, 0.0), rgba(0, 167, 179, 0.0));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      transition: background 0.5s;
-      pointer-events: none;
-    }
-    .service-card:hover::before {
-      background: conic-gradient(from var(--card-angle, 0deg), #00A7B3, rgba(0, 167, 179, 0.1), #00A7B3, rgba(0, 167, 179, 0.1), #00A7B3);
-    }
-    .service-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 40px rgba(0, 167, 179, 0.12), 0 4px 16px rgba(0, 0, 0, 0.3);
-    }
-    .service-card .card-glow {
-      position: absolute;
-      top: -20px; left: -20px;
-      width: 120px; height: 120px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 167, 179, 0.15), transparent 70%);
-      opacity: 0;
-      transition: opacity 0.5s;
-      pointer-events: none;
-    }
-    .service-card:hover .card-glow {
-      opacity: 1;
-    }
-
-    /* ══════════════════════════════════════════════════ */
-    /* BUTTONS                                           */
-    /* ══════════════════════════════════════════════════ */
-    .btn-brand {
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                  box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 0 0 rgba(0, 167, 179, 0);
-    }
-    .btn-brand:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 30px rgba(0, 167, 179, 0.35);
-    }
-    .btn-brand:active { transform: scale(0.98); }
-    .btn-brand:focus-visible { outline: 2px solid #00A7B3; outline-offset: 3px; }
-
-    /* ── Nav CTA ── */
-    .nav-cta-btn {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 20px;
-      border-radius: 9999px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 13px;
-      color: #00A7B3;
-      border: 1.5px solid rgba(0, 167, 179, 0.4);
-      background: transparent;
-      text-decoration: none;
-      transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                  border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                  color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                  box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .nav-cta-btn:hover {
-      background: #00A7B3;
-      border-color: #00A7B3;
-      color: #0A0A0A;
-      box-shadow: 0 0 20px rgba(0, 167, 179, 0.25);
-    }
-    .nav-cta-btn:focus-visible { outline: 2px solid #00A7B3; outline-offset: 3px; }
-
-    /* ── Slide icon button ── */
-    .btn-slide {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      height: 48px;
-      border-radius: 9999px;
-      background: #00A7B3;
-      color: #0A0A0A;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-      padding-left: 56px;
-      padding-right: 24px;
-      overflow: hidden;
-      cursor: pointer;
-      border: none;
-      text-decoration: none;
-      transition: padding-left 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                  padding-right 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                  box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 0 0 rgba(0, 167, 179, 0);
-    }
-    .btn-slide:hover {
-      padding-left: 24px;
-      padding-right: 56px;
-      box-shadow: 0 0 28px rgba(0, 167, 179, 0.35);
-    }
-    .btn-slide:active { opacity: 0.9; }
-    .btn-slide:focus-visible { outline: 2px solid #00A7B3; outline-offset: 3px; }
-    .btn-slide .btn-slide-text {
-      position: relative;
-      z-index: 10;
-      white-space: nowrap;
-    }
-    .btn-slide .btn-slide-icon {
-      position: absolute;
-      left: 4px;
-      width: 40px;
-      height: 40px;
-      border-radius: 9999px;
-      background: #0A0A0A;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      flex-shrink: 0;
-    }
-    .btn-slide:hover .btn-slide-icon {
-      left: calc(100% - 44px);
-      transform: rotate(45deg);
-    }
-    .btn-slide .btn-slide-icon svg {
-      width: 16px;
-      height: 16px;
-      stroke: #00A7B3;
-    }
-
-    /* ══════════════════════════════════════════════════ */
-    /* SECTION GLOW DIVIDER                              */
-    /* ══════════════════════════════════════════════════ */
-    .section-glow {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(0, 167, 179, 0.3), transparent);
-    }
-
-    /* ══════════════════════════════════════════════════ */
-    /* MARQUEE TICKER                                    */
-    /* ══════════════════════════════════════════════════ */
-    .marquee-track {
-      display: flex;
-      width: max-content;
-      gap: 32px;
-      will-change: transform;
-    }
-    @keyframes marqueeLeft {
-      from { transform: translateX(0); }
-      to   { transform: translateX(var(--mq-shift)); }
-    }
-    @keyframes marqueeRight {
-      from { transform: translateX(var(--mq-shift)); }
-      to   { transform: translateX(0); }
-    }
-    .marquee-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      border-radius: 100px;
-      background: rgba(17, 17, 17, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      white-space: nowrap;
-      font-size: 14px;
-      font-weight: 500;
-      color: #A0A0A0;
-      flex-shrink: 0;
-    }
-    .marquee-pill svg { flex-shrink: 0; }
-
-    /* ══════════════════════════════════════════════════ */
-    /* HOW IT WORKS — PULSE RINGS                        */
-    /* ══════════════════════════════════════════════════ */
-    .step-circle {
-      position: relative;
-    }
-    .step-circle .ping-ring {
-      position: absolute;
-      inset: -6px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(0, 167, 179, 0.4);
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    .step-circle.animate .ping-ring {
-      animation: sonarPing 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-    }
-    .step-circle.animate .ping-ring:nth-child(2) {
-      animation-delay: 0.5s;
-    }
-    @keyframes sonarPing {
-      0% { opacity: 0.6; transform: scale(1); }
-      100% { opacity: 0; transform: scale(1.8); }
-    }
-
-    /* ── Animated connector ── */
-    .hiw-connector {
-      position: absolute;
-      top: 32px;
-      height: 2px;
-      background: rgba(0, 167, 179, 0.1);
-      overflow: hidden;
-    }
-    .hiw-connector::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, #00A7B3, rgba(0, 167, 179, 0.4));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .hiw-connector.animate::after {
-      transform: scaleX(1);
-    }
-
-    /* ══════════════════════════════════════════════════ */
-    /* CONTACT GLASS CARD                                */
-    /* ══════════════════════════════════════════════════ */
-    .contact-glass {
-      background: rgba(17, 17, 17, 0.6);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(0, 167, 179, 0.1);
-      border-radius: 24px;
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .form-input {
-      transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                  box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .form-input:focus {
-      border-color: #00A7B3;
-      box-shadow: 0 0 0 3px rgba(0, 167, 179, 0.15);
-      outline: none;
-    }
-
-    /* ══════════════════════════════════════════════════ */
-    /* FAQ ACCORDION                                     */
-    /* ══════════════════════════════════════════════════ */
-    .faq-item {
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      background: #111111;
-      overflow: hidden;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-    .faq-item.open {
-      border-color: rgba(0, 167, 179, 0.2);
-      box-shadow: 0 4px 20px rgba(0, 167, 179, 0.05);
-    }
-    .faq-btn {
-      width: 100%;
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: none;
-      border: none;
-      cursor: pointer;
-      text-align: left;
-      color: #F0F0F0;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 16px;
-    }
-    .faq-btn:hover { color: #00A7B3; }
-    .faq-btn:focus-visible { outline: 2px solid #00A7B3; outline-offset: -2px; border-radius: 16px; }
-    .faq-icon {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(0, 167, 179, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
-    }
-    .faq-item.open .faq-icon {
-      transform: rotate(45deg);
-      border-color: #00A7B3;
-    }
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                  padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      padding: 0 24px;
-    }
-    .faq-item.open .faq-answer {
-      max-height: 200px;
-      padding: 0 24px 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -633,10 +44,10 @@
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: transparent;">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="#" class="flex items-center shrink-0" aria-label="nsquare.ai home">
-        <img src="brand_assets/nsquare.ai white text.png" alt="nsquare.ai" class="h-7" />
+        <img src="brand_assets/nsquare.ai%20white%20text.png" alt="nsquare.ai" class="h-7" />
       </a>
       <div class="hidden md:flex items-center gap-8">
-        <a href="#about" class="nav-link text-sm font-medium text-gray-400">About</a>
+        <a href="about.html" class="nav-link text-sm font-medium text-gray-400">About</a>
         <a href="#services" class="nav-link text-sm font-medium text-gray-400">Services</a>
         <a href="#how-it-works" class="nav-link text-sm font-medium text-gray-400">How it Works</a>
         <a href="#faq" class="nav-link text-sm font-medium text-gray-400">FAQ</a>
@@ -647,7 +58,7 @@
       </button>
     </div>
     <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" style="background: rgba(10,10,10,0.95); backdrop-filter: blur(16px);">
-      <a href="#about" class="block py-3 text-sm text-gray-400 border-b border-white/5">About</a>
+      <a href="about.html" class="block py-3 text-sm text-gray-400 border-b border-white/5">About</a>
       <a href="#services" class="block py-3 text-sm text-gray-400 border-b border-white/5">Services</a>
       <a href="#how-it-works" class="block py-3 text-sm text-gray-400 border-b border-white/5">How it Works</a>
       <a href="#faq" class="block py-3 text-sm text-gray-400 border-b border-white/5">FAQ</a>
@@ -744,7 +155,7 @@
           <div class="mt-6 flex items-center justify-between">
             <div class="flex items-center gap-2">
               <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-              <span class="text-xs text-gray-500">Live — 3 workflows active</span>
+              <span class="text-xs text-gray-500">Live: 3 workflows active</span>
             </div>
             <span class="text-xs text-brand font-medium">12 tasks automated today</span>
           </div>
@@ -769,30 +180,22 @@
     <!-- Decorative bg -->
     <div class="section-orb" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,167,179,0.08), transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%);" aria-hidden="true"></div>
 
-    <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
-      <div class="reveal">
-        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">About nsquare.ai</p>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
-          Intelligent automation,<br class="hidden sm:block"> built for real businesses.
-        </h2>
-      </div>
-      <div class="reveal mt-8">
-        <p class="text-gray-400 text-lg leading-relaxed" style="line-height: 1.8;">
-          nsquare.ai builds custom AI-powered workflows for Mumbai businesses that are ready to scale — without scaling their headcount. From automating repetitive operations to integrating the tools you already use, every solution is designed around how your business actually works.
-        </p>
-      </div>
-      <div class="reveal mt-14 grid grid-cols-3 gap-8">
-        <div>
-          <p class="text-4xl font-heading font-bold text-brand" data-counter="10" data-suffix="+">0</p>
-          <p class="text-sm text-gray-500 mt-2">Workflows Built</p>
+    <div class="max-w-4xl mx-auto px-6 relative z-10">
+      <!-- Header -->
+      <div class="mx-auto text-center">
+        <div class="reveal">
+          <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">About nsquare.ai</p>
+          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
+            Intelligent automation,<br class="hidden sm:block"> built around your business.
+          </h2>
         </div>
-        <div>
-          <p class="text-4xl font-heading font-bold text-brand" data-counter="50" data-suffix="+">0</p>
-          <p class="text-sm text-gray-500 mt-2">Hours Saved Monthly</p>
-        </div>
-        <div>
-          <p class="text-4xl font-heading font-bold text-brand" data-counter="100" data-suffix="%">0</p>
-          <p class="text-sm text-gray-500 mt-2">Custom Built</p>
+        <div class="reveal mt-8">
+          <p class="text-gray-400 text-lg leading-relaxed" style="line-height: 1.8;">
+            Every workflow nsquare.ai builds is custom made for the business it runs in. We map how your team actually works, then design automations around your existing tools and processes, so your people reclaim hours every week for work that actually matters.
+          </p>
+          <div class="mt-10">
+            <a href="about.html" class="nav-cta-btn" style="padding: 12px 28px; font-size: 14px;">Learn More About Us</a>
+          </div>
         </div>
       </div>
     </div>
@@ -825,7 +228,7 @@
               <svg class="w-7 h-7 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 010 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 010-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             </div>
             <h3 class="font-heading font-semibold text-lg text-white mb-3">Workflow Automation</h3>
-            <p class="text-sm text-gray-400 leading-relaxed">Repetitive tasks on autopilot — order processing, follow-ups, scheduling, and more.</p>
+            <p class="text-sm text-gray-400 leading-relaxed">Repetitive tasks on autopilot: order processing, follow-ups, scheduling, and more.</p>
           </div>
         </div>
 
@@ -837,7 +240,7 @@
               <svg class="w-7 h-7 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/></svg>
             </div>
             <h3 class="font-heading font-semibold text-lg text-white mb-3">AI-Powered Insights</h3>
-            <p class="text-sm text-gray-400 leading-relaxed">Turn your data into decisions — sales trends, inventory alerts, customer behavior patterns.</p>
+            <p class="text-sm text-gray-400 leading-relaxed">Turn your data into decisions: sales trends, inventory alerts, customer behavior patterns.</p>
           </div>
         </div>
 
@@ -849,7 +252,7 @@
               <svg class="w-7 h-7 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m9.86-2.556a4.5 4.5 0 00-1.242-7.244l-4.5-4.5a4.5 4.5 0 00-6.364 6.364L4.25 8.81"/></svg>
             </div>
             <h3 class="font-heading font-semibold text-lg text-white mb-3">Custom Integrations</h3>
-            <p class="text-sm text-gray-400 leading-relaxed">Connect your tools seamlessly — POS systems, WhatsApp, billing, CRM, and everything in between.</p>
+            <p class="text-sm text-gray-400 leading-relaxed">Connect your tools seamlessly: POS systems, WhatsApp, billing, CRM, and everything in between.</p>
           </div>
         </div>
 
@@ -867,7 +270,7 @@
       </div>
 
       <div class="reveal mt-12 text-center">
-        <p class="text-gray-500 text-sm">From cafes and restaurants to retail, clinics, and logistics — nsquare.ai adapts to your industry.</p>
+        <p class="text-gray-500 text-sm">nsquare.ai adapts to any industry, from cafes and restaurants to clinics, retail, and logistics.</p>
       </div>
     </div>
   </section>
@@ -957,7 +360,7 @@
             <span class="font-heading font-bold text-brand text-xl">2</span>
           </div>
           <h3 class="font-heading font-semibold text-xl text-white mt-6 mb-3">Build</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">Custom AI workflows are designed and deployed — tailored to your exact processes and tools.</p>
+          <p class="text-gray-400 text-sm leading-relaxed">Custom AI workflows are designed and deployed, tailored to your exact processes and tools.</p>
           <p class="text-brand text-xs font-medium mt-3 opacity-70">Delivered in days, not months</p>
         </div>
 
@@ -1086,7 +489,7 @@
             <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
           </button>
           <div class="faq-answer">
-            <p class="text-sm text-gray-400 leading-relaxed">Not at all. nsquare.ai handles everything — from design to deployment. You just explain how your business works, and the rest is taken care of.</p>
+            <p class="text-sm text-gray-400 leading-relaxed">Not at all. nsquare.ai handles everything, from design to deployment. You just explain how your business works, and the rest is taken care of.</p>
           </div>
         </div>
 
@@ -1106,7 +509,7 @@
             <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
           </button>
           <div class="faq-answer">
-            <p class="text-sm text-gray-400 leading-relaxed">Every business is different, so pricing depends on the scope and complexity of the automation. Reach out for a free consultation — no commitment required.</p>
+            <p class="text-sm text-gray-400 leading-relaxed">Every business is different, so pricing depends on the scope and complexity of the automation. Reach out for a free consultation with no commitment required.</p>
           </div>
         </div>
 
@@ -1116,7 +519,7 @@
             <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
           </button>
           <div class="faq-answer">
-            <p class="text-sm text-gray-400 leading-relaxed">You get ongoing support and optimization. As your business evolves, the workflows are refined and expanded. Nothing is set-and-forget — it grows with you.</p>
+            <p class="text-sm text-gray-400 leading-relaxed">You get ongoing support and optimization. As your business evolves, the workflows are refined and expanded. The system keeps improving right alongside your business.</p>
           </div>
         </div>
 
@@ -1126,7 +529,7 @@
             <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
           </button>
           <div class="faq-answer">
-            <p class="text-sm text-gray-400 leading-relaxed">Probably! From order management and customer follow-ups to invoice generation and inventory alerts — if it's repetitive, it can likely be automated. Just ask.</p>
+            <p class="text-sm text-gray-400 leading-relaxed">Probably. From order management and customer follow-ups to invoice generation and inventory alerts, repetitive work can usually be automated. Just ask.</p>
           </div>
         </div>
       </div>
@@ -1142,7 +545,7 @@
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
         <div class="flex items-center gap-3">
-          <img src="brand_assets/nsquare.ai white text.png" alt="nsquare.ai" class="h-5" />
+          <img src="brand_assets/nsquare.ai%20white%20text.png" alt="nsquare.ai" class="h-5" />
           <span class="text-gray-600 text-sm">•</span>
           <span class="text-gray-500 text-sm flex items-center gap-1">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z"/></svg>
@@ -1162,217 +565,7 @@
   <!-- ════════════════════════════════════════════════ -->
   <!-- SCRIPTS                                         -->
   <!-- ════════════════════════════════════════════════ -->
-  <script>
-    // ── Google Sheets form endpoint — paste your Apps Script web app URL here ──
-    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxR8sMYsILbvQY7FX24MONPA9fVH7NEgMnkBhEKogFBp0jfo5Tk0HrhMKY_VxYiTV-z/exec';
-
-    // ── Contact form → Google Sheets ──
-    document.getElementById('contact-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const btn = form.querySelector('button[type="submit"]');
-      btn.disabled = true;
-      btn.textContent = 'Sending…';
-
-      const payload = {
-        name:     form.name.value,
-        business: form.business.value,
-        contact:  form['contact-info'].value,
-        message:  form.message.value,
-      };
-
-      try {
-        const params = new URLSearchParams(payload);
-        await fetch(SHEET_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
-        document.getElementById('form-success').classList.remove('hidden');
-        form.classList.add('hidden');
-      } catch (err) {
-        btn.disabled = false;
-        btn.textContent = 'Send Message';
-        alert('Something went wrong. Please try again.');
-      }
-    });
-
-    // ── Cursor glow ──
-    const cursorGlow = document.getElementById('cursor-glow');
-    let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursorGlow.classList.add('active');
-    });
-    document.addEventListener('mouseleave', () => cursorGlow.classList.remove('active'));
-    function animateGlow() {
-      glowX += (mouseX - glowX) * 0.1;
-      glowY += (mouseY - glowY) * 0.1;
-      cursorGlow.style.left = glowX + 'px';
-      cursorGlow.style.top = glowY + 'px';
-      requestAnimationFrame(animateGlow);
-    }
-    animateGlow();
-
-    // ── Navbar scroll effect ──
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('nav-scrolled', window.scrollY > 40);
-    }, { passive: true });
-
-    // ── Mobile menu toggle ──
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuBtn.addEventListener('click', () => {
-      const open = !mobileMenu.classList.contains('hidden');
-      mobileMenu.classList.toggle('hidden');
-      menuBtn.setAttribute('aria-expanded', !open);
-    });
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      menuBtn.setAttribute('aria-expanded', 'false');
-    }));
-
-    // ── Scroll reveal via Intersection Observer ──
-    const revealEls = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
-    revealEls.forEach(el => revealObserver.observe(el));
-
-    // ── Animated counters ──
-    const counters = document.querySelectorAll('[data-counter]');
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const target = parseInt(el.dataset.counter);
-          const suffix = el.dataset.suffix || '';
-          const duration = 1200;
-          const start = performance.now();
-          function update(now) {
-            const elapsed = now - start;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-            const current = Math.round(eased * target);
-            el.textContent = current + suffix;
-            if (progress < 1) requestAnimationFrame(update);
-          }
-          requestAnimationFrame(update);
-          counterObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.5 });
-    counters.forEach(el => counterObserver.observe(el));
-
-    // ── Card tilt effect ──
-    document.querySelectorAll('[data-tilt]').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        card.style.transform = `translateY(-8px) perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
-
-    // ── How it Works — animate on scroll ──
-    const hiwGrid = document.getElementById('hiw-grid');
-    const hiwObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Animate connector lines
-          entry.target.querySelectorAll('.hiw-connector').forEach((c, i) => {
-            setTimeout(() => c.classList.add('animate'), 400 + i * 500);
-          });
-          // Animate pulse rings
-          entry.target.querySelectorAll('.step-circle').forEach((c, i) => {
-            setTimeout(() => c.classList.add('animate'), 200 + i * 500);
-          });
-          hiwObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    hiwObserver.observe(hiwGrid);
-
-    // ── Floating SVG Paths ──
-    function generatePaths(containerId, position) {
-      const container = document.getElementById(containerId);
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('viewBox', '0 0 696 316');
-      svg.setAttribute('fill', 'none');
-      svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
-
-      for (let i = 0; i < 36; i++) {
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        const d = `M-${380 - i * 5 * position} -${189 + i * 6}C-${380 - i * 5 * position} -${189 + i * 6} -${312 - i * 5 * position} ${216 - i * 6} ${152 - i * 5 * position} ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${684 - i * 5 * position} ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`;
-        path.setAttribute('d', d);
-        path.setAttribute('stroke-width', (0.5 + i * 0.03).toFixed(2));
-        path.setAttribute('pathLength', '1');
-        path.setAttribute('stroke-dasharray', '0.3 0.7');
-        const strokeOpacity = (0.07 + i * 0.012).toFixed(3);
-        path.setAttribute('stroke-opacity', Math.min(strokeOpacity, 0.45));
-        path.setAttribute('stroke-width', (0.5 + i * 0.035).toFixed(2));
-        const duration = (18 + Math.random() * 12).toFixed(1);
-        const delay = (Math.random() * -25).toFixed(1);
-        path.style.setProperty('--path-duration', duration + 's');
-        path.style.animationDelay = delay + 's';
-        svg.appendChild(path);
-      }
-      container.appendChild(svg);
-    }
-    generatePaths('floating-paths-1', 1);
-    generatePaths('floating-paths-2', -1);
-
-    // ── Marquee: pixel-perfect seamless fill ──
-    function initMarquee(rowEl, reverse, duration) {
-      const track = rowEl.querySelector('.marquee-track');
-      const gap = 32; // must match CSS gap
-
-      // Snapshot originals before any cloning
-      const origItems = Array.from(track.children);
-
-      // Measure the true single-set width:
-      // flex scrollWidth = sum_of_item_widths + (n-1)*gap
-      // We need to shift by (scrollWidth + gap) so the seam is gap-consistent
-      const setWidth = track.scrollWidth;
-      const shift = setWidth + gap; // exact distance for one seamless loop
-
-      const vw = window.innerWidth;
-
-      // Clone until total track width fills at least 3× viewport
-      // (ensures content always covers the screen during animation + at loop point)
-      while (track.scrollWidth < vw * 3) {
-        origItems.forEach(el => track.appendChild(el.cloneNode(true)));
-      }
-
-      // Set the CSS variable used by the keyframes
-      track.style.setProperty('--mq-shift', `-${shift}px`);
-
-      // Apply animation
-      const animName = reverse ? 'marqueeRight' : 'marqueeLeft';
-      track.style.animation = `${animName} ${duration}s linear infinite`;
-    }
-
-    initMarquee(document.querySelector('.marquee-row-1'), false, 40);
-    initMarquee(document.querySelector('.marquee-row-2'), true,  35);
-
-    // ── FAQ accordion ──
-    document.getElementById('faq-list').addEventListener('click', (e) => {
-      const btn = e.target.closest('.faq-btn');
-      if (!btn) return;
-      const item = btn.parentElement;
-      const wasOpen = item.classList.contains('open');
-      // Close all
-      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-      // Toggle clicked
-      if (!wasOpen) item.classList.add('open');
-    });
-  </script>
+  <script src="main.js" defer></script>
 
 </body>
 </html>
