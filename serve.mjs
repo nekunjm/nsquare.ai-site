@@ -21,14 +21,23 @@ const MIME = {
 };
 
 createServer(async (req, res) => {
-  let path = req.url === '/' ? '/index.html' : decodeURIComponent(req.url);
-  const filePath = join(__dirname, path);
+  let urlPath = decodeURIComponent(req.url.split('?')[0]);
+  if (urlPath === '/') urlPath = '/index.html';
+  const filePath = join(__dirname, urlPath);
   try {
     const data = await readFile(filePath);
     res.writeHead(200, { 'Content-Type': MIME[extname(filePath)] || 'application/octet-stream' });
     res.end(data);
   } catch {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not found');
+    // Clean URL fallback: try appending .html (mirrors Vercel cleanUrls behaviour)
+    try {
+      const htmlPath = filePath + '.html';
+      const data = await readFile(htmlPath);
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end(data);
+    } catch {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('Not found');
+    }
   }
 }).listen(PORT, () => console.log(`Serving at http://localhost:${PORT}`));

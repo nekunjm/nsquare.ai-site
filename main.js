@@ -1,3 +1,6 @@
+// ── Reduced motion guard ──
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // ── Cursor glow ──
 const cursorGlow = document.getElementById('cursor-glow');
 if (cursorGlow) {
@@ -42,7 +45,7 @@ if (menuBtn && mobileMenu) {
 }
 
 // ── Scroll reveal via Intersection Observer ──
-const revealEls = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
+const revealEls = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right, .word-reveal');
 if (revealEls.length) {
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -53,6 +56,69 @@ if (revealEls.length) {
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
   revealEls.forEach(el => revealObserver.observe(el));
+}
+
+// ── Word-by-word reveal: split heading text into spans on init ──
+document.querySelectorAll('.word-reveal').forEach(el => {
+  const text = el.textContent.trim();
+  el.innerHTML = text.split(/\s+/).map((w, i) =>
+    `<span class="word" style="transition-delay:${i * 60}ms">${w}</span>`
+  ).join(' ');
+});
+
+// ── Process timeline: stagger row reveals as section enters ──
+const timeline = document.getElementById('process-timeline');
+if (timeline) {
+  const rows = timeline.querySelectorAll('.timeline-row');
+  const tlObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        rows.forEach((row, i) => {
+          setTimeout(() => row.classList.add('visible'), i * 220);
+        });
+        tlObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  tlObserver.observe(timeline);
+}
+
+// ── Hero workflow card scroll-linked parallax (skip if reduced motion) ──
+if (!prefersReducedMotion) {
+  const heroMockup = document.querySelector('.hero-floating-mockup');
+  if (heroMockup) {
+    let ticking = false;
+    const baseRotate = -3;
+    function updateParallax() {
+      const y = window.scrollY;
+      const offset = Math.min(y * 0.12, 140);
+      heroMockup.style.transform = `translateY(${-offset}px) rotate(${baseRotate}deg)`;
+      ticking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+}
+
+// ── Why nsquare: stagger card reveals (desktop only via media query in CSS) ──
+const whyGrid = document.querySelector('.why-grid');
+if (whyGrid) {
+  const cards = whyGrid.querySelectorAll('.why-card');
+  const whyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('in-view'), i * 180);
+        });
+        whyObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  whyObserver.observe(whyGrid);
 }
 
 // ── Animated counters ──
@@ -155,8 +221,8 @@ function initMarquee(rowEl, reverse, duration) {
     origItems.forEach(el => track.appendChild(el.cloneNode(true)));
   }
   track.style.setProperty('--mq-shift', `-${shift}px`);
-  const animName = reverse ? 'marqueeRight' : 'marqueeLeft';
-  track.style.animation = `${animName} ${duration}s linear infinite`;
+  track.style.setProperty('--mq-duration', `${duration}s`);
+  track.style.setProperty('--mq-name', reverse ? 'marqueeRight' : 'marqueeLeft');
 }
 initMarquee(document.querySelector('.marquee-row-1'), false, 40);
 initMarquee(document.querySelector('.marquee-row-2'), true, 35);

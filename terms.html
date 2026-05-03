@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service | nsquareai</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#00A7B3', 'brand-soft': '#2BC4CF', primary: '#0D1F22',
+            elevated: '#122A2E', deep: '#081518', 'accent-zone': '#0E2629',
+            base: '#0D1F22', 'text-secondary': '#A8B5B7', 'text-muted': '#6E7E80',
+          },
+          fontFamily: { heading: ['Montserrat', 'sans-serif'], body: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="cursor-glow" class="cursor-glow" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50" style="background:transparent;transition:background 0.3s,backdrop-filter 0.3s,border-color 0.3s;">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center shrink-0"><span class="font-heading font-bold text-3xl tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span></a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="/about" class="nav-link text-sm font-medium text-gray-400">About</a>
+        <a href="/services" class="nav-link text-sm font-medium text-gray-400">Services</a>
+        <a href="/how-it-works" class="nav-link text-sm font-medium text-gray-400">How it Works</a>
+        <a href="/#faq" class="nav-link text-sm font-medium text-gray-400">FAQ</a>
+        <a href="/contact" class="nav-cta-btn">Get in Touch</a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden text-gray-400 p-2 -mr-2" aria-label="Open menu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" style="background:rgba(13,31,34,0.95);backdrop-filter:blur(16px);">
+      <a href="/about" class="block py-3 text-sm text-gray-400 border-b border-white/5">About</a>
+      <a href="/services" class="block py-3 text-sm text-gray-400 border-b border-white/5">Services</a>
+      <a href="/how-it-works" class="block py-3 text-sm text-gray-400 border-b border-white/5">How it Works</a>
+      <a href="/#faq" class="block py-3 text-sm text-gray-400 border-b border-white/5">FAQ</a>
+      <a href="/contact" class="block py-3 text-sm font-semibold" style="color:#00A7B3;">Get in Touch</a>
+    </div>
+  </nav>
+
+  <main class="pt-36 pb-24 min-h-screen">
+    <div class="max-w-2xl mx-auto px-6">
+      <p class="eyebrow mb-5">Legal</p>
+      <h1 class="font-heading font-bold text-4xl text-white mb-4">Terms of Service</h1>
+      <p class="text-sm mb-12" style="color:var(--text-muted);">Last updated: May 2026</p>
+
+      <div class="rounded-2xl p-8" style="background:rgba(18,42,46,0.7);border:1px solid rgba(0,167,179,0.1);">
+        <p class="text-base leading-relaxed mb-6" style="color:var(--text-secondary);">
+          These Terms of Service are currently being finalized. We are committed to clear and fair terms for everyone we work with.
+        </p>
+        <p class="text-base leading-relaxed mb-6" style="color:var(--text-secondary);">
+          If you have any questions about how nsquareai engagements work, what is included in a workflow build, or anything related to our service terms, please reach out directly.
+        </p>
+        <a href="mailto:nekunj@nsquareai.in" class="inline-flex items-center gap-2 text-sm font-semibold" style="color:#00A7B3;">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+          nekunj@nsquareai.in
+        </a>
+      </div>
+
+      <div class="mt-8">
+        <a href="/" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-muted);">← Back to Home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="py-16 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+        <div class="col-span-2 lg:col-span-1">
+          <a href="/" class="inline-block mb-4"><span class="font-heading font-bold text-xl tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span></a>
+          <p class="text-sm leading-relaxed mb-4" style="color:var(--text-muted);">Automation built for real business.</p>
+          <span class="text-xs flex items-center gap-1.5" style="color:var(--text-muted);">
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z"/></svg>
+            Mumbai, India
+          </span>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing:0.14em;color:var(--text-muted);">Company</p>
+          <ul class="space-y-3">
+            <li><a href="/" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">Home</a></li>
+            <li><a href="/about" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">About</a></li>
+            <li><a href="/services" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">Services</a></li>
+            <li><a href="/how-it-works" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">How it Works</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing:0.14em;color:var(--text-muted);">Contact</p>
+          <ul class="space-y-3">
+            <li><a href="mailto:nekunj@nsquareai.in" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">nekunj@nsquareai.in</a></li>
+            <li><a href="tel:+918879897814" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">+91 8879897814</a></li>
+            <li><a href="https://www.instagram.com/nsquareai.in" target="_blank" rel="noopener noreferrer" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">@nsquareai.in</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing:0.14em;color:var(--text-muted);">Legal</p>
+          <ul class="space-y-3">
+            <li><a href="/privacy" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">Privacy Policy</a></li>
+            <li><a href="/terms" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 pt-8 border-t border-white/5 text-center">
+        <p class="text-xs" style="color:var(--text-muted);">&copy; 2026 nsquareai. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>

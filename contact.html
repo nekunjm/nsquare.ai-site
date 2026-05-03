@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | nsquareai</title>
+  <meta name="description" content="Get in touch with nsquareai. We help Mumbai businesses automate repetitive work with custom AI workflows.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#00A7B3',
+            'brand-soft': '#2BC4CF',
+            'brand-deep': '#007A83',
+            'brand-glow': 'rgba(0, 167, 179, 0.2)',
+            primary: '#0D1F22',
+            elevated: '#122A2E',
+            floating: '#173438',
+            deep: '#081518',
+            'accent-zone': '#0E2629',
+            base: '#0D1F22',
+            surface: '#122A2E',
+            'text-primary': '#F2F5F5',
+            'text-secondary': '#A8B5B7',
+            'text-muted': '#6E7E80',
+          },
+          fontFamily: {
+            heading: ['Montserrat', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="cursor-glow" class="cursor-glow" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50" style="background: transparent; transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center shrink-0" aria-label="nsquareai home">
+        <span class="font-heading font-bold text-3xl tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="/about" class="nav-link text-sm font-medium text-gray-400">About</a>
+        <a href="/services" class="nav-link text-sm font-medium text-gray-400">Services</a>
+        <a href="/how-it-works" class="nav-link text-sm font-medium text-gray-400">How it Works</a>
+        <a href="/#faq" class="nav-link text-sm font-medium text-gray-400">FAQ</a>
+        <a href="/contact" class="nav-cta-btn" style="color:#00A7B3; border-color: rgba(0,167,179,0.4);">Get in Touch</a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden text-gray-400 p-2 -mr-2" aria-label="Open menu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" style="background: rgba(13,31,34,0.95); backdrop-filter: blur(16px);">
+      <a href="/about" class="block py-3 text-sm text-gray-400 border-b border-white/5">About</a>
+      <a href="/services" class="block py-3 text-sm text-gray-400 border-b border-white/5">Services</a>
+      <a href="/how-it-works" class="block py-3 text-sm text-gray-400 border-b border-white/5">How it Works</a>
+      <a href="/#faq" class="block py-3 text-sm text-gray-400 border-b border-white/5">FAQ</a>
+      <a href="/contact" class="block py-3 text-sm font-semibold" style="color:#00A7B3;">Get in Touch</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative pt-36 pb-16 overflow-hidden">
+    <div class="hero-bg" aria-hidden="true"><div class="hero-orb-3"></div></div>
+    <div class="dot-grid" aria-hidden="true"></div>
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center reveal-scale visible">
+      <p class="eyebrow mb-5">Contact</p>
+      <h1 class="display-lg text-white pb-2">
+        <span class="block">Let's talk about</span>
+        <span class="block mt-2 text-brand-soft">your business.</span>
+      </h1>
+      <p class="mt-8 body-lg font-body mx-auto max-w-xl" style="color: var(--text-secondary);">
+        Tell us what's eating your week. We'll figure out what automation looks like for you, no commitment required.
+      </p>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- CONTACT CONTENT -->
+  <section class="py-16 sm:py-24 relative overflow-hidden" style="background: var(--bg-accent-zone);">
+    <div class="section-orb" style="width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,167,179,0.07), transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%);" aria-hidden="true"></div>
+
+    <div class="max-w-5xl mx-auto px-6 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+
+        <!-- Left: contact details -->
+        <div class="reveal-left">
+          <h2 class="font-heading font-bold text-2xl text-white mb-8">Reach us directly</h2>
+
+          <div class="space-y-5">
+            <!-- Email -->
+            <a href="mailto:nekunj@nsquareai.in" class="flex items-start gap-4 p-5 rounded-2xl group transition-all duration-300 hover:-translate-y-0.5" style="background: rgba(18,42,46,0.7); border: 1px solid rgba(0,167,179,0.12); backdrop-filter: blur(10px);">
+              <div class="w-11 h-11 rounded-xl bg-brand/10 flex items-center justify-center shrink-0 group-hover:bg-brand/20 transition-colors duration-300">
+                <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold uppercase mb-1" style="letter-spacing: 0.12em; color: var(--text-muted);">Email</p>
+                <p class="text-white font-medium text-sm">nekunj@nsquareai.in</p>
+                <p class="text-xs mt-0.5" style="color: var(--text-muted);">Usually respond within 24 hours</p>
+              </div>
+            </a>
+
+            <!-- Phone / WhatsApp -->
+            <a href="tel:+918879897814" class="flex items-start gap-4 p-5 rounded-2xl group transition-all duration-300 hover:-translate-y-0.5" style="background: rgba(18,42,46,0.7); border: 1px solid rgba(0,167,179,0.12); backdrop-filter: blur(10px);">
+              <div class="w-11 h-11 rounded-xl bg-brand/10 flex items-center justify-center shrink-0 group-hover:bg-brand/20 transition-colors duration-300">
+                <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold uppercase mb-1" style="letter-spacing: 0.12em; color: var(--text-muted);">Phone / WhatsApp</p>
+                <p class="text-white font-medium text-sm">+91 8879897814</p>
+                <p class="text-xs mt-0.5" style="color: var(--text-muted);">Available during business hours</p>
+              </div>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/nsquareai.in" target="_blank" rel="noopener noreferrer" class="flex items-start gap-4 p-5 rounded-2xl group transition-all duration-300 hover:-translate-y-0.5" style="background: rgba(18,42,46,0.7); border: 1px solid rgba(0,167,179,0.12); backdrop-filter: blur(10px);">
+              <div class="w-11 h-11 rounded-xl bg-brand/10 flex items-center justify-center shrink-0 group-hover:bg-brand/20 transition-colors duration-300">
+                <svg class="w-5 h-5 text-brand" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold uppercase mb-1" style="letter-spacing: 0.12em; color: var(--text-muted);">Instagram</p>
+                <p class="text-white font-medium text-sm">@nsquareai.in</p>
+                <p class="text-xs mt-0.5" style="color: var(--text-muted);">Follow us for updates</p>
+              </div>
+            </a>
+
+            <!-- Location -->
+            <div class="flex items-start gap-4 p-5 rounded-2xl" style="background: rgba(18,42,46,0.5); border: 1px solid rgba(255,255,255,0.05);">
+              <div class="w-11 h-11 rounded-xl bg-brand/10 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z"/></svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold uppercase mb-1" style="letter-spacing: 0.12em; color: var(--text-muted);">Location</p>
+                <p class="text-white font-medium text-sm">Mumbai, India</p>
+                <p class="text-xs mt-0.5" style="color: var(--text-muted);">We work with businesses across Mumbai</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: contact form -->
+        <div class="reveal-scale">
+          <h2 class="font-heading font-bold text-2xl text-white mb-8">Send us a message</h2>
+          <div class="contact-glass p-8 sm:p-10">
+            <form id="contact-form">
+              <div class="space-y-5">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-gray-300 mb-1.5">Name</label>
+                  <input id="name" name="name" type="text" required
+                    class="form-input w-full px-4 py-3 rounded-xl bg-base border border-white/10 text-white text-sm placeholder-gray-600 font-body"
+                    placeholder="Your name">
+                </div>
+                <div>
+                  <label for="business" class="block text-sm font-medium text-gray-300 mb-1.5">Business Name</label>
+                  <input id="business" name="business" type="text"
+                    class="form-input w-full px-4 py-3 rounded-xl bg-base border border-white/10 text-white text-sm placeholder-gray-600 font-body"
+                    placeholder="Your business name">
+                </div>
+                <div>
+                  <label for="contact-info" class="block text-sm font-medium text-gray-300 mb-1.5">Email or Phone</label>
+                  <input id="contact-info" name="contact-info" type="text" required
+                    class="form-input w-full px-4 py-3 rounded-xl bg-base border border-white/10 text-white text-sm placeholder-gray-600 font-body"
+                    placeholder="How can we reach you?">
+                </div>
+                <div>
+                  <label for="message" class="block text-sm font-medium text-gray-300 mb-1.5">Message</label>
+                  <textarea id="message" name="message" rows="4"
+                    class="form-input w-full px-4 py-3 rounded-xl bg-base border border-white/10 text-white text-sm placeholder-gray-600 font-body resize-none"
+                    placeholder="Tell us about your business and what you'd like to automate..."></textarea>
+                </div>
+                <button type="submit"
+                  class="btn-brand w-full py-3.5 rounded-xl font-heading font-semibold text-sm bg-brand" style="color: var(--text-on-brand);">
+                  Send Message
+                </button>
+              </div>
+            </form>
+            <div id="form-success" class="hidden text-center py-8">
+              <div class="w-16 h-16 rounded-full bg-brand/10 flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              </div>
+              <h3 class="font-heading font-semibold text-xl text-white">Message received!</h3>
+              <p class="text-gray-400 mt-2 text-sm">We'll get back to you within 24 hours.</p>
+            </div>
+          </div>
+          <div class="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-500">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-brand/60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+              No commitment required
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-brand/60" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Usually respond within 24 hours
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- FOOTER -->
+  <footer class="py-16 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+        <div class="col-span-2 lg:col-span-1">
+          <a href="/" class="inline-block mb-4">
+            <span class="font-heading font-bold text-xl tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span>
+          </a>
+          <p class="text-sm leading-relaxed mb-4" style="color: var(--text-muted);">Automation built for real business.</p>
+          <span class="text-xs flex items-center gap-1.5" style="color: var(--text-muted);">
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z"/></svg>
+            Mumbai, India
+          </span>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing: 0.14em; color: var(--text-muted);">Company</p>
+          <ul class="space-y-3">
+            <li><a href="/" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Home</a></li>
+            <li><a href="/about" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">About</a></li>
+            <li><a href="/services" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Services</a></li>
+            <li><a href="/how-it-works" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">How it Works</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing: 0.14em; color: var(--text-muted);">Contact</p>
+          <ul class="space-y-3">
+            <li><a href="mailto:nekunj@nsquareai.in" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">nekunj@nsquareai.in</a></li>
+            <li><a href="tel:+918879897814" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">+91 8879897814</a></li>
+            <li><a href="https://www.instagram.com/nsquareai.in" target="_blank" rel="noopener noreferrer" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">@nsquareai.in</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing: 0.14em; color: var(--text-muted);">Legal</p>
+          <ul class="space-y-3">
+            <li><a href="/privacy" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Privacy Policy</a></li>
+            <li><a href="/terms" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 pt-8 border-t border-white/5 text-center">
+        <p class="text-xs" style="color: var(--text-muted);">&copy; 2026 nsquareai. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
+  <script>
+    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxR8sMYsILbvQY7FX24MONPA9fVH7NEgMnkBhEKogFBp0jfo5Tk0HrhMKY_VxYiTV-z/exec';
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        const payload = {
+          name:     form.name.value,
+          business: form.business.value,
+          contact:  form['contact-info'].value,
+          message:  form.message.value,
+        };
+        try {
+          const params = new URLSearchParams(payload);
+          await fetch(SHEET_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
+          document.getElementById('form-success').classList.remove('hidden');
+          form.classList.add('hidden');
+        } catch (err) {
+          btn.disabled = false;
+          btn.textContent = 'Send Message';
+          alert('Something went wrong. Please try again.');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

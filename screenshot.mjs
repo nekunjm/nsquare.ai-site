@@ -22,7 +22,7 @@ await page.setViewport({ width, height: 900 });
 await page.goto(url, { waitUntil: 'networkidle0' });
 // Force all reveal elements visible and trigger animations for screenshot
 await page.evaluate(() => {
-  document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right').forEach(el => el.classList.add('visible'));
+  document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right, .word-reveal, .timeline-row').forEach(el => el.classList.add('visible'));
   // Trigger counters
   document.querySelectorAll('[data-counter]').forEach(el => {
     const target = parseInt(el.dataset.counter);
@@ -32,6 +32,8 @@ await page.evaluate(() => {
   // Trigger HIW animations
   document.querySelectorAll('.hiw-connector').forEach(c => c.classList.add('animate'));
   document.querySelectorAll('.step-circle').forEach(c => c.classList.add('animate'));
+  // Trigger why-cards in-view
+  document.querySelectorAll('.why-card').forEach(c => c.classList.add('in-view'));
 });
 await new Promise(r => setTimeout(r, 500));
 await page.screenshot({ path: join(dir, name), fullPage: true });
