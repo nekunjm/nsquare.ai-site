@@ -3,22 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>nsquare.ai: AI Automation for Mumbai Businesses</title>
+  <title>nsquareai: AI Automation for Mumbai Businesses</title>
   <meta name="description" content="Custom AI workflows and automation that save Mumbai businesses hours every week. From workflow automation to intelligent integrations.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
             brand: '#00A7B3',
+            'brand-soft': '#2BC4CF',
+            'brand-deep': '#007A83',
             'brand-glow': 'rgba(0, 167, 179, 0.2)',
-            surface: '#111111',
-            elevated: '#1A1A1A',
-            base: '#0A0A0A',
+            primary: '#0D1F22',
+            elevated: '#122A2E',
+            floating: '#173438',
+            deep: '#081518',
+            'accent-zone': '#0E2629',
+            base: '#0D1F22', /* alias for backwards-compat with existing utility uses */
+            surface: '#122A2E',
+            'text-primary': '#F2F5F5',
+            'text-secondary': '#A8B5B7',
+            'text-muted': '#6E7E80',
           },
           fontFamily: {
             heading: ['Montserrat', 'sans-serif'],
@@ -41,10 +50,10 @@
   <!-- ════════════════════════════════════════════════ -->
   <!-- NAVBAR                                          -->
   <!-- ════════════════════════════════════════════════ -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: transparent;">
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50" style="background: transparent; transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center shrink-0" aria-label="nsquare.ai home">
-        <img src="brand_assets/nsquare.ai%20white%20text.png" alt="nsquare.ai" class="h-7" />
+      <a href="#" class="flex items-center shrink-0" aria-label="nsquareai home">
+        <span class="font-heading font-bold text-3xl tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span>
       </a>
       <div class="hidden md:flex items-center gap-8">
         <a href="about.html" class="nav-link text-sm font-medium text-gray-400">About</a>
@@ -57,7 +66,7 @@
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </div>
-    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" style="background: rgba(10,10,10,0.95); backdrop-filter: blur(16px);">
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" style="background: rgba(13,31,34,0.95); backdrop-filter: blur(16px);">
       <a href="about.html" class="block py-3 text-sm text-gray-400 border-b border-white/5">About</a>
       <a href="#services" class="block py-3 text-sm text-gray-400 border-b border-white/5">Services</a>
       <a href="#how-it-works" class="block py-3 text-sm text-gray-400 border-b border-white/5">How it Works</a>
@@ -77,89 +86,107 @@
     <div class="floating-paths" id="floating-paths-1" aria-hidden="true"></div>
     <div class="floating-paths" id="floating-paths-2" aria-hidden="true"></div>
     <!-- Dark gradient overlay to keep text readable -->
-    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 70% 80% at 30% 50%, rgba(10,10,10,0.38) 0%, rgba(10,10,10,0.70) 100%);" aria-hidden="true"></div>
+    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 70% 80% at 30% 50%, rgba(13,31,34,0.38) 0%, rgba(13,31,34,0.70) 100%);" aria-hidden="true"></div>
     <div class="dot-grid" aria-hidden="true"></div>
 
-    <div class="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-20 w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-      <!-- Left: Text -->
-      <div class="lg:text-left text-center">
-        <h1 class="font-heading font-extrabold leading-none" style="letter-spacing: -0.03em;">
-          <span class="hero-text-1 block text-5xl sm:text-6xl lg:text-7xl text-white">Automate the</span>
-          <span class="hero-text-1 block text-5xl sm:text-6xl lg:text-7xl text-white">busywork.</span>
-          <span class="hero-text-2 block text-5xl sm:text-6xl lg:text-7xl mt-2 text-brand">Focus on growth.</span>
-        </h1>
-        <p class="hero-text-3 mt-6 text-lg sm:text-xl text-gray-400 max-w-lg lg:mx-0 mx-auto font-body" style="line-height: 1.7;">
-          Custom AI workflows that save Mumbai businesses hours every week.
-        </p>
-        <div class="hero-text-4 mt-10 flex gap-4 lg:justify-start justify-center">
-          <a href="#contact" class="btn-slide">
-            <span class="btn-slide-text">Get Started</span>
-            <span class="btn-slide-icon">
-              <svg fill="none" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
-            </span>
-          </a>
-        </div>
-      </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-24 w-full">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:gap-16">
 
-      <!-- Right: Animated workflow mockup -->
-      <div class="hero-visual hidden lg:block">
-        <div class="workflow-card p-8">
-          <!-- Title bar -->
-          <div class="flex items-center gap-2 mb-6">
-            <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
-            <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
-            <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
-            <span class="text-xs text-gray-500 ml-3 font-body">workflow.nsquare.ai</span>
-          </div>
-
-          <!-- Workflow nodes -->
-          <div class="flex items-center gap-0">
-            <!-- Node 1 -->
-            <div class="workflow-node flex-1 border border-brand/20 rounded-xl p-4 bg-base/50 relative">
-              <div class="ping-ring"></div>
-              <div class="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center mb-3">
-                <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
-              </div>
-              <p class="text-xs font-semibold text-white">Order Received</p>
-              <p class="text-xs text-gray-500 mt-0.5">via WhatsApp</p>
-            </div>
-
-            <!-- Connector -->
-            <div class="workflow-connector w-8 flex-shrink-0"></div>
-
-            <!-- Node 2 -->
-            <div class="workflow-node flex-1 border border-brand/20 rounded-xl p-4 bg-base/50 relative">
-              <div class="ping-ring"></div>
-              <div class="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center mb-3">
-                <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
-              </div>
-              <p class="text-xs font-semibold text-white">AI Processes</p>
-              <p class="text-xs text-gray-500 mt-0.5">categorize & route</p>
-            </div>
-
-            <!-- Connector -->
-            <div class="workflow-connector w-8 flex-shrink-0"></div>
-
-            <!-- Node 3 -->
-            <div class="workflow-node flex-1 border border-brand/20 rounded-xl p-4 bg-base/50 relative">
-              <div class="ping-ring"></div>
-              <div class="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center mb-3">
-                <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
-              </div>
-              <p class="text-xs font-semibold text-white">Team Notified</p>
-              <p class="text-xs text-gray-500 mt-0.5">instant update</p>
-            </div>
-          </div>
-
-          <!-- Status bar -->
-          <div class="mt-6 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-              <span class="text-xs text-gray-500">Live: 3 workflows active</span>
-            </div>
-            <span class="text-xs text-brand font-medium">12 tasks automated today</span>
+        <!-- Left: headline + CTA -->
+        <div class="flex-1 min-w-0 lg:text-left text-center">
+          <h1 class="display-xl text-white">
+            <span class="hero-text-1 block">Automate</span>
+            <span class="hero-text-1 block">the busywork.</span>
+            <span class="hero-text-2 block text-brand-soft">Focus on growth.</span>
+          </h1>
+          <p class="hero-text-3 mt-8 body-lg max-w-lg lg:mx-0 mx-auto font-body">
+            Custom AI workflows that save Mumbai businesses hours every week.
+          </p>
+          <div class="hero-text-4 mt-10 flex gap-4 lg:justify-start justify-center">
+            <a href="#contact" class="btn-slide">
+              <span class="btn-slide-text">Get Started</span>
+              <span class="btn-slide-icon">
+                <svg fill="none" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
+              </span>
+            </a>
           </div>
         </div>
+
+        <!-- Right: workflow mockup -->
+        <div class="hero-visual hero-floating-mockup hidden lg:flex lg:items-center lg:justify-center flex-shrink-0">
+          <div class="relative">
+            <!-- Ambient glow -->
+            <div class="absolute inset-0 -m-16 pointer-events-none" style="background: radial-gradient(ellipse at 50% 55%, rgba(0,167,179,0.13) 0%, transparent 65%); filter: blur(40px);" aria-hidden="true"></div>
+
+            <!-- Live badge top-left -->
+            <div class="absolute -top-6 -left-3 z-10 bg-elevated/90 border border-brand/30 rounded-xl px-3.5 py-2 shadow-xl backdrop-blur-sm" style="transform: rotate(-2.5deg);">
+              <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0"></div>
+                <span class="text-xs font-medium text-gray-300 font-body">3 workflows live</span>
+              </div>
+            </div>
+
+            <!-- Main card -->
+            <div class="workflow-card p-8 relative" style="transform: rotate(1.5deg);">
+              <!-- Title bar -->
+              <div class="flex items-center gap-2 mb-6">
+                <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
+                <span class="text-xs text-gray-500 ml-3 font-body">workflow.nsquareai</span>
+              </div>
+              <!-- Workflow nodes -->
+              <div class="flex items-center gap-0">
+                <!-- Node 1 -->
+                <div class="workflow-node flex-1 border border-brand/20 rounded-xl p-4 bg-base/50 relative">
+                  <div class="ping-ring"></div>
+                  <div class="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center mb-3">
+                    <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                  </div>
+                  <p class="text-xs font-semibold text-white">Order Received</p>
+                  <p class="text-xs text-gray-500 mt-0.5">via WhatsApp</p>
+                </div>
+                <!-- Connector -->
+                <div class="workflow-connector w-8 flex-shrink-0"></div>
+                <!-- Node 2 -->
+                <div class="workflow-node flex-1 border border-brand/20 rounded-xl p-4 bg-base/50 relative">
+                  <div class="ping-ring"></div>
+                  <div class="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center mb-3">
+                    <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+                  </div>
+                  <p class="text-xs font-semibold text-white">AI Processes</p>
+                  <p class="text-xs text-gray-500 mt-0.5">categorize & route</p>
+                </div>
+                <!-- Connector -->
+                <div class="workflow-connector w-8 flex-shrink-0"></div>
+                <!-- Node 3 -->
+                <div class="workflow-node flex-1 border border-brand/20 rounded-xl p-4 bg-base/50 relative">
+                  <div class="ping-ring"></div>
+                  <div class="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center mb-3">
+                    <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+                  </div>
+                  <p class="text-xs font-semibold text-white">Team Notified</p>
+                  <p class="text-xs text-gray-500 mt-0.5">instant update</p>
+                </div>
+              </div>
+              <!-- Status bar -->
+              <div class="mt-6 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                  <span class="text-xs text-gray-500">Live: 3 workflows active</span>
+                </div>
+                <span class="text-xs text-brand font-medium">12 tasks automated today</span>
+              </div>
+            </div>
+
+            <!-- Tasks badge bottom-right -->
+            <div class="absolute -bottom-5 -right-3 z-10 bg-elevated/90 border border-brand/30 rounded-xl px-3.5 py-2 shadow-xl backdrop-blur-sm" style="transform: rotate(2.5deg);">
+              <p class="text-xs text-gray-500 font-body leading-tight">Today</p>
+              <p class="text-base font-bold text-brand font-heading leading-tight">12 <span class="text-xs text-gray-500 font-normal font-body">tasks automated</span></p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -176,28 +203,130 @@
   <!-- ════════════════════════════════════════════════ -->
   <!-- ABOUT                                           -->
   <!-- ════════════════════════════════════════════════ -->
-  <section id="about" class="py-24 sm:py-32 relative overflow-hidden">
+  <section id="about" class="py-24 sm:py-32 relative overflow-hidden" style="background: var(--bg-accent-zone);">
     <!-- Decorative bg -->
-    <div class="section-orb" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,167,179,0.08), transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%);" aria-hidden="true"></div>
+    <div class="section-orb" style="width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,167,179,0.10), transparent 70%); top: 50%; left: 80%; transform: translate(-50%, -50%);" aria-hidden="true"></div>
 
-    <div class="max-w-4xl mx-auto px-6 relative z-10">
-      <!-- Header -->
-      <div class="mx-auto text-center">
-        <div class="reveal">
-          <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">About nsquare.ai</p>
-          <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
-            Intelligent automation,<br class="hidden sm:block"> built around your business.
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        <!-- Left: eyebrow + oversized headline -->
+        <div class="lg:col-span-5 reveal-left">
+          <p class="eyebrow mb-5">About nsquareai</p>
+          <h2 class="heading-xl text-white word-reveal">
+            Built around how you actually work.
           </h2>
         </div>
-        <div class="reveal mt-8">
-          <p class="text-gray-400 text-lg leading-relaxed" style="line-height: 1.8;">
-            Every workflow nsquare.ai builds is custom made for the business it runs in. We map how your team actually works, then design automations around your existing tools and processes, so your people reclaim hours every week for work that actually matters.
+
+        <!-- Right: body + pillars + CTA -->
+        <div class="lg:col-span-7 reveal lg:pt-8">
+          <p class="body-lg" style="color: var(--text-secondary);">
+            Every workflow nsquareai builds is custom made for the business it runs in. We map how your team actually works, then design automations around your existing tools and processes, so your people reclaim hours every week for work that actually matters.
           </p>
-          <div class="mt-10">
+          <div class="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 font-heading font-semibold text-sm uppercase" style="letter-spacing: 0.12em; color: var(--text-secondary);">
+            <span style="color: var(--brand);">Process-first design</span>
+            <span style="color: var(--text-muted);">·</span>
+            <span style="color: var(--brand);">Your existing tools</span>
+            <span style="color: var(--text-muted);">·</span>
+            <span style="color: var(--brand);">Days, not months</span>
+          </div>
+          <div class="mt-12">
             <a href="about.html" class="nav-cta-btn" style="padding: 12px 28px; font-size: 14px;">Learn More About Us</a>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- FEATURED AUTOMATIONS / BEFORE-AFTER (NEW)        -->
+  <!-- ════════════════════════════════════════════════ -->
+  <section id="featured" class="py-24 sm:py-32 relative overflow-hidden" style="background: var(--bg-accent-zone);">
+    <div class="section-orb" style="width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(0,167,179,0.06), transparent 70%); top: 0; left: -10%;" aria-hidden="true"></div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <div class="reveal max-w-3xl">
+        <p class="eyebrow mb-5">Featured Automations</p>
+        <h2 class="heading-xl text-white">
+          Before us. <span class="text-brand-soft">After us.</span>
+        </h2>
+        <p class="mt-6 body-lg" style="color: var(--text-secondary);">
+          Concrete, anonymized examples of what we build for businesses that look a lot like yours.
+        </p>
+      </div>
+
+      <div class="mt-14 grid lg:grid-cols-1 gap-8">
+        <!-- Case 1: Cafe -->
+        <div class="reveal-scale">
+          <p class="ba-context">Case 01 / A 30-seat cafe in Bandra</p>
+          <div class="ba-card">
+            <div class="ba-side before">
+              <span class="ba-tag before-tag">Before</span>
+              <h3 class="ba-title">Order intake chaos</h3>
+              <p class="ba-body">Owner manually retypes WhatsApp orders into the POS during peak hours, often missing items. Kitchen runs blind for the first ten minutes of every rush.</p>
+              <div class="ba-flow">
+                <span class="flow-tag" style="color: #FF8B8B; border-color: rgba(255,130,130,0.3);">WhatsApp</span>
+                <span style="color: var(--text-muted);">→</span>
+                <span class="flow-tag" style="color: #FF8B8B; border-color: rgba(255,130,130,0.3);">Hand-typed</span>
+                <span style="color: var(--text-muted);">→</span>
+                <span class="flow-tag" style="color: #FF8B8B; border-color: rgba(255,130,130,0.3);">POS</span>
+              </div>
+            </div>
+            <div class="ba-side after">
+              <span class="ba-tag after-tag">After</span>
+              <h3 class="ba-title">WhatsApp to kitchen, untouched</h3>
+              <p class="ba-body">Orders captured from WhatsApp, parsed by AI, pushed to the POS. Kitchen ticket auto-prints. Owner is back to running the floor.</p>
+              <div class="ba-flow">
+                <span class="flow-tag">WhatsApp</span>
+                <span style="color: var(--brand);">→</span>
+                <span class="flow-tag">AI parser</span>
+                <span style="color: var(--brand);">→</span>
+                <span class="flow-tag">POS + Kitchen</span>
+              </div>
+              <div class="ba-saved">
+                <div class="ba-saved-label">Time saved</div>
+                <div class="ba-saved-num" data-counter="9" data-suffix="">0</div>
+                <div class="ba-saved-unit">hrs / week</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case 2: Clinic -->
+        <div class="reveal-scale">
+          <p class="ba-context">Case 02 / A 4-doctor clinic in Andheri</p>
+          <div class="ba-card">
+            <div class="ba-side before">
+              <span class="ba-tag before-tag">Before</span>
+              <h3 class="ba-title">Confirmations by hand, every day</h3>
+              <p class="ba-body">Receptionist sends 80+ appointment confirmations and follow-ups by hand each week, juggling between Sheets and WhatsApp.</p>
+              <div class="ba-flow">
+                <span class="flow-tag" style="color: #FF8B8B; border-color: rgba(255,130,130,0.3);">Appointment sheet</span>
+                <span style="color: var(--text-muted);">→</span>
+                <span class="flow-tag" style="color: #FF8B8B; border-color: rgba(255,130,130,0.3);">Manual WhatsApp</span>
+              </div>
+            </div>
+            <div class="ba-side after">
+              <span class="ba-tag after-tag">After</span>
+              <h3 class="ba-title">Confirmations send themselves</h3>
+              <p class="ba-body">AI sends WhatsApp confirms, reschedules, and same-day reminders straight from the appointment sheet. No-shows drop. Receptionist actually answers the desk.</p>
+              <div class="ba-flow">
+                <span class="flow-tag">Sheet</span>
+                <span style="color: var(--brand);">→</span>
+                <span class="flow-tag">AI sender</span>
+                <span style="color: var(--brand);">→</span>
+                <span class="flow-tag">WhatsApp</span>
+              </div>
+              <div class="ba-saved">
+                <div class="ba-saved-label">Time saved</div>
+                <div class="ba-saved-num" data-counter="12" data-suffix="">0</div>
+                <div class="ba-saved-unit">hrs / week</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-10 text-sm" style="color: var(--text-muted);">Examples are anonymized. Names withheld so businesses keep moving.</p>
     </div>
   </section>
 
@@ -212,10 +341,10 @@
     <div class="section-orb" style="width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,167,179,0.06), transparent 70%); top: -10%; right: -5%;" aria-hidden="true"></div>
 
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-      <div class="text-center reveal">
-        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">Services</p>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
-          What nsquare.ai builds for you
+      <div class="reveal max-w-3xl">
+        <p class="eyebrow mb-5">Services</p>
+        <h2 class="heading-xl text-white">
+          What nsquareai <span class="text-brand-soft">builds for you.</span>
         </h2>
       </div>
 
@@ -270,7 +399,78 @@
       </div>
 
       <div class="reveal mt-12 text-center">
-        <p class="text-gray-500 text-sm">nsquare.ai adapts to any industry, from cafes and restaurants to clinics, retail, and logistics.</p>
+        <p class="text-gray-500 text-sm">nsquareai adapts to any industry, from cafes and restaurants to clinics, retail, and logistics.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- INDUSTRY USE-CASES (NEW)                        -->
+  <!-- ════════════════════════════════════════════════ -->
+  <section id="use-cases" class="py-24 sm:py-32 relative overflow-hidden" style="background: var(--bg-accent-zone);">
+    <div class="section-orb" style="width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,167,179,0.07), transparent 70%); bottom: -20%; right: -10%;" aria-hidden="true"></div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <div class="reveal max-w-3xl">
+        <p class="eyebrow mb-5">Built for</p>
+        <h2 class="heading-xl text-white">
+          Pick your floor. <span class="text-brand-soft">We'll fit in.</span>
+        </h2>
+        <p class="mt-6 body-lg" style="color: var(--text-secondary);">
+          A concrete automation we'd build on day one for the kind of business you run.
+        </p>
+      </div>
+
+      <div class="mt-14 grid sm:grid-cols-2 gap-6 stagger">
+        <div class="industry-card reveal-scale">
+          <div class="ind-num">01 / Cafe</div>
+          <h3 class="ind-name">Cafe</h3>
+          <p class="ind-desc">WhatsApp orders parsed and pushed straight into the POS, with the kitchen ticket auto-printed before the customer hits send twice.</p>
+          <div class="ind-flow">
+            <span class="flow-step">WhatsApp</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">POS</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Kitchen</span>
+          </div>
+        </div>
+
+        <div class="industry-card reveal-scale">
+          <div class="ind-num">02 / Clinic</div>
+          <h3 class="ind-name">Clinic</h3>
+          <p class="ind-desc">Appointment sheet drives WhatsApp confirms, reminders, and same-day reschedules. Receptionist stops chasing, no-shows drop.</p>
+          <div class="ind-flow">
+            <span class="flow-step">Sheet</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">AI sender</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">WhatsApp</span>
+          </div>
+        </div>
+
+        <div class="industry-card reveal-scale">
+          <div class="ind-num">03 / Retail</div>
+          <h3 class="ind-name">Retail</h3>
+          <p class="ind-desc">POS pushes nightly stock deltas to Sheets, low-stock alerts ping the owner on WhatsApp before the next morning's coffee.</p>
+          <div class="ind-flow">
+            <span class="flow-step">POS</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Sheets</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Owner</span>
+          </div>
+        </div>
+
+        <div class="industry-card reveal-scale">
+          <div class="ind-num">04 / Logistics</div>
+          <h3 class="ind-name">Logistics</h3>
+          <p class="ind-desc">Delivery sheet drives WhatsApp ETAs to customers and live pings to drivers. Fewer "where is my order" calls, fewer angry inboxes.</p>
+          <div class="ind-flow">
+            <span class="flow-step">Delivery sheet</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">WhatsApp</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -280,12 +480,22 @@
   <!-- ════════════════════════════════════════════════ -->
   <!-- INTEGRATION TICKER                              -->
   <!-- ════════════════════════════════════════════════ -->
-  <section class="py-20 sm:py-24 relative overflow-hidden">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center reveal mb-12">
-        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">Integrations</p>
-        <h2 class="font-heading font-bold text-2xl sm:text-3xl text-white" style="letter-spacing: -0.03em;">
-          Works with the tools you already use
+  <section class="py-20 sm:py-28 relative overflow-hidden" style="background: var(--bg-deep);">
+    <!-- Atmospheric bleed headline -->
+    <div class="marquee-bleed marquee-bleed-bg" aria-hidden="true">
+      <div class="marquee-bleed-track">
+        <span>INTEGRATIONS&nbsp;·&nbsp;</span>
+        <span>INTEGRATIONS&nbsp;·&nbsp;</span>
+        <span>INTEGRATIONS&nbsp;·&nbsp;</span>
+        <span>INTEGRATIONS&nbsp;·&nbsp;</span>
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <div class="reveal mb-12 max-w-3xl">
+        <p class="eyebrow mb-5">Integrations</p>
+        <h2 class="heading-lg text-white">
+          Works with the tools <span class="text-brand-soft">you already use.</span>
         </h2>
       </div>
     </div>
@@ -320,17 +530,57 @@
   <div class="section-glow"></div>
 
   <!-- ════════════════════════════════════════════════ -->
+  <!-- WHY NSQUARE (NEW)                               -->
+  <!-- ════════════════════════════════════════════════ -->
+  <section id="why" class="py-24 sm:py-32 relative overflow-hidden">
+    <div class="section-orb" style="width: 700px; height: 500px; background: radial-gradient(ellipse, rgba(0,167,179,0.06), transparent 70%); top: 30%; left: 50%; transform: translate(-50%,-50%);" aria-hidden="true"></div>
+    <div class="section-dot-grid" aria-hidden="true"></div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <div class="reveal max-w-3xl mb-14">
+        <p class="eyebrow mb-5">Why nsquare</p>
+        <h2 class="heading-xl text-white">
+          Three reasons over <span class="text-brand-soft">the alternatives.</span>
+        </h2>
+      </div>
+
+      <div class="why-grid stagger">
+        <div class="why-card reveal-scale">
+          <div class="why-num">01</div>
+          <h3 class="why-title">vs DIY tools</h3>
+          <p class="why-body">Zapier and friends give you Lego pieces. We deliver the finished thing, fitted to your stack and tuned for your team.</p>
+          <span class="why-rule">No glue work, no half-builds</span>
+        </div>
+        <div class="why-card reveal-scale">
+          <div class="why-num">02</div>
+          <h3 class="why-title">vs Generic agencies</h3>
+          <p class="why-body">Agencies bill hours. We measure ours by yours saved. Every workflow is scoped to a clear weekly time return, not a slide deck.</p>
+          <span class="why-rule">Outcome over output</span>
+        </div>
+        <div class="why-card reveal-scale">
+          <div class="why-num">03</div>
+          <h3 class="why-title">What makes us nsquare</h3>
+          <p class="why-body">A day with your team before any code. Custom builds in days, not months. Ongoing tuning, never set-and-forget.</p>
+          <span class="why-rule">Built around how you work</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- ════════════════════════════════════════════════ -->
   <!-- HOW IT WORKS                                    -->
   <!-- ════════════════════════════════════════════════ -->
-  <section id="how-it-works" class="py-24 sm:py-32 relative overflow-hidden">
+  <section id="how-it-works" class="py-24 sm:py-32 relative overflow-hidden" style="background: var(--bg-accent-zone);">
     <!-- Decorative bg -->
     <div class="section-orb" style="width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(0,167,179,0.05), transparent 70%); top: 40%; left: 50%; transform: translate(-50%, -50%);" aria-hidden="true"></div>
 
     <div class="max-w-5xl mx-auto px-6 relative z-10">
       <div class="text-center reveal">
-        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">How it Works</p>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
-          Three steps to smarter operations
+        <p class="eyebrow mb-5">How it Works</p>
+        <h2 class="heading-xl text-white">
+          Three steps to <span class="text-brand-soft">smarter operations.</span>
         </h2>
       </div>
 
@@ -376,6 +626,33 @@
           <p class="text-brand text-xs font-medium mt-3 opacity-70">Ongoing optimization included</p>
         </div>
       </div>
+
+      <!-- Process timeline (week-by-week) -->
+      <div class="mt-24 pt-12" style="border-top: 1px solid var(--stroke-soft);">
+        <div class="reveal text-center mb-12">
+          <p class="eyebrow mb-4">Sample timeline</p>
+          <h3 class="heading-lg text-white">What the first month <span class="text-brand-soft">looks like.</span></h3>
+        </div>
+
+        <div class="timeline" id="process-timeline">
+          <div class="timeline-row">
+            <div class="tl-week">Week 1<span class="tl-phase">Discover</span></div>
+            <p class="tl-body">One or two working sessions with your team. We sit in, watch the actual workflow, and map every handoff. No slide deck. No questionnaire.</p>
+          </div>
+          <div class="timeline-row">
+            <div class="tl-week">Week 2<span class="tl-phase">Build</span></div>
+            <p class="tl-body">First automation goes live in your existing tools. WhatsApp, Sheets, POS, whatever you already run. Nothing new for the team to learn.</p>
+          </div>
+          <div class="timeline-row">
+            <div class="tl-week">Week 3<span class="tl-phase">Refine</span></div>
+            <p class="tl-body">Tune against real usage. Edge cases handled. The 1% of orders that look weird get their own gentle path.</p>
+          </div>
+          <div class="timeline-row">
+            <div class="tl-week">Week 4+<span class="tl-phase">Scale</span></div>
+            <p class="tl-body">New workflows added as you grow. Monthly check-ins keep things sharp. Nothing is set-and-forget.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -390,11 +667,11 @@
 
     <div class="max-w-xl mx-auto px-6 relative z-10">
       <div class="text-center reveal">
-        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">Contact</p>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
-          Let's automate your<br>next workflow
+        <p class="eyebrow mb-5">Contact</p>
+        <h2 class="heading-lg text-white">
+          Let's automate your <span class="text-brand-soft">next workflow.</span>
         </h2>
-        <p class="text-gray-400 mt-4">Tell us about your business and we'll figure out the best way to help.</p>
+        <p class="mt-5 body-lg" style="color: var(--text-secondary);">Tell us about your business and we'll figure out the best way to help.</p>
       </div>
 
       <div class="reveal-scale mt-12">
@@ -426,7 +703,7 @@
                   placeholder="Tell us about your business and what you'd like to automate..."></textarea>
               </div>
               <button type="submit"
-                class="btn-brand w-full py-3.5 rounded-xl font-heading font-semibold text-sm bg-brand" style="color: #0A0A0A;">
+                class="btn-brand w-full py-3.5 rounded-xl font-heading font-semibold text-sm bg-brand" style="color: var(--text-on-brand);">
                 Send Message
               </button>
             </div>
@@ -461,14 +738,14 @@
   <!-- ════════════════════════════════════════════════ -->
   <!-- FAQ                                             -->
   <!-- ════════════════════════════════════════════════ -->
-  <section id="faq" class="py-24 sm:py-32 relative overflow-hidden">
+  <section id="faq" class="py-24 sm:py-32 relative overflow-hidden" style="background: var(--bg-deep);">
     <div class="section-orb" style="width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,167,179,0.04), transparent 70%); bottom: -10%; left: -5%;" aria-hidden="true"></div>
 
     <div class="max-w-2xl mx-auto px-6 relative z-10">
       <div class="text-center reveal">
-        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">FAQ</p>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
-          Common questions
+        <p class="eyebrow mb-5">FAQ</p>
+        <h2 class="heading-lg text-white">
+          Common <span class="text-brand-soft">questions.</span>
         </h2>
       </div>
 
@@ -489,7 +766,7 @@
             <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
           </button>
           <div class="faq-answer">
-            <p class="text-sm text-gray-400 leading-relaxed">Not at all. nsquare.ai handles everything, from design to deployment. You just explain how your business works, and the rest is taken care of.</p>
+            <p class="text-sm text-gray-400 leading-relaxed">Not at all. nsquareai handles everything, from design to deployment. You just explain how your business works, and the rest is taken care of.</p>
           </div>
         </div>
 
@@ -545,7 +822,7 @@
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
         <div class="flex items-center gap-3">
-          <img src="brand_assets/nsquare.ai%20white%20text.png" alt="nsquare.ai" class="h-5" />
+          <span class="font-heading font-bold text-base tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span>
           <span class="text-gray-600 text-sm">•</span>
           <span class="text-gray-500 text-sm flex items-center gap-1">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z"/></svg>
@@ -557,7 +834,7 @@
         </div>
       </div>
       <div class="mt-8 text-center">
-        <p class="text-gray-600 text-xs">&copy; 2026 nsquare.ai. All rights reserved.</p>
+        <p class="text-gray-600 text-xs">&copy; 2026 nsquareai. All rights reserved.</p>
       </div>
     </div>
   </footer>

@@ -3,22 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us | nsquare.ai</title>
-  <meta name="description" content="Intelligent automation built around your business. Learn more about nsquare.ai, a Mumbai-based AI automation studio for SMEs.">
+  <title>About | nsquareai</title>
+  <meta name="description" content="I build custom AI automation for SMEs in Mumbai. Learn about nsquareai and why I started it.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
             brand: '#00A7B3',
+            'brand-soft': '#2BC4CF',
+            'brand-deep': '#007A83',
             'brand-glow': 'rgba(0, 167, 179, 0.2)',
-            surface: '#111111',
-            elevated: '#1A1A1A',
-            base: '#0A0A0A',
+            primary: '#0D1F22',
+            elevated: '#122A2E',
+            floating: '#173438',
+            deep: '#081518',
+            'accent-zone': '#0E2629',
+            base: '#0D1F22',
+            surface: '#122A2E',
+            'text-primary': '#F2F5F5',
+            'text-secondary': '#A8B5B7',
+            'text-muted': '#6E7E80',
           },
           fontFamily: {
             heading: ['Montserrat', 'sans-serif'],
@@ -35,10 +44,10 @@
   <div class="noise" aria-hidden="true"></div>
 
   <!-- NAVBAR -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: transparent;">
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50" style="background: transparent; transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="index.html" class="flex items-center shrink-0" aria-label="nsquare.ai home">
-        <img src="brand_assets/nsquare.ai%20white%20text.png" alt="nsquare.ai" class="h-7" />
+      <a href="index.html" class="flex items-center shrink-0" aria-label="nsquareai home">
+        <span class="font-heading font-bold text-3xl tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span>
       </a>
       <div class="hidden md:flex items-center gap-8">
         <a href="about.html" class="nav-link text-sm font-medium" style="color: #00A7B3;">About</a>
@@ -51,7 +60,7 @@
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </div>
-    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" style="background: rgba(10,10,10,0.95); backdrop-filter: blur(16px);">
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" style="background: rgba(13,31,34,0.95); backdrop-filter: blur(16px);">
       <a href="about.html" class="block py-3 text-sm border-b border-white/5" style="color: #00A7B3;">About</a>
       <a href="index.html#services" class="block py-3 text-sm text-gray-400 border-b border-white/5">Services</a>
       <a href="index.html#how-it-works" class="block py-3 text-sm text-gray-400 border-b border-white/5">How it Works</a>
@@ -66,14 +75,14 @@
       <div class="hero-orb-3"></div>
     </div>
     <div class="dot-grid" aria-hidden="true"></div>
-    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center reveal-scale visible">
-      <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-5">About nsquare.ai</p>
-      <h1 class="font-heading font-extrabold leading-none pb-4">
-        <span class="block text-5xl sm:text-6xl text-white">Shaping the future of</span>
-        <span class="block text-5xl sm:text-6xl mt-2 text-brand">your business.</span>
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center reveal-scale visible">
+      <p class="eyebrow mb-5">About nsquareai</p>
+      <h1 class="display-lg text-white pb-4">
+        <span class="block">Shaping the future of</span>
+        <span class="block mt-2 text-brand-soft">your business.</span>
       </h1>
-      <p class="mt-6 text-lg sm:text-xl text-gray-400 font-body mx-auto max-w-2xl" style="line-height: 1.7;">
-        We believe businesses should focus on what they do best and leave the repetitive, manual, time-draining work to modern AI.
+      <p class="mt-8 body-lg font-body mx-auto max-w-2xl">
+        I believe businesses should focus on what they do best and leave the repetitive, manual, time-draining work to modern AI.
       </p>
     </div>
   </section>
@@ -81,25 +90,25 @@
   <div class="section-glow"></div>
 
   <!-- STORY -->
-  <section class="py-24 sm:py-28 relative overflow-hidden">
+  <section class="py-24 sm:py-28 relative overflow-hidden" style="background: var(--bg-accent-zone);">
     <div class="section-orb" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,167,179,0.07), transparent 70%); top: 20%; right: -10%;" aria-hidden="true"></div>
 
     <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
       <div class="reveal">
-        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">Our Story</p>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white mb-8" style="letter-spacing: -0.03em;">
-          Built from a simple observation.
+        <p class="eyebrow mb-5">My Story</p>
+        <h2 class="heading-xl text-white mb-10">
+          Built from <span class="text-brand-soft">a simple observation.</span>
         </h2>
       </div>
       <div class="reveal space-y-6 text-gray-400 text-lg" style="line-height: 1.8;">
         <p>
-          Walking through Mumbai's streets, we noticed the same pattern everywhere. Owners of cafes, clinics, and retail stores were drowning in spreadsheets, WhatsApp messages, and follow-ups. The AI revolution was happening somewhere else entirely.
+          Walking through Mumbai's streets, I noticed the same pattern everywhere. Owners of cafes, clinics, and retail stores were drowning in spreadsheets, WhatsApp messages, and follow-ups. The AI revolution was happening somewhere else entirely.
         </p>
         <p>
           Enterprise software wasn't built for them. Off-the-shelf tools demanded process changes instead of adapting to the business. The gap between what AI could do and what SMEs could actually use was enormous.
         </p>
         <p class="text-gray-300">
-          <span class="text-brand font-semibold">nsquare.ai exists to close that gap</span> by building automations that fit into the tools and workflows you already run, not the other way around.
+          <span class="text-brand font-semibold">nsquareai exists to close that gap</span> by building automations that fit into the tools and workflows you already run, not the other way around.
         </p>
       </div>
     </div>
@@ -108,24 +117,24 @@
   <div class="section-glow"></div>
 
   <!-- STATS -->
-  <section class="py-20 relative overflow-hidden border-y border-white/5" style="background: rgba(17,17,17,0.3);">
+  <section class="py-20 sm:py-24 relative overflow-hidden border-y border-white/5" style="background: var(--bg-deep);">
     <div class="max-w-6xl mx-auto px-6 relative z-10">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
         <div class="reveal text-center">
-          <div class="font-heading font-extrabold text-4xl sm:text-5xl text-brand mb-2" style="letter-spacing: -0.03em;">15+</div>
-          <p class="text-gray-500 text-xs sm:text-sm uppercase tracking-widest">Hours reclaimed weekly</p>
+          <div class="stat-display text-brand mb-3" data-counter="15" data-suffix="+">0+</div>
+          <p class="text-xs sm:text-sm uppercase" style="letter-spacing: 0.18em; color: var(--text-muted);">Hours reclaimed weekly</p>
         </div>
         <div class="reveal text-center">
-          <div class="font-heading font-extrabold text-4xl sm:text-5xl text-brand mb-2" style="letter-spacing: -0.03em;">1:1</div>
-          <p class="text-gray-500 text-xs sm:text-sm uppercase tracking-widest">Custom builds, no templates</p>
+          <div class="stat-display text-brand mb-3">1:1</div>
+          <p class="text-xs sm:text-sm uppercase" style="letter-spacing: 0.18em; color: var(--text-muted);">Custom builds, no templates</p>
         </div>
         <div class="reveal text-center">
-          <div class="font-heading font-extrabold text-4xl sm:text-5xl text-brand mb-2" style="letter-spacing: -0.03em;">7d</div>
-          <p class="text-gray-500 text-xs sm:text-sm uppercase tracking-widest">Typical first deployment</p>
+          <div class="stat-display text-brand mb-3" data-counter="7" data-suffix="d">0d</div>
+          <p class="text-xs sm:text-sm uppercase" style="letter-spacing: 0.18em; color: var(--text-muted);">Typical first deployment</p>
         </div>
         <div class="reveal text-center">
-          <div class="font-heading font-extrabold text-4xl sm:text-5xl text-brand mb-2" style="letter-spacing: -0.03em;">∞</div>
-          <p class="text-gray-500 text-xs sm:text-sm uppercase tracking-widest">Tools we integrate with</p>
+          <div class="stat-display text-brand mb-3">∞</div>
+          <p class="text-xs sm:text-sm uppercase" style="letter-spacing: 0.18em; color: var(--text-muted);">Tools we integrate with</p>
         </div>
       </div>
     </div>
@@ -139,36 +148,38 @@
 
     <div class="max-w-5xl mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-16 lg:gap-20 items-stretch">
       <div class="reveal-left self-center">
-        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">Our Mission</p>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white mb-6" style="letter-spacing: -0.02em;">Bridging the gap for SMEs.</h2>
+        <p class="eyebrow mb-5">My Mission</p>
+        <h2 class="heading-xl text-white mb-8">
+          Bridging the gap <span class="text-brand-soft">for SMEs.</span>
+        </h2>
         <p class="text-gray-400 leading-relaxed mb-6 text-lg">
-          We observed a massive disconnect: powerful AI tools existed, but local businesses, from restaurants to clinics, were spending countless hours on manual coordination and busywork.
+          I observed a massive disconnect: powerful AI tools existed, but local businesses, from restaurants to clinics, were spending countless hours on manual coordination and busywork.
         </p>
         <p class="text-gray-400 leading-relaxed text-lg">
-          Our mission is to create custom AI workflows that seamlessly integrate into the tools you already use. No learning curves. No complex dashboards. Just automation that gives you back your time.
+          My mission is to create custom AI workflows that seamlessly integrate into the tools you already use. No learning curves. No complex dashboards. Just automation that gives you back your time.
         </p>
       </div>
       <div class="reveal-scale grid gap-6 self-center">
-        <div class="faq-item p-8 hover:transform hover:-translate-y-1 transition duration-300" style="border-color: rgba(0,167,179,0.1); background: rgba(17,17,17,0.7); backdrop-filter: blur(10px);">
+        <div class="faq-item p-8 hover:transform hover:-translate-y-1 transition duration-300" style="border-color: rgba(0,167,179,0.1); background: rgba(18,42,46,0.7); backdrop-filter: blur(10px);">
           <div class="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center mb-4">
              <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
           </div>
           <h3 class="font-heading font-semibold text-xl text-white mb-2">Process-First Design</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">We map your unique operations before writing a single line of code, ensuring the automation fits perfectly into your team's workflow.</p>
+          <p class="text-gray-400 text-sm leading-relaxed">I map your unique operations before writing a single line of code, ensuring the automation fits perfectly into your workflow.</p>
         </div>
-        <div class="faq-item p-8 hover:transform hover:-translate-y-1 transition duration-300" style="border-color: rgba(0,167,179,0.1); background: rgba(17,17,17,0.7); backdrop-filter: blur(10px);">
+        <div class="faq-item p-8 hover:transform hover:-translate-y-1 transition duration-300" style="border-color: rgba(0,167,179,0.1); background: rgba(18,42,46,0.7); backdrop-filter: blur(10px);">
           <div class="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center mb-4">
              <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m9.86-2.556a4.5 4.5 0 00-1.242-7.244l-4.5-4.5a4.5 4.5 0 00-6.364 6.364L4.25 8.81"/></svg>
           </div>
           <h3 class="font-heading font-semibold text-xl text-white mb-2">Frictionless Integration</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">Whether it's WhatsApp, Sheets, or your POS system, we ensure the pieces connect natively across your existing ecosystem.</p>
+          <p class="text-gray-400 text-sm leading-relaxed">Whether it's WhatsApp, Sheets, or your POS system, I ensure the pieces connect natively across your existing ecosystem.</p>
         </div>
-        <div class="faq-item p-8 hover:transform hover:-translate-y-1 transition duration-300" style="border-color: rgba(0,167,179,0.1); background: rgba(17,17,17,0.7); backdrop-filter: blur(10px);">
+        <div class="faq-item p-8 hover:transform hover:-translate-y-1 transition duration-300" style="border-color: rgba(0,167,179,0.1); background: rgba(18,42,46,0.7); backdrop-filter: blur(10px);">
           <div class="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center mb-4">
              <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
           <h3 class="font-heading font-semibold text-xl text-white mb-2">Time-Saving Guarantee</h3>
-          <p class="text-gray-400 text-sm leading-relaxed">Our goal is measurable impact. We stand by solutions that reclaim lost hours from administrative tasks, safely and smartly.</p>
+          <p class="text-gray-400 text-sm leading-relaxed">My goal is measurable impact. I stand by solutions that reclaim lost hours from administrative tasks, safely and smartly.</p>
         </div>
       </div>
     </div>
@@ -183,39 +194,39 @@
 
     <div class="max-w-5xl mx-auto px-6 relative z-10">
       <div class="text-center reveal mb-16">
-        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">Our Approach</p>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
-          A calm, deliberate process.
+        <p class="eyebrow mb-5">My Approach</p>
+        <h2 class="heading-xl text-white">
+          A calm, <span class="text-brand-soft">deliberate process.</span>
         </h2>
       </div>
 
       <div class="space-y-4">
-        <div class="reveal-left flex gap-6 p-6 sm:p-8 rounded-2xl" style="border: 1px solid rgba(0,167,179,0.1); background: rgba(17,17,17,0.5); backdrop-filter: blur(10px);">
-          <div class="font-heading font-extrabold text-brand text-3xl shrink-0 w-12" style="letter-spacing: -0.03em;">01</div>
+        <div class="reveal-left flex gap-6 p-6 sm:p-8 rounded-2xl" style="border: 1px solid rgba(0,167,179,0.1); background: rgba(18,42,46,0.5); backdrop-filter: blur(10px);">
+          <div class="font-heading font-black text-brand shrink-0 w-20 sm:w-24" style="font-size: clamp(2.5rem, 4vw, 3.75rem); letter-spacing: -0.04em; line-height: 0.9;">01</div>
           <div>
             <h3 class="font-heading font-semibold text-xl text-white mb-2">Listen</h3>
-            <p class="text-gray-400 leading-relaxed">We spend real time with your team, understanding how work actually moves through your business instead of how a brochure says it should.</p>
+            <p class="text-gray-400 leading-relaxed">I spend real time with your team, understanding how work actually moves through your business instead of how a brochure says it should.</p>
           </div>
         </div>
-        <div class="reveal-left flex gap-6 p-6 sm:p-8 rounded-2xl" style="border: 1px solid rgba(0,167,179,0.1); background: rgba(17,17,17,0.5); backdrop-filter: blur(10px);">
-          <div class="font-heading font-extrabold text-brand text-3xl shrink-0 w-12" style="letter-spacing: -0.03em;">02</div>
+        <div class="reveal-left flex gap-6 p-6 sm:p-8 rounded-2xl" style="border: 1px solid rgba(0,167,179,0.1); background: rgba(18,42,46,0.5); backdrop-filter: blur(10px);">
+          <div class="font-heading font-black text-brand shrink-0 w-20 sm:w-24" style="font-size: clamp(2.5rem, 4vw, 3.75rem); letter-spacing: -0.04em; line-height: 0.9;">02</div>
           <div>
             <h3 class="font-heading font-semibold text-xl text-white mb-2">Map</h3>
-            <p class="text-gray-400 leading-relaxed">We document every handoff, tool, and manual step, then identify the highest-leverage places to automate first.</p>
+            <p class="text-gray-400 leading-relaxed">I document every handoff, tool, and manual step, then identify the highest-leverage places to automate first.</p>
           </div>
         </div>
-        <div class="reveal-left flex gap-6 p-6 sm:p-8 rounded-2xl" style="border: 1px solid rgba(0,167,179,0.1); background: rgba(17,17,17,0.5); backdrop-filter: blur(10px);">
-          <div class="font-heading font-extrabold text-brand text-3xl shrink-0 w-12" style="letter-spacing: -0.03em;">03</div>
+        <div class="reveal-left flex gap-6 p-6 sm:p-8 rounded-2xl" style="border: 1px solid rgba(0,167,179,0.1); background: rgba(18,42,46,0.5); backdrop-filter: blur(10px);">
+          <div class="font-heading font-black text-brand shrink-0 w-20 sm:w-24" style="font-size: clamp(2.5rem, 4vw, 3.75rem); letter-spacing: -0.04em; line-height: 0.9;">03</div>
           <div>
             <h3 class="font-heading font-semibold text-xl text-white mb-2">Build</h3>
             <p class="text-gray-400 leading-relaxed">Custom AI workflows wired into your existing stack, including WhatsApp, Sheets, POS, and CRM, with no new dashboards to learn.</p>
           </div>
         </div>
-        <div class="reveal-left flex gap-6 p-6 sm:p-8 rounded-2xl" style="border: 1px solid rgba(0,167,179,0.1); background: rgba(17,17,17,0.5); backdrop-filter: blur(10px);">
-          <div class="font-heading font-extrabold text-brand text-3xl shrink-0 w-12" style="letter-spacing: -0.03em;">04</div>
+        <div class="reveal-left flex gap-6 p-6 sm:p-8 rounded-2xl" style="border: 1px solid rgba(0,167,179,0.1); background: rgba(18,42,46,0.5); backdrop-filter: blur(10px);">
+          <div class="font-heading font-black text-brand shrink-0 w-20 sm:w-24" style="font-size: clamp(2.5rem, 4vw, 3.75rem); letter-spacing: -0.04em; line-height: 0.9;">04</div>
           <div>
             <h3 class="font-heading font-semibold text-xl text-white mb-2">Refine</h3>
-            <p class="text-gray-400 leading-relaxed">Week by week we tune the automation against real usage until it becomes nearly invisible, handling the work reliably in the background.</p>
+            <p class="text-gray-400 leading-relaxed">Week by week I tune the automation against real usage until it becomes nearly invisible, handling the work reliably in the background.</p>
           </div>
         </div>
       </div>
@@ -225,25 +236,102 @@
   <div class="section-glow"></div>
 
   <!-- WHO WE SERVE -->
-  <section class="py-24 sm:py-28 relative overflow-hidden">
-    <div class="max-w-5xl mx-auto px-6 relative z-10">
-      <div class="text-center reveal mb-12">
-        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-4">Who We Serve</p>
-        <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white" style="letter-spacing: -0.03em;">
-          Built for teams of 5 to 50.
+  <section class="py-24 sm:py-28 relative overflow-hidden" style="background: var(--bg-accent-zone);">
+    <div class="section-orb" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,167,179,0.06), transparent 70%); bottom: -10%; left: -5%;" aria-hidden="true"></div>
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <div class="reveal max-w-3xl mb-14">
+        <p class="eyebrow mb-5">Who I Work With</p>
+        <h2 class="heading-xl text-white">
+          Built for teams of <span class="text-brand-soft">5 to 50.</span>
         </h2>
-        <p class="mt-5 text-gray-400 text-lg max-w-2xl mx-auto" style="line-height: 1.7;">
-          We partner with local businesses across industries where every saved hour pays back directly.
+        <p class="mt-6 body-lg" style="color: var(--text-secondary);">
+          I partner with local businesses across industries where every saved hour pays back directly. A concrete example for each.
         </p>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 reveal">
-        <div class="text-center p-5 rounded-xl text-gray-300 text-sm" style="border:1px solid rgba(255,255,255,0.06); background: rgba(17,17,17,0.5);">Restaurants</div>
-        <div class="text-center p-5 rounded-xl text-gray-300 text-sm" style="border:1px solid rgba(255,255,255,0.06); background: rgba(17,17,17,0.5);">Cafes</div>
-        <div class="text-center p-5 rounded-xl text-gray-300 text-sm" style="border:1px solid rgba(255,255,255,0.06); background: rgba(17,17,17,0.5);">Clinics</div>
-        <div class="text-center p-5 rounded-xl text-gray-300 text-sm" style="border:1px solid rgba(255,255,255,0.06); background: rgba(17,17,17,0.5);">Retail</div>
-        <div class="text-center p-5 rounded-xl text-gray-300 text-sm" style="border:1px solid rgba(255,255,255,0.06); background: rgba(17,17,17,0.5);">Logistics</div>
-        <div class="text-center p-5 rounded-xl text-gray-300 text-sm" style="border:1px solid rgba(255,255,255,0.06); background: rgba(17,17,17,0.5);">Services</div>
+      <div class="grid sm:grid-cols-2 gap-6 stagger">
+        <div class="industry-card reveal-scale">
+          <div class="ind-num">01 / Cafe</div>
+          <h3 class="ind-name">Cafe</h3>
+          <p class="ind-desc">WhatsApp orders parsed and pushed straight into the POS, with the kitchen ticket auto-printed before the customer hits send twice.</p>
+          <div class="ind-flow">
+            <span class="flow-step">WhatsApp</span><span class="flow-arrow">→</span>
+            <span class="flow-step">POS</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Kitchen</span>
+          </div>
+        </div>
+        <div class="industry-card reveal-scale">
+          <div class="ind-num">02 / Clinic</div>
+          <h3 class="ind-name">Clinic</h3>
+          <p class="ind-desc">Appointment sheet drives WhatsApp confirms, reminders, and same-day reschedules. Receptionist stops chasing, no-shows drop.</p>
+          <div class="ind-flow">
+            <span class="flow-step">Sheet</span><span class="flow-arrow">→</span>
+            <span class="flow-step">AI sender</span><span class="flow-arrow">→</span>
+            <span class="flow-step">WhatsApp</span>
+          </div>
+        </div>
+        <div class="industry-card reveal-scale">
+          <div class="ind-num">03 / Retail</div>
+          <h3 class="ind-name">Retail</h3>
+          <p class="ind-desc">POS pushes nightly stock deltas to Sheets, low-stock alerts ping the owner on WhatsApp before the next morning's coffee.</p>
+          <div class="ind-flow">
+            <span class="flow-step">POS</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Sheets</span><span class="flow-arrow">→</span>
+            <span class="flow-step">Owner</span>
+          </div>
+        </div>
+        <div class="industry-card reveal-scale">
+          <div class="ind-num">04 / Logistics</div>
+          <h3 class="ind-name">Logistics</h3>
+          <p class="ind-desc">Delivery sheet drives WhatsApp ETAs to customers and live pings to drivers. Fewer "where is my order" calls.</p>
+          <div class="ind-flow">
+            <span class="flow-step">Delivery sheet</span><span class="flow-arrow">→</span>
+            <span class="flow-step">WhatsApp</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- FOUNDER STORY -->
+  <section class="py-24 sm:py-28 relative overflow-hidden">
+    <div class="section-orb" style="width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,167,179,0.07), transparent 70%); top: 20%; right: -10%;" aria-hidden="true"></div>
+    <div class="section-orb" style="width: 300px; height: 300px; background: radial-gradient(circle, rgba(0,167,179,0.05), transparent 70%); bottom: 10%; left: -5%;" aria-hidden="true"></div>
+
+    <div class="max-w-4xl mx-auto px-6 relative z-10">
+      <div class="reveal mb-14">
+        <p class="eyebrow mb-5">About the Founder</p>
+        <h2 class="heading-xl text-white">
+          Why I built <span class="text-brand-soft">nsquareai</span>
+        </h2>
+      </div>
+
+      <div class="reveal space-y-6 text-gray-400 text-lg" style="line-height: 1.85;">
+        <p>
+          I'm studying entrepreneurship in Mumbai, and for the past couple of years, most of my time has gone into learning everything I can about AI. Not just reading about it, but actually getting into the tools, the workflows, and the real ways it creates leverage inside a business.
+        </p>
+        <p>
+          What I kept coming back to is this: the way business gets done is fundamentally shifting. AI is moving from being a curiosity to being a real operating layer, and businesses that figure out how to actually embed it into how they work are going to have a real, durable advantage. This is true regardless of size, whether you're running a five-person operation or a five-hundred-person one.
+        </p>
+        <p>
+          But here's what struck me. Large companies are already on top of this. They have IT teams, dedicated automation engineers, sometimes entire AI departments now, all working through the problem. They'll figure it out.
+        </p>
+        <p class="text-gray-300">
+          The gap is at the small and medium scale. Business owners already doing ten things at once, with no dedicated team and no time to figure out implementation from scratch. They know AI could help, but there's no manual, no roadmap, and no one in the room for them.
+        </p>
+        <p class="text-white font-medium">
+          That's the problem I built nsquareai to solve. Not for everyone. Specifically for the businesses that need this the most and currently have the least support getting there.
+        </p>
+      </div>
+
+      <div class="reveal mt-12 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center font-heading font-bold text-brand text-lg">N</div>
+        <div>
+          <p class="text-white font-heading font-semibold text-sm">Nekunj Malushte</p>
+          <p class="text-gray-500 text-xs">Founder, nsquareai &nbsp;·&nbsp; Mumbai</p>
+        </div>
       </div>
     </div>
   </section>
@@ -254,29 +342,52 @@
   <section class="py-24 sm:py-28 relative overflow-hidden">
     <div class="section-orb" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,167,179,0.08), transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%);" aria-hidden="true"></div>
 
-    <div class="max-w-3xl mx-auto px-6 relative z-10 text-center">
+    <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
       <div class="reveal">
-        <p class="text-brand font-heading font-semibold text-sm tracking-widest uppercase mb-6">From the Founder</p>
-        <blockquote class="font-heading font-semibold text-2xl sm:text-3xl text-white leading-snug" style="letter-spacing: -0.02em;">
-          "Every business we work with had the same question: <span class="text-brand">'Can you build this around how we already work?'</span> That question is the whole company."
+        <p class="eyebrow mb-6">From the Founder</p>
+        <blockquote class="heading-lg text-white leading-snug">
+          "Every business I work with has the same question: <span class="text-brand-soft">'Can you build this around how we already work?'</span> That question is the whole company."
         </blockquote>
         <div class="mt-10 flex items-center justify-center gap-4">
           <div class="w-12 h-12 rounded-full bg-brand/10 flex items-center justify-center font-heading font-bold text-brand">N</div>
           <div class="text-left">
             <p class="text-white font-heading font-semibold text-sm">Nekunj Malushte</p>
-            <p class="text-gray-500 text-xs">Founder, nsquare.ai, Mumbai</p>
+            <p class="text-gray-500 text-xs">Founder, nsquareai, Mumbai</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- PRINCIPLES BLEED MARQUEE -->
+  <section class="py-12 sm:py-16 relative overflow-hidden" style="background: var(--bg-primary);" aria-hidden="true">
+    <div class="marquee-bleed">
+      <div class="marquee-bleed-track">
+        <span>PROCESS-FIRST&nbsp;·&nbsp;</span>
+        <span>DAYS NOT MONTHS&nbsp;·&nbsp;</span>
+        <span>YOUR STACK&nbsp;·&nbsp;</span>
+        <span>ONGOING TUNING&nbsp;·&nbsp;</span>
+        <span>TIME SAVED MEASURED&nbsp;·&nbsp;</span>
+        <span>BUILT IN MUMBAI&nbsp;·&nbsp;</span>
+        <span>PROCESS-FIRST&nbsp;·&nbsp;</span>
+        <span>DAYS NOT MONTHS&nbsp;·&nbsp;</span>
+        <span>YOUR STACK&nbsp;·&nbsp;</span>
+        <span>ONGOING TUNING&nbsp;·&nbsp;</span>
+        <span>TIME SAVED MEASURED&nbsp;·&nbsp;</span>
+        <span>BUILT IN MUMBAI&nbsp;·&nbsp;</span>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
-  <section class="py-24 text-center relative z-10 border-t border-white/5 flex-grow" style="background: rgba(17,17,17,0.3);">
-    <div class="reveal">
-      <h2 class="font-heading font-bold text-3xl sm:text-4xl text-white mb-4" style="letter-spacing: -0.03em;">Ready to work smarter?</h2>
-      <p class="text-gray-400 mb-10 max-w-xl mx-auto" style="line-height: 1.7;">Tell us about the repetitive work eating your week. We'll show you what automation could look like.</p>
-      <a href="index.html#contact" class="btn-brand inline-flex items-center px-8 py-4 rounded-full font-heading font-semibold text-sm bg-brand text-black">
+  <section class="py-28 text-center relative z-10 border-t border-white/5 flex-grow overflow-hidden" style="background: var(--bg-deep);">
+    <div class="section-orb" style="width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(0,167,179,0.10), transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%);" aria-hidden="true"></div>
+    <div class="reveal max-w-3xl mx-auto px-6 relative z-10">
+      <h2 class="heading-xl text-white mb-6">
+        Ready to <span class="text-brand-soft">work smarter?</span>
+      </h2>
+      <p class="body-lg mb-10 max-w-xl mx-auto" style="color: var(--text-secondary);">Tell me about the repetitive work eating your week. I'll show you what automation could look like.</p>
+      <a href="index.html#contact" class="btn-brand inline-flex items-center px-8 py-4 rounded-full font-heading font-semibold text-sm bg-brand" style="color: var(--text-on-brand);">
         Discuss Your Automation
       </a>
     </div>
@@ -287,7 +398,7 @@
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
         <div class="flex items-center gap-3">
-          <img src="brand_assets/nsquare.ai%20white%20text.png" alt="nsquare.ai" class="h-5" />
+          <span class="font-heading font-bold text-base tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span>
           <span class="text-gray-600 text-sm">•</span>
           <span class="text-gray-500 text-sm flex items-center gap-1">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z"/></svg>
@@ -299,7 +410,7 @@
         </div>
       </div>
       <div class="mt-8 text-center">
-        <p class="text-gray-600 text-xs">&copy; 2026 nsquare.ai. All rights reserved.</p>
+        <p class="text-gray-600 text-xs">&copy; 2026 nsquareai. All rights reserved.</p>
       </div>
     </div>
   </footer>
