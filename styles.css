@@ -30,7 +30,7 @@
       --stroke-brand: rgba(0, 167, 179, 0.20);
 
       /* Type scale (oversized) */
-      --fs-display:    clamp(4.5rem, 12vw, 9.5rem);
+      --fs-display:    clamp(2.75rem, 10vw, 9.5rem);
       --fs-display-sm: clamp(3.5rem, 9vw, 7rem);
       --fs-h2:         clamp(3rem, 7vw, 5.25rem);
       --fs-h2-tight:   clamp(2.5rem, 5.5vw, 4rem);
