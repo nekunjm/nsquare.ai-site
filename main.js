@@ -54,8 +54,17 @@ if (revealEls.length) {
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
   revealEls.forEach(el => revealObserver.observe(el));
+  // Immediately reveal anything already in the viewport on load
+  requestAnimationFrame(() => {
+    revealEls.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('visible');
+      }
+    });
+  });
 }
 
 // ── Word-by-word reveal: split heading text into spans on init ──
