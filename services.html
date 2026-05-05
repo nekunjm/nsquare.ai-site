@@ -46,7 +46,7 @@
     .svc-card.open .svc-toggle-icon { transform: rotate(45deg); }
 
     /* Industry flow diagram */
-    .flow-diagram { display: flex; align-items: center; flex-wrap: wrap; gap: 0; }
+    .flow-diagram { display: flex; align-items: center; flex-wrap: nowrap; gap: 0; }
     .flow-node {
       display: flex; flex-direction: column; align-items: center; gap: 6px;
       padding: 12px 16px; border-radius: 12px; min-width: 90px; text-align: center;
@@ -59,6 +59,23 @@
     .flow-node-label { font-size: 11px; font-weight: 600; color: #F2F5F5; font-family: 'Montserrat', sans-serif; }
     .flow-node-sub { font-size: 10px; color: #6E7E80; }
     .flow-arrow-lg { flex-shrink: 0; width: 32px; display: flex; align-items: center; justify-content: center; color: #00A7B3; opacity: 0.5; }
+
+    @media (max-width: 600px) {
+      .flow-diagram { flex-direction: column; align-items: center; }
+      .flow-node {
+        display: grid;
+        grid-template-areas: "icon label" "icon sub";
+        grid-template-columns: 28px 1fr;
+        column-gap: 12px; row-gap: 1px;
+        text-align: left; min-width: unset;
+        width: 100%; max-width: 260px;
+        padding: 10px 14px;
+      }
+      .flow-node-icon { grid-area: icon; align-self: center; width: 24px; height: 24px; }
+      .flow-node-label { grid-area: label; align-self: end; }
+      .flow-node-sub { grid-area: sub; align-self: start; }
+      .flow-arrow-lg { transform: rotate(90deg); width: 28px; height: 20px; margin: 2px 0; }
+    }
 
     /* Tooltip */
     .flow-node[data-tip]:hover::after {
