@@ -54,7 +54,7 @@ if (revealEls.length) {
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px 150px 0px' });
   revealEls.forEach(el => revealObserver.observe(el));
   // Immediately reveal anything already in the viewport on load
   requestAnimationFrame(() => {

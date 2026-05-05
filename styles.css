@@ -94,8 +94,8 @@
       overflow-wrap: break-word;
     }
     @media (max-width: 480px) {
-      .display-xl { font-size: clamp(2rem, 9vw, 3.5rem); }
-      .display-lg { font-size: clamp(1.75rem, 8vw, 3rem); }
+      .display-xl { font-size: clamp(2.25rem, 9vw, 3.5rem); }
+      .display-lg { font-size: clamp(2rem, 8.5vw, 3rem); }
     }
     .heading-xl {
       font-family: 'Montserrat', sans-serif;
