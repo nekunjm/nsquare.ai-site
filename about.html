@@ -38,6 +38,16 @@
     }
   </script>
   <link rel="stylesheet" href="styles.css?v=5">
+  <style>
+    @media (max-width: 640px) {
+      .about-quote {
+        font-size: 1.25rem !important;
+        line-height: 1.6 !important;
+        letter-spacing: -0.01em !important;
+        font-weight: 700 !important;
+      }
+    }
+  </style>
 </head>
 <body class="flex flex-col min-h-screen">
   <div id="cursor-glow" class="cursor-glow" aria-hidden="true"></div>
@@ -345,8 +355,8 @@
     <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
       <div class="reveal">
         <p class="eyebrow mb-6">From the Founder</p>
-        <blockquote class="heading-lg text-white leading-snug">
-          "Every business I work with has the same question: <span class="text-brand-soft">'Can you build this around how we already work?'</span> That question is the whole company."
+        <blockquote class="heading-lg text-white leading-snug about-quote">
+          "Most businesses don't need new tools. They need the tools they already have <span class="text-brand-soft">to stop working against each other.</span> That's the whole idea."
         </blockquote>
         <div class="mt-10 flex items-center justify-center gap-4">
           <div class="w-12 h-12 rounded-full bg-brand/10 flex items-center justify-center font-heading font-bold text-brand">N</div>
