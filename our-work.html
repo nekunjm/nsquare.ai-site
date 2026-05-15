@@ -478,7 +478,7 @@
       border-radius: 10px;
       font-size: 12.5px;
       color: var(--text-secondary);
-      cursor: default;
+      cursor: pointer;
       display: flex; align-items: center; gap: 8px;
       transition: background 0.2s, color 0.2s;
     }
@@ -495,6 +495,282 @@
       background: rgba(255,255,255,0.15);
     }
     .study-subject.active::before { background: var(--brand); box-shadow: 0 0 8px rgba(0,167,179,0.6); }
+
+    /* ── Brand row ── */
+    .study-brand-row { display: flex; align-items: center; }
+    .study-hamburger { display: none; }
+
+    /* ── Subject menu overlay (mobile only) ── */
+    .study-menu-overlay { display: none; }
+
+    /* ── Mark chips: interactive ── */
+    .mark-chip { cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+    .mark-chip:hover:not(.selected) { background: rgba(0,167,179,0.08); border-color: rgba(0,167,179,0.35); color: var(--brand-soft); }
+
+    /* ── Structured answer: point layout ── */
+    .ans-intro { font-size: 12.5px; line-height: 1.65; color: var(--text-secondary); margin: 6px 0 10px; }
+    .ans-points { display: flex; flex-direction: column; gap: 6px; }
+    .ans-point { display: flex; align-items: flex-start; gap: 9px; font-size: 12.5px; line-height: 1.55; color: var(--text-secondary); }
+    .ans-bullet { color: var(--brand); font-weight: 700; font-size: 11px; flex-shrink: 0; margin-top: 2px; letter-spacing: 0; }
+
+    /* ── Batch card: wrap on narrow screens ── */
+    @media (max-width: 640px) {
+      .batch-card { flex-wrap: wrap; gap: 4px 10px; align-items: flex-start; }
+      .batch-card .b-q { flex: 1; min-width: 0; word-break: break-word; overflow-wrap: break-word; }
+      .batch-actions { width: 100%; justify-content: flex-end; }
+    }
+
+    /* ── Mobile-only elements hidden by default ── */
+    .study-status-bar, .study-home-indicator { display: none; }
+
+    /* ── Mobile phone chrome ── */
+    @media (max-width: 640px) {
+      .study-shell {
+        border-radius: 44px !important;
+        border: 2px solid rgba(255,255,255,0.14) !important;
+        box-shadow:
+          0 0 0 6px #0b1c1f,
+          0 0 0 8px rgba(255,255,255,0.07),
+          0 50px 100px rgba(0,0,0,0.85),
+          0 0 60px rgba(0,167,179,0.06) !important;
+        max-width: 315px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+      }
+
+      /* Dynamic island */
+      .study-shell::before {
+        content: '';
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 34px;
+        border-radius: 20px;
+        background: #040b0c;
+        z-index: 60;
+        pointer-events: none;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+      }
+
+      /* Status bar — inline with dynamic island */
+      .study-status-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 22px 10px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: -0.01em;
+        background: rgba(8,21,24,0.85);
+        position: relative;
+        z-index: 10;
+        height: 52px;
+      }
+      .study-status-icons {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-primary);
+      }
+
+      /* Sidebar → compact app header strip */
+      .study-sidebar {
+        padding: 0 !important;
+        gap: 0 !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--stroke-soft) !important;
+        background: rgba(8,21,24,0.88) !important;
+      }
+      .study-brand-row {
+        display: grid !important;
+        grid-template-columns: 44px 1fr !important;
+        align-items: center;
+        padding: 10px 16px 12px !important;
+        gap: 0;
+      }
+      .study-brand { font-size: 13px !important; justify-self: start; }
+
+      /* Mode tabs tighter on mobile so all 4 fit */
+      .mode-tab { padding: 7px 11px !important; font-size: 11px !important; }
+
+      /* Hamburger button */
+      .study-hamburger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px; height: 30px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.05);
+        color: var(--text-secondary);
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background 0.2s;
+      }
+      .study-hamburger:hover { background: rgba(255,255,255,0.1); }
+
+      /* Hide subjects + kb in sidebar on mobile */
+      .study-subjects-wrapper,
+      .study-kb { display: none !important; }
+
+      /* Subject menu overlay */
+      .study-menu-overlay {
+        display: block;
+        position: absolute;
+        inset: 0;
+        background: rgba(8,17,20,0.98);
+        z-index: 40;
+        transform: translateX(-100%);
+        transition: transform 0.32s cubic-bezier(0.16,1,0.3,1);
+        overflow-y: auto;
+      }
+      .study-menu-overlay.open { transform: translateX(0); }
+      .study-menu-hd {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 18px 14px;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .study-menu-title {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+      .study-menu-close {
+        width: 26px; height: 26px;
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.04);
+        color: var(--text-secondary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .study-menu-items { padding: 10px 14px; display: flex; flex-direction: column; gap: 3px; }
+      .study-menu-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 13px 14px;
+        border-radius: 12px;
+        font-size: 13px;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: background 0.18s, color 0.18s;
+      }
+      .study-menu-item:hover { background: rgba(255,255,255,0.04); color: var(--text-primary); }
+      .study-menu-item.active { background: rgba(0,167,179,0.12); color: var(--brand-soft); font-weight: 600; }
+      .study-menu-dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.15);
+        flex-shrink: 0;
+        transition: background 0.18s, box-shadow 0.18s;
+      }
+      .study-menu-item.active .study-menu-dot { background: var(--brand); box-shadow: 0 0 8px rgba(0,167,179,0.6); }
+
+      /* Badge: minimal on mobile */
+      .study-badge .pulse-dot { display: none !important; }
+      .study-badge {
+        background: transparent !important;
+        border-color: rgba(0,167,179,0.25) !important;
+        color: var(--text-muted) !important;
+        font-size: 9px !important;
+        letter-spacing: 0.18em !important;
+        padding: 5px 14px !important;
+        box-shadow: none !important;
+      }
+
+      /* Mode switcher → no wrap, scroll horizontally */
+      .mode-switcher {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+        box-sizing: border-box;
+      }
+      .mode-switcher::-webkit-scrollbar { display: none; }
+      .mode-tab { white-space: nowrap; flex-shrink: 0; }
+
+      /* Fixed phone height — content scrolls inside, shell never resizes */
+      .study-shell {
+        height: 700px !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      .study-app {
+        flex: 1 !important;
+        min-height: 0 !important;
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        grid-template-rows: auto 1fr !important;
+      }
+      .study-sidebar { flex-shrink: 0 !important; }
+
+      /* study-main fills remaining height; only mode-panels scrolls */
+      .study-app, .study-sidebar, .study-main { width: 100%; min-width: 0; box-sizing: border-box; }
+      .study-main { padding: 14px 16px 16px !important; overflow: hidden; display: flex; flex-direction: column; }
+      .mode-switcher { flex-shrink: 0 !important; }
+      .mode-panels {
+        width: 100%; min-width: 0;
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto !important;
+        overflow-x: hidden;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+      .mode-panels::-webkit-scrollbar { display: none; }
+      .mode-panel { width: 100%; min-width: 0; overflow: hidden; }
+      .study-q, .study-ans, .quiz-card, .batch-stack { width: 100%; min-width: 0; box-sizing: border-box; }
+      .study-q, .study-ans, .study-ans li, .quiz-q, .quiz-opt, .b-q {
+        overflow-wrap: break-word;
+        word-break: break-word;
+      }
+      .study-ans ul { padding-left: 14px; }
+
+      /* Badge — centered above phone */
+      .study-badge {
+        position: relative !important;
+        top: 0 !important;
+        right: 0 !important;
+        display: flex !important;
+        width: fit-content;
+        margin: 0 auto 18px !important;
+      }
+
+      /* Stats strip: clear the phone shadow */
+      .study-stats { margin-top: 56px !important; }
+
+      /* Home indicator bar */
+      .study-home-indicator {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0 18px;
+        background: rgba(8,21,24,0.85);
+        border-top: 1px solid rgba(255,255,255,0.04);
+      }
+      .study-home-indicator::after {
+        content: '';
+        width: 134px;
+        height: 5px;
+        border-radius: 3px;
+        background: rgba(255,255,255,0.25);
+      }
+    }
 
     .study-main {
       padding: 22px 26px 26px;
@@ -727,6 +1003,7 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 26px;
+      position: relative;
     }
     .study-stat {
       padding: 10px 16px;
@@ -890,26 +1167,51 @@
       <div class="reveal-scale" style="position: relative;">
         <div class="study-badge"><span class="pulse-dot"></span>Personal Project</div>
         <div class="study-shell">
+          <!-- Mobile subject menu overlay -->
+          <div class="study-menu-overlay" id="study-menu-overlay" aria-hidden="true">
+            <div class="study-menu-hd">
+              <span class="study-menu-title">Subjects</span>
+              <button class="study-menu-close" id="study-menu-close" aria-label="Close">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            <div class="study-menu-items" id="study-menu-items"></div>
+          </div>
+
           <div class="study-app">
             <!-- Sidebar -->
             <aside class="study-sidebar">
-              <div class="study-brand">
-                <span class="study-brand-dot">s</span>
-                studybot
+              <!-- Mobile status bar (hidden on desktop) -->
+              <div class="study-status-bar" aria-hidden="true">
+                <span>9:41</span>
+                <div class="study-status-icons">
+                  <svg width="13" height="9" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="3" width="3" height="9" rx="1" opacity=".4"/><rect x="4.5" y="2" width="3" height="10" rx="1" opacity=".6"/><rect x="9" y="0.5" width="3" height="11.5" rx="1" opacity=".8"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>
+                  <svg width="12" height="9" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 9.5a1 1 0 100 2 1 1 0 000-2z" fill="currentColor" stroke="none"/><path d="M5.2 7.2A4 4 0 0110.8 7.2" opacity=".6"/><path d="M2.5 4.5a7.5 7.5 0 0111 0" opacity=".3"/></svg>
+                  <svg width="19" height="9" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="currentColor" stroke-opacity=".35"/><rect x="22.5" y="3.5" width="2" height="5" rx="1" fill="currentColor" fill-opacity=".4"/><rect x="2" y="2" width="17" height="8" rx="2" fill="currentColor"/></svg>
+                </div>
               </div>
-
-              <div>
-                <p class="study-section-label mb-2">Subjects</p>
-                <div class="study-subjects">
-                  <div class="study-subject active">Operating Systems</div>
-                  <div class="study-subject">DBMS</div>
-                  <div class="study-subject">Computer Networks</div>
-                  <div class="study-subject">Software Engineering</div>
-                  <div class="study-subject">Theory of Computation</div>
+              <div class="study-brand-row">
+                <button class="study-hamburger" id="study-hamburger" aria-label="Open subjects">
+                  <svg width="14" height="12" viewBox="0 0 14 12" fill="currentColor"><rect width="14" height="2" rx="1"/><rect y="5" width="14" height="2" rx="1"/><rect y="10" width="14" height="2" rx="1"/></svg>
+                </button>
+                <div class="study-brand">
+                  <span class="study-brand-dot">s</span>
+                  studybot
                 </div>
               </div>
 
-              <div style="margin-top: auto; padding-top: 18px; border-top: 1px solid var(--stroke-soft);">
+              <div class="study-subjects-wrapper">
+                <p class="study-section-label study-subjects-label mb-2">Subjects</p>
+                <div class="study-subjects">
+                  <div class="study-subject active" data-subject="digital-marketing">Digital Marketing</div>
+                  <div class="study-subject" data-subject="business-law">Business Law</div>
+                  <div class="study-subject" data-subject="corporate-comm">Corporate Comm. &amp; PR</div>
+                  <div class="study-subject" data-subject="family-business">Family Business Mgmt</div>
+                  <div class="study-subject" data-subject="principals-marketing">Principals of Marketing</div>
+                </div>
+              </div><!-- /study-subjects-wrapper -->
+
+              <div class="study-kb" style="margin-top: auto; padding-top: 18px; border-top: 1px solid var(--stroke-soft);">
                 <p class="study-section-label">Knowledge base</p>
                 <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px; line-height: 1.5;">65 PDFs indexed across subjects</p>
               </div>
@@ -929,7 +1231,7 @@
                 <div class="mode-panel active" data-panel="answer" role="tabpanel">
                   <div class="study-q">
                     <span class="q-prefix">Question</span>
-                    Explain the difference between paging and segmentation in operating systems.
+                    Explain the difference between above-the-line and below-the-line marketing with examples.
                   </div>
                   <div class="mark-chips" aria-label="Mark value">
                     <span class="mark-chip">1m</span>
@@ -938,11 +1240,11 @@
                   </div>
                   <div class="study-ans">
                     <span class="ans-label">Structured answer · 8 marks</span>
-                    Paging divides memory into fixed-size frames; segmentation uses variable-size logical units.
+                    ATL targets a mass, undifferentiated audience; BTL targets specific segments with direct, measurable activity.
                     <ul>
-                      <li>Paging avoids external fragmentation, suffers internal.</li>
-                      <li>Segmentation matches program structure, easier sharing.</li>
-                      <li>Modern systems combine both: segmented paging.</li>
+                      <li>ATL: TV, radio, print ads — broad reach, low personal relevance.</li>
+                      <li>BTL: loyalty programs, in-store promotions, email campaigns.</li>
+                      <li>TTL combines both for integrated campaign coverage.</li>
                     </ul>
                   </div>
                 </div>
@@ -951,11 +1253,11 @@
                 <div class="mode-panel" data-panel="teach" role="tabpanel">
                   <div class="study-q">
                     <span class="q-prefix">Tell me about</span>
-                    Why do databases use B-trees and not binary search trees?
+                    Why do brands invest in content marketing over direct advertising?
                   </div>
                   <div class="study-ans">
                     <span class="ans-label">Walkthrough</span>
-                    Disk reads are the bottleneck, not comparisons. A B-tree keeps its height tiny by packing many keys into one node, so a single read pulls in a whole branch at once. A binary tree would force one disk hop per comparison: catastrophic at scale.
+                    Trust is the bottleneck, not reach. Content marketing builds credibility over time — a useful blog post or video earns repeat visits, while a paid ad disappears the moment the budget does. The CAC drops as organic authority compounds.
                   </div>
                   <p style="font-size: 10.5px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 600;">Go deeper</p>
                   <div class="follow-pills">
@@ -968,13 +1270,13 @@
                 <!-- QUIZ MODE -->
                 <div class="mode-panel" data-panel="quiz" role="tabpanel">
                   <div class="quiz-card">
-                    <p style="font-size: 10.5px; color: var(--text-muted); letter-spacing: 0.18em; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 700;">Quick quiz · Operating Systems · 1 / 5</p>
-                    <p class="quiz-q">Which scheduling algorithm guarantees no starvation by aging?</p>
+                    <p style="font-size: 10.5px; color: var(--text-muted); letter-spacing: 0.18em; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 700;">Quick quiz · Digital Marketing · 1 / 5</p>
+                    <p class="quiz-q">Which metric measures the percentage of users who click a link after seeing it?</p>
                     <div class="quiz-options">
-                      <button class="quiz-opt" data-quiz-opt><span class="opt-key">A</span>FCFS</button>
-                      <button class="quiz-opt chosen" data-quiz-opt><span class="opt-key">B</span>Priority with aging</button>
-                      <button class="quiz-opt" data-quiz-opt><span class="opt-key">C</span>SJF (non-preemptive)</button>
-                      <button class="quiz-opt" data-quiz-opt><span class="opt-key">D</span>Round Robin only</button>
+                      <button class="quiz-opt" data-quiz-opt><span class="opt-key">A</span>Bounce Rate</button>
+                      <button class="quiz-opt chosen" data-quiz-opt><span class="opt-key">B</span>Click-Through Rate</button>
+                      <button class="quiz-opt" data-quiz-opt><span class="opt-key">C</span>Impressions</button>
+                      <button class="quiz-opt" data-quiz-opt><span class="opt-key">D</span>Cost Per Acquisition</button>
                     </div>
                     <button class="quiz-submit">Check answer</button>
                   </div>
@@ -986,17 +1288,17 @@
                   <div class="batch-stack">
                     <div class="batch-card">
                       <span class="b-num">01</span>
-                      <span class="b-q">Define context switching.</span>
+                      <span class="b-q">Define the marketing mix and its four components.</span>
                       <div class="batch-actions"><button>Copy</button><button>.docx</button></div>
                     </div>
                     <div class="batch-card">
                       <span class="b-num">02</span>
-                      <span class="b-q">Compare RAID 0 vs RAID 5.</span>
+                      <span class="b-q">Compare inbound vs outbound marketing strategies.</span>
                       <div class="batch-actions"><button>Copy</button><button>.docx</button></div>
                     </div>
                     <div class="batch-card">
                       <span class="b-num">03</span>
-                      <span class="b-q">What is the producer-consumer problem?</span>
+                      <span class="b-q">What is brand equity and how is it built over time?</span>
                       <div class="batch-actions"><button>Copy</button><button>.docx</button></div>
                     </div>
                   </div>
@@ -1004,6 +1306,8 @@
               </div>
             </main>
           </div>
+          <!-- Mobile home indicator (hidden on desktop) -->
+          <div class="study-home-indicator" aria-hidden="true"></div>
         </div>
 
         <div class="study-stats">
@@ -1275,5 +1579,386 @@
   </footer>
 
   <script src="main.js?v=2" defer></script>
+  <script>
+  (() => {
+    let currentSubjectKey = 'digital-marketing';
+    let currentMarks = 8;
+
+    const CONTENT = {
+      'digital-marketing': {
+        answer: {
+          marks: [2, 4, 8],
+          2: {
+            q: 'Define digital marketing.',
+            intro: 'Digital marketing is the promotion of products, services, or brands through digital channels — including search engines, social media, email, and websites.',
+            points: []
+          },
+          4: {
+            q: 'What is the difference between paid and organic digital marketing? Give one example of each.',
+            intro: 'Paid marketing uses advertising spend to gain immediate visibility; organic marketing earns reach through content quality and relevance without direct payment.',
+            points: [
+              'Paid: Google Search Ads — a brand pays per click to appear at the top of results instantly.',
+              'Organic: an SEO-optimised blog post — ranks through authority over time at no direct cost.',
+              'Both channels complement each other for full-funnel reach and sustainability.'
+            ]
+          },
+          8: {
+            q: 'Explain the difference between above-the-line and below-the-line marketing with examples.',
+            intro: 'ATL targets a mass, undifferentiated audience through broadcast media; BTL uses targeted, direct activity with measurable outcomes and less wastage.',
+            points: [
+              'ATL: TV commercials, radio spots, print ads — high reach but limited personalisation.',
+              'BTL: email campaigns, loyalty schemes, in-store activations — targeted with trackable ROI.',
+              'TTL (Through-the-Line) combines both for integrated coverage across all touchpoints.',
+              'ATL builds brand awareness at scale; BTL converts awareness into action and loyalty.',
+              'Measuring ATL ROI is difficult; BTL allows precise attribution and faster iteration.'
+            ]
+          }
+        },
+        teach: {
+          q: 'Why do brands invest in content marketing over direct advertising?',
+          body: 'Trust is the bottleneck, not reach. Content marketing builds credibility over time — a useful article or video earns repeat visits, while a paid ad disappears the moment the budget does. Customer acquisition cost drops as organic authority compounds.'
+        },
+        quiz: {
+          label: 'Digital Marketing · 1 / 5',
+          q: 'Which metric measures the percentage of users who click a link after seeing it?',
+          opts: ['Bounce Rate', 'Click-Through Rate', 'Impressions', 'Cost Per Acquisition'],
+          correct: 1
+        },
+        batch: ['Define the marketing mix and its four components.', 'Compare inbound vs outbound marketing strategies.', 'What is brand equity and how is it built over time?']
+      },
+      'business-law': {
+        answer: {
+          marks: [2, 4, 8],
+          2: {
+            q: 'Define a contract in the context of business law.',
+            intro: 'A contract is a legally binding agreement between two or more parties, enforceable by law, formed through offer, acceptance, and consideration.',
+            points: []
+          },
+          4: {
+            q: 'What are the essential elements of a valid contract? List and briefly explain each.',
+            intro: 'A valid contract requires five core elements to be legally enforceable.',
+            points: [
+              'Offer and acceptance: a clear proposal must be made and unconditionally agreed to.',
+              'Consideration: each party must exchange something of value — money, goods, or a promise.',
+              'Capacity and legality: parties must be legally competent, and the purpose must be lawful.'
+            ]
+          },
+          8: {
+            q: 'What is the doctrine of consideration in contract law? Explain its rules and illustrate with examples.',
+            intro: 'Consideration is the exchange of value that makes a contract legally binding — without it, most agreements are mere promises and unenforceable in court.',
+            points: [
+              'Must be real: consideration must have legal value; past acts or illusory promises do not qualify.',
+              'Must move from the promisee: the party enforcing the contract must themselves have given consideration.',
+              'Example: A pays B ₹10,000 and B delivers goods — both parties have given valid consideration.',
+              'Counter-example: A promises B a gift with nothing given in return — unenforceable as a contract.',
+              'Privity rule: only parties who have provided consideration can sue under the agreement.',
+              'Courts do not assess adequacy — even a nominal sum (₹1) is sufficient consideration in law.'
+            ]
+          }
+        },
+        teach: {
+          q: 'Why is a verbal agreement often difficult to enforce in court?',
+          body: 'Proof is the problem. A verbal contract may be legally valid, but courts rely on evidence — without written records it becomes one word against another\'s. Ambiguity about terms also invites dispute over what was actually agreed.'
+        },
+        quiz: {
+          label: 'Business Law · 1 / 5',
+          q: 'Which of the following is NOT a required element of a valid contract?',
+          opts: ['Offer and acceptance', 'Consideration', 'Written format', 'Capacity of parties'],
+          correct: 2
+        },
+        batch: ['Distinguish between void and voidable contracts with examples.', 'What is vicarious liability? When does it apply to employers?', 'Explain the difference between civil and criminal liability.']
+      },
+      'corporate-comm': {
+        answer: {
+          marks: [2, 4, 8],
+          2: {
+            q: 'Define corporate communication.',
+            intro: 'Corporate communication is the process by which an organisation conveys information to its internal and external stakeholders to manage reputation, alignment, and relationships.',
+            points: []
+          },
+          4: {
+            q: 'Distinguish between internal and external corporate communication with one example each.',
+            intro: 'Internal communication addresses audiences within the organisation; external communication manages the organisation\'s relationship with the outside world.',
+            points: [
+              'Internal: employee newsletters, intranet updates, town halls — builds alignment and morale.',
+              'External: press releases, annual reports, investor briefings — shapes public and market perception.',
+              'Both must stay aligned; inconsistency between internal and external messaging damages trust.'
+            ]
+          },
+          8: {
+            q: 'What is crisis communication? Explain its importance and the key principles of an effective crisis response.',
+            intro: 'Crisis communication is the practice of managing information flow during an incident that threatens an organisation\'s reputation, operations, or stakeholder trust.',
+            points: [
+              'Speed matters: the initial response within the first hour shapes media and public perception.',
+              'Accuracy over silence: saying the right amount of truth quickly beats waiting for perfect information.',
+              'Single spokesperson: all public statements should come from one authorised representative.',
+              'Acknowledge, don\'t deflect: taking responsibility where appropriate reduces anger and media pressure.',
+              'Stakeholder segmentation: employees, investors, and regulators each need tailored communication.',
+              'Post-crisis review: a structured debrief identifies what failed and prevents future recurrence.'
+            ]
+          }
+        },
+        teach: {
+          q: 'Why is crisis communication the hardest part of public relations?',
+          body: 'Speed and accuracy are in direct conflict. In a crisis, the instinct to say nothing until you\'re certain is exactly wrong — silence reads as guilt. But speaking too fast without facts invites correction. The skill is saying the right amount of truth, fast enough to control the narrative.'
+        },
+        quiz: {
+          label: 'Corporate Comm. & PR · 1 / 5',
+          q: 'What is the primary purpose of a press release?',
+          opts: ['Generate advertising revenue', 'Inform media of a newsworthy event', 'Replace a marketing campaign', 'Communicate internally to staff'],
+          correct: 1
+        },
+        batch: ['What is stakeholder communication and why does it matter?', 'Explain the concept of reputation management in PR.', 'Define media relations and outline best practices for it.']
+      },
+      'family-business': {
+        answer: {
+          marks: [2, 4, 8],
+          2: {
+            q: 'Define a family business.',
+            intro: 'A family business is an enterprise in which one or more family members hold significant ownership, management control, or both — often with the intention of passing it across generations.',
+            points: []
+          },
+          4: {
+            q: 'Describe the three-circle model of family business and what each circle represents.',
+            intro: 'The three-circle model, developed by Tagiuri and Davis, illustrates the three overlapping systems that define every family business.',
+            points: [
+              'Family: governed by emotion, kinship, and long-term loyalty — decisions are personal, not always rational.',
+              'Ownership: shaped by equity stakes, dividend expectations, and control rights over the firm.',
+              'Business: driven by strategy, operations, competitive performance, and professional management norms.'
+            ]
+          },
+          8: {
+            q: 'Explain the challenges of succession planning in family-owned businesses and suggest how they can be addressed.',
+            intro: 'Succession — the transfer of leadership and ownership from one generation to the next — is the single greatest challenge most family businesses face, and its absence is the primary cause of generational decline.',
+            points: [
+              'Avoidance: founders resist planning succession as it feels like planning for their own end.',
+              'Sibling rivalry: multiple potential heirs create conflict without clear, merit-based selection criteria.',
+              'Competency gap: the chosen successor may lack skills the business now requires at its current scale.',
+              'Non-family resistance: long-tenured employees may reject a family member they see as unqualified.',
+              'Remedy — early planning: succession discussions should begin 5 to 10 years before the transition.',
+              'Governance structures: family councils, shareholder agreements, and formal job descriptions reduce conflict.'
+            ]
+          }
+        },
+        teach: {
+          q: 'Why do most family businesses fail to survive the third generation?',
+          body: 'The founding generation builds it. The second inherits conviction along with the business. By the third, ownership is fragmented, emotional attachment has diluted, and governance is still informal. Without a succession plan and a clear ownership structure, disagreement eventually outruns the enterprise.'
+        },
+        quiz: {
+          label: 'Family Business Mgmt · 1 / 5',
+          q: 'Which document formally outlines how leadership transfers between generations in a family firm?',
+          opts: ['Business plan', 'Succession plan', 'Exit strategy', 'Operational charter'],
+          correct: 1
+        },
+        batch: ['What is succession planning and why is it critical in family firms?', 'How should a family business balance nepotism and meritocracy?', 'Define corporate governance and its role in family-owned companies.']
+      },
+      'principals-marketing': {
+        answer: {
+          marks: [2, 4, 8],
+          2: {
+            q: 'Define market segmentation.',
+            intro: 'Market segmentation is the process of dividing a broad, heterogeneous market into distinct subgroups of consumers who share similar needs, characteristics, or buying behaviours.',
+            points: []
+          },
+          4: {
+            q: 'What is the STP framework? Define each of its three stages.',
+            intro: 'STP — Segmentation, Targeting, and Positioning — is the three-stage strategic framework that guides how a marketer identifies and reaches their ideal customer.',
+            points: [
+              'Segmentation: divide the market into groups based on demographics, geography, psychographics, or behaviour.',
+              'Targeting: evaluate each segment\'s size, profitability, and fit, then select which segments to pursue.',
+              'Positioning: define how the brand should be perceived by the chosen segment relative to competitors.'
+            ]
+          },
+          8: {
+            q: 'Explain the marketing mix (4Ps) and discuss its importance in developing an effective marketing strategy.',
+            intro: 'The marketing mix is the foundational framework marketers use to design a strategy that delivers the right product, at the right price, through the right place, with the right promotion.',
+            points: [
+              'Product: what is offered — its features, quality, design, branding, and stage in the product life cycle.',
+              'Price: the value exchange — pricing strategy (penetration, skimming, competitive) affects perception and demand.',
+              'Place: how and where the product reaches the customer — channels, logistics, and retail presence.',
+              'Promotion: how awareness and desire are created — advertising, PR, sales promotions, digital campaigns.',
+              'Internal consistency is critical: a premium product priced cheaply in a discount store confuses the market.',
+              'Modern frameworks extend to 7Ps by adding People, Process, and Physical Evidence for services contexts.'
+            ]
+          }
+        },
+        teach: {
+          q: 'Why is the STP framework the starting point of any marketing strategy?',
+          body: 'You can\'t market to everyone — resources are finite. STP forces a choice: which segment to target, what position to own, and how to tailor messaging for that specific audience. Without it, campaigns spread thin and land nowhere in particular.'
+        },
+        quiz: {
+          label: 'Principals of Marketing · 1 / 5',
+          q: 'At which stage of the product life cycle is competition typically at its peak?',
+          opts: ['Introduction', 'Growth', 'Maturity', 'Decline'],
+          correct: 2
+        },
+        batch: ['Explain the BCG matrix and its four quadrants.', 'What is the STP process? Define each stage.', 'Describe the five stages of the consumer decision-making process.']
+      }
+    };
+
+    const ANSWER_LABEL_STYLE = 'font-size:10.5px;color:var(--text-muted);letter-spacing:0.18em;text-transform:uppercase;font-family:\'Montserrat\',sans-serif;font-weight:700;';
+
+    function renderAnswer(d, marks) {
+      const sel = d[marks] || d[8];
+      const pointsHtml = sel.points && sel.points.length
+        ? `<div class="ans-points">${sel.points.map(p => `<div class="ans-point"><span class="ans-bullet">→</span><span>${p}</span></div>`).join('')}</div>`
+        : '';
+      const chipsHtml = d.marks.map(m =>
+        `<button class="mark-chip${m === marks ? ' selected' : ''}" data-marks="${m}">${m}m</button>`
+      ).join('');
+      return `
+        <div class="study-q">
+          <span class="q-prefix">Question</span>
+          ${sel.q}
+        </div>
+        <div class="mark-chips" aria-label="Mark value">${chipsHtml}</div>
+        <div class="study-ans">
+          <span class="ans-label">Structured answer · ${marks} marks</span>
+          <p class="ans-intro">${sel.intro}</p>
+          ${pointsHtml}
+        </div>`;
+    }
+
+    function renderTeach(d) {
+      return `
+        <div class="study-q">
+          <span class="q-prefix">Tell me about</span>
+          ${d.q}
+        </div>
+        <div class="study-ans">
+          <span class="ans-label">Walkthrough</span>
+          <p class="ans-intro">${d.body}</p>
+        </div>
+        <p style="${ANSWER_LABEL_STYLE}">Go deeper</p>
+        <div class="follow-pills">
+          <button class="follow-pill">Simplify</button>
+          <button class="follow-pill">Use an analogy</button>
+          <button class="follow-pill">Go deeper</button>
+        </div>`;
+    }
+
+    function renderQuiz(d) {
+      const opts = d.opts.map((o, i) => {
+        const chosen = i === d.correct ? ' chosen' : '';
+        return `<button class="quiz-opt${chosen}" data-quiz-opt><span class="opt-key">${String.fromCharCode(65+i)}</span>${o}</button>`;
+      }).join('');
+      return `
+        <div class="quiz-card">
+          <p style="${ANSWER_LABEL_STYLE}">Quick quiz · ${d.label}</p>
+          <p class="quiz-q">${d.q}</p>
+          <div class="quiz-options">${opts}</div>
+          <button class="quiz-submit">Check answer</button>
+        </div>`;
+    }
+
+    function renderBatch(items) {
+      const cards = items.map((q, i) => `
+        <div class="batch-card">
+          <span class="b-num">0${i+1}</span>
+          <span class="b-q">${q}</span>
+          <div class="batch-actions"><button>Copy</button><button>.docx</button></div>
+        </div>`).join('');
+      return `<p style="${ANSWER_LABEL_STYLE}">Batch · 12 questions processed</p><div class="batch-stack">${cards}</div>`;
+    }
+
+    function bindInteractions() {
+      // Mark chip: re-render answer with new mark level
+      document.querySelectorAll('.mark-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const marks = parseInt(chip.dataset.marks);
+          currentMarks = marks;
+          document.querySelector('[data-panel="answer"]').innerHTML =
+            renderAnswer(CONTENT[currentSubjectKey].answer, marks);
+          bindInteractions();
+        });
+      });
+      // Quiz option toggle
+      document.querySelectorAll('[data-quiz-opt]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('chosen'));
+          btn.classList.add('chosen');
+        });
+      });
+    }
+
+    function applySubject(key) {
+      const c = CONTENT[key];
+      if (!c) return;
+      currentSubjectKey = key;
+      document.querySelector('[data-panel="answer"]').innerHTML = renderAnswer(c.answer, currentMarks);
+      document.querySelector('[data-panel="teach"]').innerHTML = renderTeach(c.teach);
+      document.querySelector('[data-panel="quiz"]').innerHTML = renderQuiz(c.quiz);
+      document.querySelector('[data-panel="batch"]').innerHTML = renderBatch(c.batch);
+      bindInteractions();
+    }
+
+    // Desktop sidebar subject clicks
+    const subjects = document.querySelectorAll('.study-subject');
+    subjects.forEach(el => {
+      el.addEventListener('click', () => {
+        subjects.forEach(s => s.classList.remove('active'));
+        el.classList.add('active');
+        applySubject(el.dataset.subject);
+        syncMenuActive(el.dataset.subject);
+      });
+    });
+
+    // Hamburger menu
+    const overlay = document.getElementById('study-menu-overlay');
+    const hamburger = document.getElementById('study-hamburger');
+    const closeBtn = document.getElementById('study-menu-close');
+    const menuItems = document.getElementById('study-menu-items');
+
+    const SUBJECT_NAMES = {
+      'digital-marketing': 'Digital Marketing',
+      'business-law': 'Business Law',
+      'corporate-comm': 'Corporate Comm. & PR',
+      'family-business': 'Family Business Mgmt',
+      'principals-marketing': 'Principals of Marketing'
+    };
+
+    function syncMenuActive(key) {
+      document.querySelectorAll('.study-menu-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.subject === key);
+        item.querySelector('.study-menu-dot').style.cssText =
+          item.dataset.subject === key
+            ? 'background:var(--brand);box-shadow:0 0 8px rgba(0,167,179,0.6);'
+            : '';
+      });
+    }
+
+    if (overlay && hamburger) {
+      // Populate menu items
+      Object.entries(SUBJECT_NAMES).forEach(([key, name]) => {
+        const item = document.createElement('div');
+        item.className = 'study-menu-item' + (key === currentSubjectKey ? ' active' : '');
+        item.dataset.subject = key;
+        item.innerHTML = `<span class="study-menu-dot"></span>${name}`;
+        item.addEventListener('click', () => {
+          // sync sidebar active state
+          subjects.forEach(s => s.classList.toggle('active', s.dataset.subject === key));
+          syncMenuActive(key);
+          applySubject(key);
+          overlay.classList.remove('open');
+          overlay.setAttribute('aria-hidden', 'true');
+        });
+        menuItems.appendChild(item);
+      });
+
+      hamburger.addEventListener('click', () => {
+        syncMenuActive(currentSubjectKey);
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+      });
+      closeBtn.addEventListener('click', () => {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+      });
+    }
+
+    // Initialise: render all panels from JS so static HTML is replaced
+    applySubject('digital-marketing');
+  })();
+  </script>
 </body>
 </html>
