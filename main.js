@@ -249,6 +249,41 @@ if (faqList) {
   });
 }
 
+// ── Our Work · mode switcher (Study Assistant) ──
+document.querySelectorAll('.mode-switcher').forEach(switcher => {
+  const tabs = switcher.querySelectorAll('.mode-tab');
+  const panels = switcher.parentElement.querySelectorAll('.mode-panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const mode = tab.dataset.mode;
+      tabs.forEach(t => t.setAttribute('aria-selected', t === tab ? 'true' : 'false'));
+      panels.forEach(p => p.classList.toggle('active', p.dataset.panel === mode));
+    });
+  });
+});
+
+// ── Our Work · category filter chips ──
+const workGrid = document.getElementById('work-grid');
+const workChips = document.querySelectorAll('.work-chip');
+if (workGrid && workChips.length) {
+  workChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const filter = chip.dataset.filter;
+      workChips.forEach(c => c.classList.toggle('active', c === chip));
+      if (filter === 'all') {
+        workGrid.classList.remove('is-filtered');
+        workGrid.querySelectorAll('.work-card').forEach(c => c.classList.remove('match'));
+        return;
+      }
+      workGrid.classList.add('is-filtered');
+      workGrid.querySelectorAll('.work-card').forEach(card => {
+        const cats = (card.dataset.category || '').split(/\s+/);
+        card.classList.toggle('match', cats.includes(filter));
+      });
+    });
+  });
+}
+
 // ── Google Sheets contact form ──
 const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxR8sMYsILbvQY7FX24MONPA9fVH7NEgMnkBhEKogFBp0jfo5Tk0HrhMKY_VxYiTV-z/exec';
 const contactForm = document.getElementById('contact-form');

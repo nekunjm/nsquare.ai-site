@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Work | nsquareai</title>
+  <meta name="description" content="A selection of automations and AI builds we have shipped, prototyped, and explored. From WhatsApp workflows to a personal AI study assistant.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#00A7B3',
+            'brand-soft': '#2BC4CF',
+            'brand-deep': '#007A83',
+            'brand-glow': 'rgba(0, 167, 179, 0.2)',
+            primary: '#0D1F22',
+            elevated: '#122A2E',
+            floating: '#173438',
+            deep: '#081518',
+            'accent-zone': '#0E2629',
+            base: '#0D1F22',
+            surface: '#122A2E',
+            'text-primary': '#F2F5F5',
+            'text-secondary': '#A8B5B7',
+            'text-muted': '#6E7E80',
+          },
+          fontFamily: {
+            heading: ['Montserrat', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css?v=7">
+  <style>
+    /* ── Filter chips ── */
+    .work-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 36px;
+    }
+    .work-chip {
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid var(--stroke-soft);
+      color: var(--text-secondary);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  background 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .work-chip:hover {
+      color: var(--brand-soft);
+      border-color: var(--stroke-brand);
+    }
+    .work-chip.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: var(--text-on-brand);
+    }
+    .work-chip:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+    /* ── Work grid ── */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    @media (max-width: 1023px) {
+      .work-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .work-grid { grid-template-columns: 1fr; }
+    }
+    .work-card {
+      position: relative;
+      padding: 28px 26px 26px;
+      border-radius: 22px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--stroke-soft);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.4s, filter 0.4s;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .work-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 90% 0%, var(--brand-tint-08), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.45s;
+      pointer-events: none;
+    }
+    .work-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--brand);
+      box-shadow: 0 16px 50px rgba(0, 167, 179, 0.10), 0 6px 20px rgba(0, 0, 0, 0.35);
+    }
+    .work-card:hover::before { opacity: 1; }
+    .work-grid.is-filtered .work-card:not(.match) {
+      opacity: 0.18;
+      filter: saturate(0.35);
+      pointer-events: none;
+    }
+    .work-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .work-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: var(--brand);
+    }
+    .work-type {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand-soft);
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(13, 31, 34, 0.6);
+      border: 1px solid var(--stroke-brand);
+    }
+    .work-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      line-height: 1.15;
+    }
+    .work-desc {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+    .work-visual {
+      position: relative;
+      border-radius: 14px;
+      background: rgba(13, 31, 34, 0.55);
+      border: 1px solid var(--stroke-soft);
+      padding: 16px 14px;
+      min-height: 150px;
+      overflow: hidden;
+    }
+    .work-note {
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--text-muted);
+      padding-top: 14px;
+      border-top: 1px dashed rgba(255,255,255,0.06);
+    }
+    .work-note strong {
+      color: var(--brand-soft);
+      font-weight: 600;
+    }
+
+    /* ── Reusable mini visuals ── */
+    /* WhatsApp chat bubble stack */
+    .chat-stack { display: flex; flex-direction: column; gap: 8px; }
+    .chat-bubble {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      max-width: 88%;
+      padding: 7px 11px;
+      border-radius: 12px;
+      font-size: 11.5px;
+      line-height: 1.35;
+      color: var(--text-primary);
+      background: rgba(0, 167, 179, 0.10);
+      border: 1px solid var(--stroke-brand);
+      align-self: flex-start;
+    }
+    .chat-bubble.out {
+      align-self: flex-end;
+      background: rgba(43, 196, 207, 0.18);
+      border-color: rgba(43, 196, 207, 0.30);
+    }
+    .chat-bubble .dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: #4ade80;
+      flex-shrink: 0;
+    }
+    .chat-meta {
+      font-size: 9.5px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      margin-left: 4px;
+    }
+
+    /* Tri-pipeline lanes (reputation mgmt) */
+    .tri-pipe { display: flex; flex-direction: column; gap: 10px; }
+    .tri-lane {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      align-items: center;
+      gap: 10px;
+    }
+    .tri-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand-soft);
+    }
+    .tri-track {
+      position: relative;
+      height: 22px;
+      border-radius: 999px;
+      background: rgba(13, 31, 34, 0.6);
+      border: 1px solid var(--stroke-soft);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      gap: 6px;
+    }
+    .tri-node {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--brand);
+      box-shadow: 0 0 8px rgba(0, 167, 179, 0.6);
+      flex-shrink: 0;
+    }
+    .tri-connector {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--brand-tint-15), rgba(255,255,255,0.04));
+    }
+    .tri-pulse {
+      position: absolute;
+      left: -20px; top: 0; bottom: 0;
+      width: 30px;
+      background: linear-gradient(90deg, transparent, rgba(0,167,179,0.5), transparent);
+      animation: triPulse 3.6s linear infinite;
+    }
+    .tri-lane:nth-child(2) .tri-pulse { animation-delay: 1.2s; }
+    .tri-lane:nth-child(3) .tri-pulse { animation-delay: 2.4s; }
+    @keyframes triPulse {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(280px); }
+    }
+
+    /* Receipt → AI → message (daily sales) */
+    .pipeline-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+    }
+    .pipeline-tile {
+      border: 1px solid var(--stroke-brand);
+      background: rgba(13, 31, 34, 0.5);
+      border-radius: 10px;
+      padding: 8px 6px;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--brand-soft);
+    }
+    .pipeline-arrow { color: var(--brand); font-weight: 700; }
+    .receipt-lines {
+      display: flex; flex-direction: column; gap: 2px;
+      margin-top: 6px;
+    }
+    .receipt-lines span {
+      display: block;
+      height: 2px;
+      background: rgba(255,255,255,0.10);
+      border-radius: 999px;
+    }
+    .receipt-lines span:nth-child(1) { width: 80%; }
+    .receipt-lines span:nth-child(2) { width: 60%; }
+    .receipt-lines span:nth-child(3) { width: 70%; }
+
+    /* Variable template (win-back) */
+    .template-card {
+      font-size: 11.5px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      padding: 10px 12px;
+      background: rgba(0, 167, 179, 0.08);
+      border: 1px solid var(--stroke-brand);
+      border-radius: 12px;
+    }
+    .template-card .var {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: var(--brand-tint-15);
+      color: var(--brand-soft);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      animation: varSwap 4s ease-in-out infinite;
+    }
+    .template-card .var:nth-child(2) { animation-delay: 0.4s; }
+    .template-card .var:nth-child(3) { animation-delay: 0.8s; }
+    @keyframes varSwap {
+      0%, 90%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(0,167,179,0); }
+      45% { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,167,179,0.25); }
+    }
+    .template-resolved {
+      margin-top: 8px;
+      font-size: 10.5px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+    .template-resolved span { color: var(--brand-soft); font-style: normal; font-weight: 600; }
+
+    /* Admission dual-mode split */
+    .split-mode {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .split-pane {
+      padding: 10px 10px;
+      border-radius: 10px;
+      background: rgba(13, 31, 34, 0.55);
+      border: 1px solid var(--stroke-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .split-pane .pane-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand-soft);
+    }
+    .split-pane.training { background: rgba(0, 167, 179, 0.06); border-color: var(--stroke-brand); }
+    .split-line {
+      font-size: 10px;
+      line-height: 1.45;
+      color: var(--text-secondary);
+      padding: 4px 7px;
+      border-radius: 7px;
+      background: rgba(255,255,255,0.03);
+    }
+    .split-line.ai { color: var(--brand-soft); }
+
+    /* Lead-gen funnel */
+    .funnel { display: flex; flex-direction: column; gap: 6px; align-items: stretch; }
+    .funnel-stage {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(13, 31, 34, 0.55);
+      border: 1px solid var(--stroke-soft);
+      border-radius: 10px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+    }
+    .funnel-stage:nth-child(1) { margin-left: 0; margin-right: 0; }
+    .funnel-stage:nth-child(2) { margin-left: 14px; margin-right: 14px; }
+    .funnel-stage:nth-child(3) { margin-left: 24px; margin-right: 24px; }
+    .funnel-stage:nth-child(4) { margin-left: 34px; margin-right: 34px; }
+    .funnel-stage.qualified {
+      border-color: var(--brand);
+      background: rgba(0, 167, 179, 0.10);
+      color: var(--brand-soft);
+    }
+    .funnel-stage .count {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--brand);
+    }
+    .funnel-stage .gate {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Featured: AI Study Assistant showcase ── */
+    .study-shell {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--bg-elevated) 0%, var(--bg-floating) 70%);
+      border: 1px solid var(--stroke-brand);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45), 0 0 80px rgba(0,167,179,0.06);
+    }
+    .study-shell::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse 60% 50% at 100% 0%, rgba(0,167,179,0.10), transparent 65%);
+    }
+    .study-app {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      min-height: 460px;
+    }
+    @media (max-width: 768px) {
+      .study-app { grid-template-columns: 1fr; min-height: auto; }
+    }
+    .study-sidebar {
+      padding: 22px 18px;
+      background: rgba(8, 21, 24, 0.55);
+      border-right: 1px solid var(--stroke-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    @media (max-width: 768px) {
+      .study-sidebar { border-right: none; border-bottom: 1px solid var(--stroke-soft); }
+    }
+    .study-brand {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .study-brand-dot {
+      width: 22px; height: 22px;
+      border-radius: 7px;
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-deep) 100%);
+      box-shadow: 0 4px 12px rgba(0,167,179,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; color: #0D1F22;
+    }
+    .study-section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .study-subjects { display: flex; flex-direction: column; gap: 4px; }
+    .study-subject {
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      cursor: default;
+      display: flex; align-items: center; gap: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .study-subject:hover { background: rgba(255,255,255,0.03); color: var(--text-primary); }
+    .study-subject.active {
+      background: var(--brand-tint-15);
+      color: var(--brand-soft);
+      font-weight: 600;
+    }
+    .study-subject::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+    }
+    .study-subject.active::before { background: var(--brand); box-shadow: 0 0 8px rgba(0,167,179,0.6); }
+
+    .study-main {
+      padding: 22px 26px 26px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .mode-switcher {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      background: rgba(8, 21, 24, 0.55);
+      border: 1px solid var(--stroke-soft);
+      border-radius: 12px;
+      width: fit-content;
+      flex-wrap: wrap;
+    }
+    .mode-tab {
+      padding: 8px 16px;
+      border-radius: 9px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mode-tab:hover { color: var(--text-primary); }
+    .mode-tab[aria-selected="true"] {
+      background: var(--brand);
+      color: var(--text-on-brand);
+      box-shadow: 0 4px 14px rgba(0,167,179,0.25);
+    }
+    .mode-tab:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+    .mode-panels { margin-top: 18px; position: relative; flex: 1; }
+    .mode-panel {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      animation: panelFade 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mode-panel.active { display: flex; }
+    @keyframes panelFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .study-q {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--stroke-soft);
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .study-q .q-prefix {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .mark-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .mark-chip {
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(13, 31, 34, 0.5);
+      border: 1px solid var(--stroke-brand);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--brand-soft);
+      cursor: default;
+    }
+    .mark-chip.selected {
+      background: var(--brand);
+      color: var(--text-on-brand);
+      border-color: var(--brand);
+    }
+    .study-ans {
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(0,167,179,0.08), transparent 80%);
+      border: 1px solid var(--stroke-brand);
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text-primary);
+    }
+    .study-ans .ans-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brand-soft);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .study-ans ul { margin: 6px 0 0 16px; }
+    .study-ans li { margin: 2px 0; }
+    .follow-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+    .follow-pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid var(--stroke-soft);
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: border-color 0.3s, color 0.3s, background 0.3s;
+    }
+    .follow-pill:hover { color: var(--brand-soft); border-color: var(--stroke-brand); background: var(--brand-tint-04); }
+
+    /* Quiz mode */
+    .quiz-card { display: flex; flex-direction: column; gap: 10px; }
+    .quiz-q {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+    .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    @media (max-width: 480px) { .quiz-options { grid-template-columns: 1fr; } }
+    .quiz-opt {
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(13, 31, 34, 0.5);
+      border: 1px solid var(--stroke-soft);
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      transition: border-color 0.3s, background 0.3s, color 0.3s;
+    }
+    .quiz-opt .opt-key {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .quiz-opt:hover {
+      border-color: var(--stroke-brand);
+      background: rgba(0,167,179,0.05);
+      color: var(--text-primary);
+    }
+    .quiz-opt.chosen {
+      border-color: var(--brand);
+      background: rgba(0,167,179,0.12);
+      color: var(--brand-soft);
+    }
+    .quiz-opt.chosen .opt-key { background: var(--brand); color: var(--text-on-brand); }
+    .quiz-submit {
+      align-self: flex-start;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: var(--brand);
+      color: var(--text-on-brand);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .quiz-submit:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(0,167,179,0.30); }
+
+    /* Batch mode */
+    .batch-stack { display: flex; flex-direction: column; gap: 8px; }
+    .batch-card {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--stroke-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .batch-card .b-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--brand);
+    }
+    .batch-card .b-q {
+      flex: 1;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .batch-actions { display: flex; gap: 6px; }
+    .batch-actions button {
+      padding: 5px 10px;
+      border-radius: 6px;
+      background: rgba(0,167,179,0.08);
+      border: 1px solid var(--stroke-brand);
+      color: var(--brand-soft);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .batch-actions button:hover { background: var(--brand); color: var(--text-on-brand); }
+
+    /* Study stat strip */
+    .study-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+    .study-stat {
+      padding: 10px 16px;
+      border-radius: 12px;
+      background: rgba(13, 31, 34, 0.5);
+      border: 1px solid var(--stroke-soft);
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .study-stat .num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: var(--brand);
+      letter-spacing: -0.02em;
+    }
+    .study-stat .label {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .study-personal {
+      margin-top: 20px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 1px dashed var(--stroke-brand);
+      background: rgba(0, 167, 179, 0.04);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    .study-personal::before {
+      content: 'A note from the founder';
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brand-soft);
+      margin-bottom: 6px;
+      font-style: normal;
+    }
+
+    .study-badge {
+      position: absolute;
+      top: -14px; right: 22px;
+      z-index: 5;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--bg-floating);
+      border: 1px solid var(--brand);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand-soft);
+      box-shadow: 0 8px 24px rgba(0,167,179,0.18);
+    }
+    .study-badge .pulse-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--brand);
+      margin-right: 6px;
+      box-shadow: 0 0 8px rgba(0,167,179,0.7);
+      animation: studyPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes studyPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+
+    /* CTA strip */
+    .cta-strip {
+      padding: 56px 40px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--bg-elevated), var(--bg-floating));
+      border: 1px solid var(--stroke-brand);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-strip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 80% at 50% 0%, var(--brand-tint-08), transparent 60%);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+  <div id="cursor-glow" class="cursor-glow" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50" style="background: transparent; transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center shrink-0" aria-label="nsquareai home">
+        <span class="font-heading font-bold text-3xl tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="/about" class="nav-link text-sm font-medium text-gray-400">About</a>
+        <a href="/services" class="nav-link text-sm font-medium text-gray-400">Services</a>
+        <a href="/how-it-works" class="nav-link text-sm font-medium text-gray-400">How it Works</a>
+        <a href="/our-work" class="nav-link text-sm font-medium" style="color: #00A7B3;">Our Work</a>
+        <a href="/contact" class="nav-cta-btn">Get in Touch</a>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden text-gray-400 p-2 -mr-2" aria-label="Open menu" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" style="background: rgba(13,31,34,0.95); backdrop-filter: blur(16px);">
+      <a href="/about" class="block py-3 text-sm text-gray-400 border-b border-white/5">About</a>
+      <a href="/services" class="block py-3 text-sm text-gray-400 border-b border-white/5">Services</a>
+      <a href="/how-it-works" class="block py-3 text-sm text-gray-400 border-b border-white/5">How it Works</a>
+      <a href="/our-work" class="block py-3 text-sm border-b border-white/5" style="color: #00A7B3;">Our Work</a>
+      <a href="/contact" class="block py-3 text-sm font-semibold" style="color:#00A7B3;">Get in Touch</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative pt-36 pb-20 flex items-center overflow-hidden">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-orb-3"></div>
+    </div>
+    <div class="dot-grid" aria-hidden="true"></div>
+    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center reveal-scale">
+      <p class="eyebrow mb-5">Our Work</p>
+      <h1 class="display-lg text-white pb-4">
+        <span class="block">Things we have built.</span>
+        <span class="block mt-2 text-brand-soft">In the open.</span>
+      </h1>
+      <p class="mt-8 body-lg font-body mx-auto max-w-2xl">
+        A selection of automations, agents, and apps we built to sharpen the craft. Some were prototyped for sectors we wanted to learn cold. One is a personal project we still use. All of them taught us how to ship faster for the next one.
+      </p>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- FEATURED: AI STUDY ASSISTANT -->
+  <section class="py-24 sm:py-32 relative overflow-hidden" style="background: var(--bg-accent-zone);">
+    <div class="section-orb" style="width: 700px; height: 600px; background: radial-gradient(circle, rgba(0,167,179,0.10), transparent 70%); top: 10%; left: 70%; transform: translate(-50%,-50%);" aria-hidden="true"></div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <div class="reveal max-w-3xl mb-12">
+        <p class="eyebrow mb-5">Featured Build · 01</p>
+        <h2 class="heading-xl text-white">
+          An AI study assistant <span class="text-brand-soft">built for exam season.</span>
+        </h2>
+        <p class="mt-6 body-lg" style="color: var(--text-secondary);">
+          A personal project. Claude-inspired UI, a vector database of 65 PDFs, four modes of working. The most polished of the set, and the one still in active use.
+        </p>
+      </div>
+
+      <div class="reveal-scale">
+        <div class="study-shell">
+          <div class="study-badge"><span class="pulse-dot"></span>Personal Project</div>
+
+          <div class="study-app">
+            <!-- Sidebar -->
+            <aside class="study-sidebar">
+              <div class="study-brand">
+                <span class="study-brand-dot">s</span>
+                studybot
+              </div>
+
+              <div>
+                <p class="study-section-label mb-2">Subjects</p>
+                <div class="study-subjects">
+                  <div class="study-subject active">Operating Systems</div>
+                  <div class="study-subject">DBMS</div>
+                  <div class="study-subject">Computer Networks</div>
+                  <div class="study-subject">Software Engineering</div>
+                  <div class="study-subject">Theory of Computation</div>
+                </div>
+              </div>
+
+              <div style="margin-top: auto; padding-top: 18px; border-top: 1px solid var(--stroke-soft);">
+                <p class="study-section-label">Knowledge base</p>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px; line-height: 1.5;">65 PDFs indexed across subjects</p>
+              </div>
+            </aside>
+
+            <!-- Main panel -->
+            <main class="study-main">
+              <div class="mode-switcher" role="tablist" aria-label="Study mode">
+                <button class="mode-tab" role="tab" aria-selected="true" data-mode="answer">Answer</button>
+                <button class="mode-tab" role="tab" aria-selected="false" data-mode="teach">Teach</button>
+                <button class="mode-tab" role="tab" aria-selected="false" data-mode="quiz">Quiz</button>
+                <button class="mode-tab" role="tab" aria-selected="false" data-mode="batch">Batch</button>
+              </div>
+
+              <div class="mode-panels">
+                <!-- ANSWER MODE -->
+                <div class="mode-panel active" data-panel="answer" role="tabpanel">
+                  <div class="study-q">
+                    <span class="q-prefix">Question</span>
+                    Explain the difference between paging and segmentation in operating systems.
+                  </div>
+                  <div class="mark-chips" aria-label="Mark value">
+                    <span class="mark-chip">1m</span>
+                    <span class="mark-chip">4m</span>
+                    <span class="mark-chip selected">8m · selected</span>
+                  </div>
+                  <div class="study-ans">
+                    <span class="ans-label">Structured answer · 8 marks</span>
+                    Paging divides memory into fixed-size frames; segmentation uses variable-size logical units.
+                    <ul>
+                      <li>Paging avoids external fragmentation, suffers internal.</li>
+                      <li>Segmentation matches program structure, easier sharing.</li>
+                      <li>Modern systems combine both: segmented paging.</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- TEACH MODE -->
+                <div class="mode-panel" data-panel="teach" role="tabpanel">
+                  <div class="study-q">
+                    <span class="q-prefix">Tell me about</span>
+                    Why do databases use B-trees and not binary search trees?
+                  </div>
+                  <div class="study-ans">
+                    <span class="ans-label">Walkthrough</span>
+                    Disk reads are the bottleneck, not comparisons. A B-tree keeps its height tiny by packing many keys into one node, so a single read pulls in a whole branch at once. A binary tree would force one disk hop per comparison: catastrophic at scale.
+                  </div>
+                  <p style="font-size: 10.5px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 600;">Go deeper</p>
+                  <div class="follow-pills">
+                    <button class="follow-pill">Simplify</button>
+                    <button class="follow-pill">Use an analogy</button>
+                    <button class="follow-pill">Go deeper</button>
+                  </div>
+                </div>
+
+                <!-- QUIZ MODE -->
+                <div class="mode-panel" data-panel="quiz" role="tabpanel">
+                  <div class="quiz-card">
+                    <p style="font-size: 10.5px; color: var(--text-muted); letter-spacing: 0.18em; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 700;">Quick quiz · Operating Systems · 1 / 5</p>
+                    <p class="quiz-q">Which scheduling algorithm guarantees no starvation by aging?</p>
+                    <div class="quiz-options">
+                      <button class="quiz-opt" data-quiz-opt><span class="opt-key">A</span>FCFS</button>
+                      <button class="quiz-opt chosen" data-quiz-opt><span class="opt-key">B</span>Priority with aging</button>
+                      <button class="quiz-opt" data-quiz-opt><span class="opt-key">C</span>SJF (non-preemptive)</button>
+                      <button class="quiz-opt" data-quiz-opt><span class="opt-key">D</span>Round Robin only</button>
+                    </div>
+                    <button class="quiz-submit">Check answer</button>
+                  </div>
+                </div>
+
+                <!-- BATCH MODE -->
+                <div class="mode-panel" data-panel="batch" role="tabpanel">
+                  <p style="font-size: 10.5px; color: var(--text-muted); letter-spacing: 0.18em; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 700;">Batch · 12 questions processed</p>
+                  <div class="batch-stack">
+                    <div class="batch-card">
+                      <span class="b-num">01</span>
+                      <span class="b-q">Define context switching.</span>
+                      <div class="batch-actions"><button>Copy</button><button>.docx</button></div>
+                    </div>
+                    <div class="batch-card">
+                      <span class="b-num">02</span>
+                      <span class="b-q">Compare RAID 0 vs RAID 5.</span>
+                      <div class="batch-actions"><button>Copy</button><button>.docx</button></div>
+                    </div>
+                    <div class="batch-card">
+                      <span class="b-num">03</span>
+                      <span class="b-q">What is the producer-consumer problem?</span>
+                      <div class="batch-actions"><button>Copy</button><button>.docx</button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+
+        <div class="study-stats">
+          <div class="study-stat"><span class="num">65</span><span class="label">PDFs in vector DB</span></div>
+          <div class="study-stat"><span class="num">4</span><span class="label">working modes</span></div>
+          <div class="study-stat"><span class="num">5</span><span class="label">subjects, separate memory</span></div>
+          <div class="study-stat"><span class="num">.docx</span><span class="label">batch export, one click</span></div>
+        </div>
+
+        <div class="study-personal">
+          Built this the month before my own university finals, partly to study and partly to see how far a single person could push a Claude-style app in a weekend. Kept it open for a few friends. It still gets opened every exam season.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- GRID: SIX OTHER BUILDS -->
+  <section class="py-24 sm:py-32 relative overflow-hidden">
+    <div class="section-orb" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,167,179,0.06), transparent 70%); top: 0; left: -10%;" aria-hidden="true"></div>
+    <div class="section-dot-grid" aria-hidden="true"></div>
+
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <div class="reveal max-w-3xl">
+        <p class="eyebrow mb-5">More from the bench</p>
+        <h2 class="heading-xl text-white">
+          Smaller builds. <span class="text-brand-soft">Real mechanics.</span>
+        </h2>
+        <p class="mt-6 body-lg" style="color: var(--text-secondary);">
+          Each of these is a working prototype: built end-to-end, not a slide deck. Filter by what you care about.
+        </p>
+
+        <div class="work-filters" role="tablist" aria-label="Filter by category">
+          <button class="work-chip active" data-filter="all">All</button>
+          <button class="work-chip" data-filter="whatsapp">WhatsApp Automation</button>
+          <button class="work-chip" data-filter="webapp">Web App</button>
+          <button class="work-chip" data-filter="agent">AI Agent</button>
+          <button class="work-chip" data-filter="workflow">Workflow</button>
+        </div>
+      </div>
+
+      <div class="work-grid mt-14 stagger" id="work-grid">
+
+        <!-- 02 · Table Reservation Bot -->
+        <article class="work-card reveal-scale" data-category="whatsapp">
+          <div class="work-head">
+            <span class="work-num">02 / Hospitality</span>
+            <span class="work-type">WhatsApp Automation</span>
+          </div>
+          <h3 class="work-title">Table reservation bot</h3>
+          <p class="work-desc">Captures bookings from WhatsApp, parses out the time, name, party size, and any special asks like a baby seat. Sends a reminder before the slot and a feedback message after.</p>
+          <div class="work-visual">
+            <div class="chat-stack">
+              <div class="chat-bubble">Hi, table for 4 at 8pm tomorrow, need a baby seat please.</div>
+              <div class="chat-bubble out">Confirmed · Sat 8:00pm · party of 4 · baby seat noted.</div>
+              <div class="chat-bubble out"><span class="dot"></span>Reminder · your table is 2 hours away.</div>
+              <div class="chat-bubble out">How was your evening? 30 seconds of feedback?</div>
+            </div>
+          </div>
+          <p class="work-note"><strong>Logged to:</strong> a Google Sheet with name, date, time, party size, special instructions, feedback, status.</p>
+        </article>
+
+        <!-- 03 · Reputation Management -->
+        <article class="work-card reveal-scale" data-category="webapp workflow">
+          <div class="work-head">
+            <span class="work-num">03 / Hospitality</span>
+            <span class="work-type">Web App + Workflow</span>
+          </div>
+          <h3 class="work-title">Reputation management system</h3>
+          <p class="work-desc">Three pipelines running at different cadences. Daily review scrape, weekly theme detection, quarterly sentiment trend. The owner gets a WhatsApp digest, the rest lives in a web dashboard.</p>
+          <div class="work-visual">
+            <div class="tri-pipe">
+              <div class="tri-lane">
+                <span class="tri-label">Daily</span>
+                <div class="tri-track">
+                  <div class="tri-pulse"></div>
+                  <span class="tri-node"></span><span class="tri-connector"></span>
+                  <span class="tri-node"></span><span class="tri-connector"></span>
+                  <span class="tri-node"></span>
+                </div>
+              </div>
+              <div class="tri-lane">
+                <span class="tri-label">Weekly</span>
+                <div class="tri-track">
+                  <div class="tri-pulse"></div>
+                  <span class="tri-node"></span><span class="tri-connector"></span>
+                  <span class="tri-node"></span><span class="tri-connector"></span>
+                  <span class="tri-node"></span>
+                </div>
+              </div>
+              <div class="tri-lane">
+                <span class="tri-label">12-Week</span>
+                <div class="tri-track">
+                  <div class="tri-pulse"></div>
+                  <span class="tri-node"></span><span class="tri-connector"></span>
+                  <span class="tri-node"></span><span class="tri-connector"></span>
+                  <span class="tri-node"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="work-note"><strong>The interesting bit:</strong> the 12-week pipeline replays metrics it stored weekly, so trends are real data, not snapshots.</p>
+        </article>
+
+        <!-- 04 · Daily Sales Summary -->
+        <article class="work-card reveal-scale" data-category="workflow">
+          <div class="work-head">
+            <span class="work-num">04 / Hospitality</span>
+            <span class="work-type">Workflow</span>
+          </div>
+          <h3 class="work-title">Daily sales summary</h3>
+          <p class="work-desc">Pulls a day's orders, cross-references the product catalogue, writes a plain-English summary for the owner on WhatsApp. Built standalone; clearly more useful as a Petpooja integration layer than as a replacement.</p>
+          <div class="work-visual">
+            <div class="pipeline-row">
+              <div class="pipeline-tile">
+                Orders
+                <div class="receipt-lines"><span></span><span></span><span></span></div>
+              </div>
+              <span class="pipeline-arrow">→</span>
+              <div class="pipeline-tile" style="color: var(--brand);">AI</div>
+              <span class="pipeline-arrow">→</span>
+              <div class="pipeline-tile">WhatsApp</div>
+            </div>
+            <div style="margin-top: 14px; padding: 10px 12px; border-radius: 10px; background: rgba(0,167,179,0.06); border: 1px solid var(--stroke-brand); font-size: 11.5px; color: var(--text-secondary); line-height: 1.5;">
+              Yesterday · ₹42,180 across 86 covers. Hazelnut latte led, 18 sold. Slowest hour: 3pm.
+            </div>
+          </div>
+          <p class="work-note"><strong>Honest take:</strong> most cafes use Petpooja, which already does basic summaries. The real value is plugging this on top to turn raw reports into a daily plain-English message.</p>
+        </article>
+
+        <!-- 05 · Customer Win-back -->
+        <article class="work-card reveal-scale" data-category="whatsapp">
+          <div class="work-head">
+            <span class="work-num">05 / Hospitality</span>
+            <span class="work-type">WhatsApp Automation</span>
+          </div>
+          <h3 class="work-title">Customer win-back</h3>
+          <p class="work-desc">Notices when a regular has gone quiet, pulls what they ordered last, drafts a warm WhatsApp message with the right details slotted in. Approved templates with AI-written variables underneath.</p>
+          <div class="work-visual">
+            <div class="template-card">
+              Hey <span class="var">{name}</span>, we miss you. Still have that <span class="var">{last_order}</span> with your name on it. Been <span class="var">{days_since}</span> days. Come back soon?
+              <div class="template-resolved">→ "Hey <span>Priya</span>, we miss you. Still have that <span>hazelnut latte</span> with your name on it. Been <span>21</span> days. Come back soon?"</div>
+            </div>
+          </div>
+          <p class="work-note"><strong>Where this goes next:</strong> a building block in a wider loyalty system, not a standalone product.</p>
+        </article>
+
+        <!-- 06 · Admission Inquiry Agent -->
+        <article class="work-card reveal-scale" data-category="agent">
+          <div class="work-head">
+            <span class="work-num">06 / Education</span>
+            <span class="work-type">AI Agent</span>
+          </div>
+          <h3 class="work-title">Admission inquiry agent</h3>
+          <p class="work-desc">A chatbot that knows a coaching center's offerings cold and answers parents and students with the same patience at 11pm as at 11am. WhatsApp-ready. Built to plug into the channel the center already uses.</p>
+          <div class="work-visual">
+            <div class="split-mode">
+              <div class="split-pane">
+                <span class="pane-label">Live mode</span>
+                <span class="split-line">Parent: What batches start in June?</span>
+                <span class="split-line ai">Agent: Two JEE batches and one NEET.</span>
+              </div>
+              <div class="split-pane training">
+                <span class="pane-label">Training mode</span>
+                <span class="split-line ai">AI as customer: Do you offer demo classes?</span>
+                <span class="split-line">You answer · AI scores reply</span>
+              </div>
+            </div>
+          </div>
+          <p class="work-note"><strong>The interesting bit:</strong> a two-way training mode lets the owner roleplay with the AI to tune answers before going live.</p>
+        </article>
+
+        <!-- 07 · Lead Generation Workflow -->
+        <article class="work-card reveal-scale" data-category="workflow">
+          <div class="work-head">
+            <span class="work-num">07 / B2B</span>
+            <span class="work-type">Workflow</span>
+          </div>
+          <h3 class="work-title">Lead generation pipeline</h3>
+          <p class="work-desc">Scrapes Google for a target type of business, then runs each result through configurable qualifiers before it ever lands in the sheet. The qualifiers are the product: LinkedIn presence, valid website, email visible.</p>
+          <div class="work-visual">
+            <div class="funnel">
+              <div class="funnel-stage"><span>Apify scrape · raw results</span><span class="count">1,243</span></div>
+              <div class="funnel-stage"><span>Gate · LinkedIn present? <span class="gate">cross-reference</span></span><span class="count">412</span></div>
+              <div class="funnel-stage"><span>Gate · valid website? <span class="gate">crawl + verify</span></span><span class="count">128</span></div>
+              <div class="funnel-stage qualified"><span>Qualified · → Google Sheet</span><span class="count">47</span></div>
+            </div>
+          </div>
+          <p class="work-note"><strong>What makes it useful:</strong> the qualifiers are configurable per run, so the same pipeline becomes a different list with one toggle.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- CTA STRIP -->
+  <section class="py-24 sm:py-28 relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-6 relative z-10 reveal-scale">
+      <div class="cta-strip">
+        <p class="eyebrow mb-4" style="position: relative; z-index: 1;">What's next</p>
+        <h2 class="heading-lg text-white" style="position: relative; z-index: 1;">
+          Got a workflow <span class="text-brand-soft">that looks like one of these?</span>
+        </h2>
+        <p class="mt-6 body-lg mx-auto max-w-xl" style="color: var(--text-secondary); position: relative; z-index: 1;">
+          The next one we build could be yours. Tell us what's eating your week and we'll come back with a plan.
+        </p>
+        <div class="mt-10 flex justify-center" style="position: relative; z-index: 1;">
+          <a href="/contact" class="btn-slide">
+            <span class="btn-slide-text">Start a Conversation</span>
+            <span class="btn-slide-icon">
+              <svg fill="none" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-glow"></div>
+
+  <!-- FOOTER -->
+  <footer class="py-16 border-t border-white/5 mt-auto">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+        <div class="col-span-2 lg:col-span-1">
+          <a href="/" class="inline-block mb-4">
+            <span class="font-heading font-bold text-xl tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span>
+          </a>
+          <p class="text-sm leading-relaxed mb-4" style="color: var(--text-muted);">Automation built for real business.</p>
+          <span class="text-xs flex items-center gap-1.5" style="color: var(--text-muted);">
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z"/></svg>
+            Mumbai, India
+          </span>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing: 0.14em; color: var(--text-muted);">Company</p>
+          <ul class="space-y-3">
+            <li><a href="/" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Home</a></li>
+            <li><a href="/about" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">About</a></li>
+            <li><a href="/services" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Services</a></li>
+            <li><a href="/how-it-works" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">How it Works</a></li>
+            <li><a href="/our-work" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Our Work</a></li>
+            <li><a href="/#faq" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing: 0.14em; color: var(--text-muted);">Contact</p>
+          <ul class="space-y-3">
+            <li><a href="mailto:nekunj@nsquareai.in" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">nekunj@nsquareai.in</a></li>
+            <li><a href="tel:+918879897814" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">+91 8879897814</a></li>
+            <li><a href="https://www.instagram.com/nsquareai.in" target="_blank" rel="noopener noreferrer" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">@nsquareai.in</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing: 0.14em; color: var(--text-muted);">Legal</p>
+          <ul class="space-y-3">
+            <li><a href="/privacy" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Privacy Policy</a></li>
+            <li><a href="/terms" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 pt-8 border-t border-white/5 text-center">
+        <p class="text-xs" style="color: var(--text-muted);">&copy; 2026 nsquareai. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js?v=2" defer></script>
+</body>
+</html>

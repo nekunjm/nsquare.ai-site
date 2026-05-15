@@ -383,3 +383,106 @@
 - Mumbai, India
 - Email *(nekunjm@gmail.com)*
 - © 2026 nsquareai. All rights reserved.
+
+
+---
+
+## our-work.html (Our Work Page)
+
+### Page Meta
+- **Title:** Our Work | nsquareai
+- **Description:** A selection of automations and AI builds we have shipped, prototyped, and explored. From WhatsApp workflows to a personal AI study assistant.
+
+---
+
+### Navbar
+- About
+- Services
+- How it Works
+- Our Work *(active)*
+- Get in Touch *(CTA)*
+
+---
+
+### Hero
+**Label:** Our Work
+
+**Heading:**
+> Things we have built.
+> In the open.
+
+**Body:**
+> A selection of automations, agents, and apps we built to sharpen the craft. Some were prototyped for sectors we wanted to learn cold. One is a personal project we still use. All of them taught us how to ship faster for the next one.
+
+---
+
+### Featured Build · 01 · AI Study Assistant
+
+**Heading:**
+> An AI study assistant built for exam season.
+
+**Body:**
+> A personal project. Claude-inspired UI, a vector database of 65 PDFs, four modes of working. The most polished of the set, and the one still in active use.
+
+**Modes:** Answer, Teach, Quiz, Batch
+
+**Stats:**
+- 65 PDFs in vector DB
+- 4 working modes
+- 5 subjects, separate memory
+- .docx batch export, one click
+
+**Founder note:**
+> Built this the month before my own university finals, partly to study and partly to see how far a single person could push a Claude-style app in a weekend. Kept it open for a few friends. It still gets opened every exam season.
+
+---
+
+### More from the bench
+
+**Heading:**
+> Smaller builds. Real mechanics.
+
+**Body:**
+> Each of these is a working prototype: built end-to-end, not a slide deck. Filter by what you care about.
+
+**Filter chips:** All, WhatsApp Automation, Web App, AI Agent, Workflow
+
+---
+
+#### 02 · Table reservation bot · WhatsApp Automation
+Captures bookings from WhatsApp, parses out the time, name, party size, and any special asks like a baby seat. Sends a reminder before the slot and a feedback message after.
+**Logged to:** a Google Sheet with name, date, time, party size, special instructions, feedback, status.
+
+#### 03 · Reputation management system · Web App + Workflow
+Three pipelines running at different cadences. Daily review scrape, weekly theme detection, quarterly sentiment trend. The owner gets a WhatsApp digest, the rest lives in a web dashboard.
+**The interesting bit:** the 12-week pipeline replays metrics it stored weekly, so trends are real data, not snapshots.
+
+#### 04 · Daily sales summary · Workflow
+Pulls a day's orders, cross-references the product catalogue, writes a plain-English summary for the owner on WhatsApp. Built standalone; clearly more useful as a Petpooja integration layer than as a replacement.
+**Honest take:** most cafes use Petpooja, which already does basic summaries. The real value is plugging this on top to turn raw reports into a daily plain-English message.
+
+#### 05 · Customer win-back · WhatsApp Automation
+Notices when a regular has gone quiet, pulls what they ordered last, drafts a warm WhatsApp message with the right details slotted in. Approved templates with AI-written variables underneath.
+**Where this goes next:** a building block in a wider loyalty system, not a standalone product.
+
+#### 06 · Admission inquiry agent · AI Agent
+A chatbot that knows a coaching center's offerings cold and answers parents and students with the same patience at 11pm as at 11am. WhatsApp-ready. Built to plug into the channel the center already uses.
+**The interesting bit:** a two-way training mode lets the owner roleplay with the AI to tune answers before going live.
+
+#### 07 · Lead generation pipeline · Workflow
+Scrapes Google for a target type of business, then runs each result through configurable qualifiers before it ever lands in the sheet. The qualifiers are the product: LinkedIn presence, valid website, email visible.
+**What makes it useful:** the qualifiers are configurable per run, so the same pipeline becomes a different list with one toggle.
+
+---
+
+### CTA strip
+
+**Label:** What's next
+
+**Heading:**
+> Got a workflow that looks like one of these?
+
+**Body:**
+> The next one we build could be yours. Tell us what's eating your week and we'll come back with a plan.
+
+**CTA Button:** Start a Conversation
