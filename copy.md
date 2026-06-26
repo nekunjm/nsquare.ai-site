@@ -486,3 +486,122 @@ Scrapes Google for a target type of business, then runs each result through conf
 > The next one we build could be yours. Tell us what's eating your week and we'll come back with a plan.
 
 **CTA Button:** Start a Conversation
+
+---
+---
+
+## d2c.html (D2C Ops Landing Page)
+
+> Standalone single-page landing page for a separate subdomain. Not linked from the main site nav.
+> Showcases a working AI operations demo built for D2C brands, spotlighting the supply-chain
+> reorder workflow. All CTAs redirect to the main nsquareai.in site. Never names the demo brand
+> (the underlying demo used a placeholder brand only; naming it would imply a real client).
+
+### Page Meta
+- **Title:** AI Operations for D2C Brands | nsquareai
+- **Description:** A working demo of an AI operations layer for D2C brands: forecasting, supply chain, orders, finance and retention, monitored and drafted automatically. Built by nsquareai.
+
+---
+
+### Hero
+**Eyebrow:** for D2C founders who already run the ops
+
+**Heading:**
+> Run your whole D2C brand
+> from one screen.
+
+**Subheading:**
+> You know the drill: forecasts, COD reconciliation, channel stock, RTO, influencer payouts. One AI ops layer runs all of it, drafts every call, and surfaces the three that actually need you. You approve, it executes.
+
+**CTA Button:** See what we'd build for you *(→ nsquareai.in/contact)*
+
+**Honesty note:** demo data · not a real brand
+
+**Hero mockup (Command Center):** Live · reading 6 systems · Good morning · 8 decisions today · 3 urgent · 3 purchase orders ready to approve (₹1.8L committed, prevents stockouts) · ₹18,000 COD remittance overdue · 2 listings out of sync · 14 customers due to reorder · Handled today: 23 tasks, no clicks.
+
+---
+
+### Problem
+**Label:** 01 · The 8am ritual
+
+**Heading:**
+> Every morning, six tabs open just to read yesterday.
+
+**Body:**
+> Shopify, the Delhivery panel, the Razorpay dashboard, an accounts sheet, the Meta ad manager, and WhatsApp going off the whole time. Forty minutes of tab-switching just to know whether yesterday was good. And the things quietly costing you are never on the screen:
+
+**Cards (ledger, ERR_01–06):**
+1. **You find out you're low when it's already too late** — The best-seller hits single digits and you check the supplier: a 35-day lead on the imported pump. That SKU is gone for a month, in peak season, and all you can do is watch it run out.
+2. **Nykaa says in stock. The warehouse says no.** — Listed quantity drifts from real quantity. You oversell on Nykaa or Flipkart and eat the penalty and a one-star review, or show out of stock on Blinkit while the units sit in Bhiwandi.
+3. **COD cash you can't see, RTO you can't predict** — Lakhs in COD sit with the courier past the remittance cycle and nobody is reconciling it. Meanwhile a high-RTO pincode keeps shipping, coming back, and costing you the freight both ways.
+4. **You paid the creator. Did you make money?** — Payout sent, TDS deducted under 194J, coupon code live. Three weeks on, you still can't say whether that collab returned 3x or quietly burned the budget. The attribution lives in someone's head.
+5. **A batch quietly ages into a write-off** — Stock with a shelf life slides past its clearance window while you're firefighting. What could have moved at 30% off, or gone to a salon chain, lands on the books as a 100% loss.
+6. **Regulars go quiet, carts die in silence** — Seven in ten carts abandoned, and the customer who reordered every 50 days just stopped. The WhatsApp nudge that would bring either of them back never goes out, because who has the time.
+
+---
+
+### Outcome
+**Label:** The outcome
+
+**Heading:**
+> One system does the watching. You just approve.
+
+**Body:**
+> When the whole operation runs on one layer, the morning changes shape. The system reads every part of the business at once, surfaces the few decisions that actually need a human, and quietly handles the rest in the background.
+
+**Stats:**
+- **30 min** *(down from 4 hours)* — to review the whole business each morning.
+- **1** *(instead of six tabs)* — screen to run orders, stock, supply, finance and retention.
+- **3×** *(the leverage)* — of a team three times your size, on the same headcount.
+
+**automations.log (always on):**
+- Reorders drafted nightly, before stock runs out, with Indian supplier lead times built in.
+- Stock synced across Amazon, Nykaa, Flipkart and Blinkit, so oversell and lost sales stop.
+- COD reconciled, and overdue remittances chased the moment they cross the line.
+- Influencer payouts drafted with TDS deducted, and ROAS attributed per coupon code.
+- Customers nudged on WhatsApp on their reorder cycle and when a cart is left behind.
+- A daily brief at 8 AM with the numbers and the three calls that actually need you.
+
+---
+
+### Feature Spotlight (Supply Chain)
+**Label:** Feature spotlight · Supply chain
+
+**Heading:**
+> The agent reorders your stock before you run out.
+
+**Body:**
+> This is one workflow out of many. It is the one that quietly protects the most revenue, because a stockout on a best-seller is a sale you can never get back.
+
+**Steps:**
+1. **It forecasts the run-out** — The agent reads live inventory and real sell-through, then projects the date each SKU hits zero. It knows the 35-day lead time on imported components and counts backwards from it.
+2. **It drafts the purchase orders** — One purchase order per supplier, respecting minimum order quantities and lead times. It runs every night and never double-orders something already on the way.
+3. **It pings you on WhatsApp** — The brief arrives at 8 AM, before the first meeting: *"Supply agent drafted 3 POs (₹1.8L). 1 is for imported pumps on a 35-day lead. Approve early to avoid a stockout."*
+4. **You tap approve. Once.** — That single tap is the entire human contribution. The analysis, the drafting and the timing were already done for you.
+5. **Then the cascade runs itself** — The formal PO is generated and sent to the supplier, accounts is told what is due and when, the committed spend is booked, and the manufacturer is warned that materials are coming. No further clicks.
+
+**Mockup cascade (Then, automatically):** PO document generated with GST and terms → Supplier notified by email and WhatsApp → Accounts told what advance is due and when → Ledger updated with the committed spend → Manufacturer alerted that materials are inbound.
+
+---
+
+### Closing CTA
+**Label:** status: ready to go live · first brands only
+
+**Heading:**
+> I'm taking on 2 or 3 brands as the first real deployments.
+
+**Body:**
+> Everything here is a working demo, and it is ready to go live. It is looking for its first real brand. Not open to everyone: a few D2C brands I build this into completely, from the inside. Your Shopify, your suppliers, your Nykaa and Blinkit listings, your COD, your real numbers. We map the operation first, then run it together.
+
+**Honest line:** Honest version: this is a deployment-ready demo still looking for its first brand to go live with. Come in as one of the first few, and you get an operations layer built around you, on terms that reflect that.
+
+**CTA Button:** See if your brand's a fit *(→ nsquareai.in/contact)*
+
+**Secondary link:** or just see what else we build *(→ nsquareai.in)*
+
+---
+
+### Footer
+- nsquareai
+- A demo by nsquareai · Mumbai, India · © 2026
+- nsquareai.in

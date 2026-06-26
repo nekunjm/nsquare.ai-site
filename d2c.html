@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Operations for D2C Brands | nsquareai</title>
+  <meta name="description" content="A working demo of an AI operations layer for D2C brands: forecasting, supply chain, orders, finance and retention, monitored and drafted automatically. Built by nsquareai.">
+  <meta name="robots" content="noindex">
+  <meta property="og:title" content="Your whole D2C brand, run from one screen">
+  <meta property="og:description" content="A working AI ops demo by nsquareai. The system forecasts, drafts and chases. You just approve.">
+  <meta property="og:type" content="website">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: '#00A7B3', 'brand-soft': '#2BC4CF', 'brand-deep': '#007A83',
+            primary: '#0D1F22', elevated: '#122A2E', floating: '#173438',
+            deep: '#081518', 'accent-zone': '#0E2629',
+            'text-primary': '#F2F5F5', 'text-secondary': '#A8B5B7', 'text-muted': '#6E7E80',
+          },
+          fontFamily: {
+            heading: ['Montserrat', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    /* ══════════════════════════════════════════════════ */
+    /* TOKENS — nsquareai brand language, console dialect  */
+    /* ══════════════════════════════════════════════════ */
+    :root {
+      --bg-primary:#0D1F22; --bg-elevated:#122A2E; --bg-floating:#173438;
+      --bg-deep:#081518; --bg-accent-zone:#0E2629;
+      --brand:#00A7B3; --brand-soft:#2BC4CF; --brand-deep:#007A83;
+      --brand-tint-06:rgba(0,167,179,0.06); --brand-tint-08:rgba(0,167,179,0.08);
+      --brand-tint-15:rgba(0,167,179,0.15);
+      --text-primary:#F2F5F5; --text-secondary:#A8B5B7; --text-muted:#6E7E80;
+      --text-on-brand:#0D1F22;
+      --warn:#FF8B7A;
+      --stroke-soft:rgba(255,255,255,0.07);
+      --stroke-brand:rgba(0,167,179,0.22);
+      --hair:rgba(255,255,255,0.09);
+      --mono:'JetBrains Mono', monospace;
+      --r:14px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Inter',sans-serif; background:var(--bg-primary); color:var(--text-primary);
+      overflow-x:hidden; -webkit-font-smoothing:antialiased; font-size:16px;
+    }
+
+    /* ── Type ── */
+    .h-hero {
+      font-family:'Montserrat',sans-serif; font-weight:800;
+      font-size:clamp(2.1rem, 5.2vw, 3.5rem); line-height:1.06; letter-spacing:-0.035em;
+    }
+    .h-sec {
+      font-family:'Montserrat',sans-serif; font-weight:800;
+      font-size:clamp(1.8rem, 3.8vw, 2.9rem); line-height:1.1; letter-spacing:-0.03em;
+    }
+    .lede { font-size:1.0625rem; line-height:1.7; color:var(--text-secondary); }
+    @media (min-width:768px){ .lede{ font-size:1.15rem; } }
+    .accent { color:var(--brand-soft); }
+    .mono { font-family:var(--mono); }
+
+    /* mono kicker like  //  THE PROBLEM */
+    .kicker {
+      font-family:var(--mono); font-size:0.72rem; font-weight:500; letter-spacing:0.14em;
+      text-transform:uppercase; color:var(--brand);
+      display:inline-flex; align-items:center; gap:9px;
+    }
+    .kicker::before { content:''; width:26px; height:1px; background:var(--brand); opacity:0.7; }
+
+    /* ── Layout helpers ── */
+    .wrap { max-width:1120px; margin:0 auto; padding-left:20px; padding-right:20px; }
+    @media (min-width:768px){ .wrap{ padding-left:32px; padding-right:32px; } }
+    .sec { position:relative; padding-top:74px; padding-bottom:74px; border-top:1px solid var(--hair); }
+    @media (min-width:768px){ .sec{ padding-top:108px; padding-bottom:108px; } }
+
+    /* ghost watermark numeral */
+    .ghost {
+      position:absolute; top:40px; right:18px; z-index:0; pointer-events:none; user-select:none;
+      font-family:'Montserrat',sans-serif; font-weight:900; line-height:0.8;
+      font-size:clamp(5rem, 15vw, 10rem);
+      color:transparent; -webkit-text-stroke:1px rgba(0,167,179,0.13);
+    }
+    @media (max-width:640px){ .ghost{ top:30px; right:10px; opacity:0.7; } }
+
+    /* ══════════════════════════════════════════════════ */
+    /* BACKGROUND TEXTURES (distinct: blueprint grid)     */
+    /* ══════════════════════════════════════════════════ */
+    .grid-overlay {
+      position:fixed; inset:0; z-index:0; pointer-events:none;
+      background-image:
+        linear-gradient(rgba(0,167,179,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,167,179,0.045) 1px, transparent 1px);
+      background-size:46px 46px;
+      mask-image:radial-gradient(ellipse 90% 55% at 50% 0%, black, transparent 75%);
+      -webkit-mask-image:radial-gradient(ellipse 90% 55% at 50% 0%, black, transparent 75%);
+    }
+    .noise {
+      position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:0.028;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:256px 256px;
+    }
+    .glow {
+      position:absolute; border-radius:50%; filter:blur(110px); pointer-events:none; z-index:0;
+    }
+
+    /* ══════════════════════════════════════════════════ */
+    /* SCROLL REVEAL                                       */
+    /* ══════════════════════════════════════════════════ */
+    .rv { opacity:0; transform:translateY(24px);
+      transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .rv.in { opacity:1; transform:none; }
+    .rv-l { opacity:0; transform:translateX(-28px);
+      transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+    .rv-l.in { opacity:1; transform:none; }
+    .st > .rv:nth-child(1),.st > .rv-l:nth-child(1){ transition-delay:0ms; }
+    .st > .rv:nth-child(2){ transition-delay:90ms; }
+    .st > .rv:nth-child(3){ transition-delay:180ms; }
+    .st > .rv:nth-child(4){ transition-delay:270ms; }
+    .st > .rv:nth-child(5){ transition-delay:360ms; }
+    .st > .rv:nth-child(6){ transition-delay:450ms; }
+
+    /* ══════════════════════════════════════════════════ */
+    /* TOP BAR (no nav — wordmark + status, scrolls away)  */
+    /* ══════════════════════════════════════════════════ */
+    .topbar { position:absolute; top:0; left:0; right:0; z-index:40; }
+    .topbar .wrap { display:flex; align-items:center; justify-content:space-between; padding-top:22px; padding-bottom:22px; }
+    .wordmark { font-family:'Montserrat',sans-serif; font-weight:700; font-size:1.4rem;
+      letter-spacing:-0.02em; color:#fff; text-decoration:none; }
+    .wordmark b { color:var(--brand); font-weight:700; }
+    .topbar-link { font-family:var(--mono); font-size:0.72rem; letter-spacing:0.06em;
+      color:var(--text-muted); text-decoration:none; transition:color .3s; }
+    .topbar-link:hover { color:var(--brand-soft); }
+
+    /* ══════════════════════════════════════════════════ */
+    /* BUTTONS (squarer "command" style, not home's pill)  */
+    /* ══════════════════════════════════════════════════ */
+    .btn {
+      display:inline-flex; align-items:center; gap:11px;
+      background:var(--brand); color:var(--text-on-brand);
+      font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.95rem;
+      padding:15px 24px; border-radius:11px; text-decoration:none; border:none; cursor:pointer;
+      transition:transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s; box-shadow:0 0 0 rgba(0,167,179,0);
+    }
+    .btn svg { transition:transform .35s cubic-bezier(.16,1,.3,1); }
+    .btn:hover { transform:translateY(-2px); box-shadow:0 10px 34px rgba(0,167,179,0.32); }
+    .btn:hover svg { transform:translate(3px,-3px); }
+    .btn:active { transform:translateY(0); }
+    .btn:focus-visible { outline:2px solid var(--brand-soft); outline-offset:3px; }
+    .btn-ghost {
+      display:inline-flex; align-items:center; gap:8px; font-family:var(--mono);
+      font-size:0.82rem; color:var(--text-secondary); text-decoration:none;
+      padding-bottom:2px; border-bottom:1px solid var(--stroke-brand); transition:color .3s, border-color .3s;
+    }
+    .btn-ghost:hover { color:var(--brand-soft); border-color:var(--brand-soft); }
+    .btn-ghost:focus-visible { outline:2px solid var(--brand-soft); outline-offset:3px; }
+
+    /* ══════════════════════════════════════════════════ */
+    /* CONSOLE WINDOW (mockups)                            */
+    /* ══════════════════════════════════════════════════ */
+    .win {
+      background:rgba(13,31,34,0.66); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+      border:1px solid var(--stroke-brand); border-radius:16px; overflow:hidden;
+      box-shadow:0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(0,167,179,0.06);
+    }
+    .win-bar {
+      display:flex; align-items:center; gap:7px; padding:13px 16px;
+      border-bottom:1px solid var(--hair); background:rgba(8,21,24,0.5);
+    }
+    .dot { width:10px; height:10px; border-radius:50%; }
+    .win-name { font-family:var(--mono); font-size:0.74rem; color:var(--text-muted); margin-left:8px; }
+    .win-live { margin-left:auto; font-family:var(--mono); font-size:0.66rem; letter-spacing:0.1em;
+      color:var(--brand-soft); display:flex; align-items:center; gap:6px; }
+    .win-live::before { content:''; width:7px; height:7px; border-radius:50%; background:#4ade80;
+      box-shadow:0 0 8px #4ade80; animation:blink 2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.35;} }
+    .win-body { padding:18px; }
+
+    .win-eyebrow { font-family:var(--mono); font-size:0.66rem; letter-spacing:0.12em;
+      text-transform:uppercase; color:var(--text-muted); margin-bottom:6px; }
+
+    /* command-center brief rows */
+    .greet { font-family:'Montserrat',sans-serif; font-weight:800; font-size:1.05rem; margin-bottom:14px; }
+    .greet b { color:var(--brand); font-weight:800; }
+    .brow { display:flex; align-items:flex-start; gap:11px; padding:11px 0; border-top:1px solid var(--hair); }
+    .brow:first-of-type { border-top:none; }
+    .sev { width:8px; height:8px; border-radius:50%; flex-shrink:0; margin-top:6px; }
+    .sev-h { background:var(--warn); box-shadow:0 0 9px rgba(255,139,122,0.6); }
+    .sev-m { background:var(--brand); }
+    .sev-l { background:var(--text-muted); }
+    .brow-t { font-size:0.84rem; color:var(--text-primary); font-weight:500; line-height:1.4; }
+    .brow-s { font-family:var(--mono); font-size:0.68rem; color:var(--text-muted); margin-top:3px; }
+    .brow-chip { margin-left:auto; align-self:center; flex-shrink:0; font-family:var(--mono);
+      font-size:0.66rem; color:var(--brand); border:1px solid var(--stroke-brand);
+      padding:4px 9px; border-radius:6px; white-space:nowrap; }
+
+    /* ══════════════════════════════════════════════════ */
+    /* PROBLEM LEDGER (rows, not cards)                    */
+    /* ══════════════════════════════════════════════════ */
+    .ledger { list-style:none; display:grid; grid-template-columns:1fr; }
+    @media (min-width:860px){ .ledger{ grid-template-columns:1fr 1fr; column-gap:56px; } }
+    .led {
+      display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start;
+      padding:24px 4px 24px 0; border-top:1px solid var(--hair); position:relative;
+    }
+    .led::after { content:''; position:absolute; left:0; top:-1px; width:0; height:1px;
+      background:var(--warn); transition:width .5s cubic-bezier(.16,1,.3,1); }
+    .led:hover::after { width:46px; }
+    .led-ico { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+      background:rgba(255,139,122,0.08); border:1px solid rgba(255,139,122,0.18); color:var(--warn); flex-shrink:0; }
+    .led-ico svg { width:19px; height:19px; }
+    .led-id { font-family:var(--mono); font-size:0.68rem; color:var(--text-muted); letter-spacing:0.08em; }
+    .led-t { font-family:'Montserrat',sans-serif; font-weight:700; font-size:1.04rem; color:var(--text-primary);
+      margin:5px 0 8px; }
+    .led-b { font-size:0.92rem; line-height:1.6; color:var(--text-secondary); }
+
+    /* ══════════════════════════════════════════════════ */
+    /* OUTCOME — delta readouts + terminal log            */
+    /* ══════════════════════════════════════════════════ */
+    .deltas { display:grid; grid-template-columns:1fr; gap:1px; background:var(--hair);
+      border:1px solid var(--hair); border-radius:var(--r); overflow:hidden; }
+    @media (min-width:720px){ .deltas{ grid-template-columns:repeat(3,1fr); } }
+    .delta { background:var(--bg-primary); padding:26px 24px; transition:background .4s; }
+    .delta:hover { background:var(--bg-elevated); }
+    .delta .k { font-family:var(--mono); font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase;
+      color:var(--text-muted); margin-bottom:16px; }
+    .delta .val { display:flex; align-items:baseline; gap:11px; font-family:'Montserrat',sans-serif; }
+    .delta .from { font-family:var(--mono); font-weight:500; font-size:1rem; color:var(--text-muted);
+      text-decoration:line-through; text-decoration-color:rgba(110,126,128,0.5); }
+    .delta .arr { color:var(--brand); font-family:var(--mono); font-size:1.1rem; }
+    .delta .to { font-weight:900; font-size:2.4rem; line-height:0.9; letter-spacing:-0.04em; color:var(--brand); }
+    .delta .to .u { font-size:1rem; font-weight:700; color:var(--brand-soft); margin-left:3px; }
+    .delta .note { font-size:0.86rem; color:var(--text-secondary); margin-top:14px; line-height:1.5; }
+
+    .term { border:1px solid var(--hair); border-radius:var(--r); overflow:hidden; background:rgba(8,21,24,0.4); }
+    .term-bar { display:flex; align-items:center; justify-content:space-between; padding:12px 18px;
+      border-bottom:1px solid var(--hair); }
+    .term-bar .nm { font-family:var(--mono); font-size:0.74rem; color:var(--text-secondary); }
+    .term-bar .tg { font-family:var(--mono); font-size:0.64rem; letter-spacing:0.12em; text-transform:uppercase;
+      color:var(--brand-soft); border:1px solid var(--stroke-brand); padding:3px 8px; border-radius:5px; }
+    .term-body { padding:8px 18px 16px; }
+    .logline { display:flex; gap:13px; align-items:flex-start; padding:11px 0; border-top:1px dashed rgba(255,255,255,0.06); }
+    .logline:first-child { border-top:none; }
+    .logline .ok { font-family:var(--mono); color:var(--brand); font-size:0.9rem; flex-shrink:0; margin-top:1px; }
+    .logline .lt { font-size:0.92rem; color:var(--text-secondary); line-height:1.5; }
+    .logline .lt b { color:var(--text-primary); font-weight:600; }
+
+    /* ══════════════════════════════════════════════════ */
+    /* SPOTLIGHT — steps + supply console                 */
+    /* ══════════════════════════════════════════════════ */
+    .steps { display:flex; flex-direction:column; gap:4px; }
+    .step { display:grid; grid-template-columns:auto 1fr; gap:18px; padding:14px 0; }
+    .step-n { font-family:var(--mono); font-size:0.72rem; color:var(--brand);
+      border:1px solid var(--stroke-brand); border-radius:7px; padding:7px 9px; height:fit-content;
+      letter-spacing:0.06em; white-space:nowrap; }
+    .step-h { font-family:'Montserrat',sans-serif; font-weight:700; font-size:1.05rem; color:var(--text-primary); margin-bottom:6px; }
+    .step-b { font-size:0.93rem; line-height:1.6; color:var(--text-secondary); }
+    .wa-line {
+      margin-top:12px; padding:12px 14px; border-radius:10px; background:rgba(8,21,24,0.55);
+      border:1px solid var(--hair); border-left:2px solid var(--brand);
+      font-family:var(--mono); font-size:0.78rem; line-height:1.6; color:var(--text-secondary);
+    }
+    .wa-line .pfx { color:var(--brand-soft); }
+
+    /* supply console internals */
+    .fc { font-family:var(--mono); }
+    .fc-row { display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center;
+      padding:9px 0; border-top:1px solid var(--hair); font-size:0.76rem; }
+    .fc-row:first-of-type { border-top:none; }
+    .fc-sku { color:var(--text-primary); }
+    .fc-cv { color:var(--text-muted); }
+    .fc-fl { font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; padding:3px 8px; border-radius:5px; }
+    .fc-re { color:var(--warn); background:rgba(255,139,122,0.09); border:1px solid rgba(255,139,122,0.22); }
+    .fc-ok { color:var(--brand-soft); background:var(--brand-tint-08); border:1px solid var(--stroke-brand); }
+
+    .decision { border:1px solid var(--hair); border-radius:12px; background:rgba(18,42,46,0.5); padding:16px; margin-top:16px; }
+    .dec-top { display:flex; align-items:center; gap:9px; margin-bottom:11px; }
+    .dec-cat { font-family:var(--mono); font-size:0.64rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); }
+    .dec-t { font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.98rem; margin-bottom:5px; }
+    .dec-i { font-family:var(--mono); font-size:0.72rem; color:var(--text-secondary); margin-bottom:14px; }
+    .dec-i b { color:var(--brand-soft); }
+    .approve { display:inline-flex; align-items:center; gap:8px; background:var(--brand); color:var(--text-on-brand);
+      font-family:'Montserrat',sans-serif; font-weight:700; font-size:0.82rem; padding:9px 16px; border-radius:8px;
+      border:none; cursor:default; position:relative; }
+    .approve::after { content:''; position:absolute; inset:-3px; border-radius:10px; border:1.5px solid var(--brand);
+      opacity:0; animation:tap 3.4s ease-in-out infinite; }
+    @keyframes tap { 0%,72%,100%{opacity:0; transform:scale(1);} 80%{opacity:.7;} 100%{opacity:0; transform:scale(1.16);} }
+
+    .casc { margin-top:18px; }
+    .casc-h { font-family:var(--mono); font-size:0.64rem; letter-spacing:0.12em; text-transform:uppercase;
+      color:var(--brand); margin-bottom:12px; display:flex; align-items:center; gap:7px; }
+    .ci { display:flex; align-items:center; gap:12px; padding:8px 0; position:relative; }
+    .ci-tk { width:21px; height:21px; border-radius:6px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+      border:1px solid var(--stroke-brand); background:var(--brand-tint-06); color:var(--brand-soft);
+      animation:tg 5.5s ease-in-out infinite; }
+    .ci-tk svg { width:11px; height:11px; }
+    .ci:nth-child(2) .ci-tk{animation-delay:0s;} .ci:nth-child(3) .ci-tk{animation-delay:.4s;}
+    .ci:nth-child(4) .ci-tk{animation-delay:.8s;} .ci:nth-child(5) .ci-tk{animation-delay:1.2s;}
+    .ci:nth-child(6) .ci-tk{animation-delay:1.6s;}
+    @keyframes tg { 0%,30%,100%{box-shadow:0 0 0 0 rgba(0,167,179,0); border-color:var(--stroke-brand);}
+      12%{box-shadow:0 0 13px 1px rgba(0,167,179,0.4); border-color:var(--brand);} }
+    .ci:not(:last-child) .ci-tk::after { content:''; position:absolute; left:10px; top:29px; width:1px; height:16px; background:var(--stroke-brand); }
+    .ci-t { font-size:0.82rem; color:var(--text-secondary); }
+    .ci-t b { color:var(--text-primary); font-weight:600; }
+
+    /* ══════════════════════════════════════════════════ */
+    /* CLOSING CONSOLE                                     */
+    /* ══════════════════════════════════════════════════ */
+    .close-panel {
+      position:relative; border:1px solid var(--stroke-brand); border-radius:18px; overflow:hidden;
+      background:linear-gradient(165deg, rgba(18,42,46,0.7), rgba(8,21,24,0.7));
+      padding:clamp(36px,6vw,72px) clamp(24px,5vw,64px);
+    }
+    .close-prompt { font-family:var(--mono); font-size:0.82rem; color:var(--brand-soft); margin-bottom:18px; }
+    .close-prompt .c { display:inline-block; width:8px; height:15px; background:var(--brand);
+      margin-left:3px; vertical-align:middle; animation:blink 1.1s step-end infinite; }
+
+    /* footer */
+    .foot { border-top:1px solid var(--hair); }
+    .foot .wrap { display:flex; flex-direction:column; gap:14px; align-items:center; justify-content:space-between;
+      padding-top:34px; padding-bottom:34px; text-align:center; }
+    @media (min-width:640px){ .foot .wrap{ flex-direction:row; text-align:left; } }
+    .foot-meta { font-family:var(--mono); font-size:0.7rem; color:var(--text-muted); letter-spacing:0.04em; }
+
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{ animation-duration:.001ms!important; animation-iteration-count:1!important;
+        transition-duration:.001ms!important; scroll-behavior:auto!important; }
+      .rv,.rv-l{ opacity:1!important; transform:none!important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- ══ TOP BAR (no nav) ══ -->
+  <div class="topbar">
+    <div class="wrap">
+      <a href="https://nsquareai.in" target="_blank" rel="noopener" class="wordmark">nsquare<b>ai</b></a>
+      <a href="https://nsquareai.in" target="_blank" rel="noopener" class="topbar-link">nsquareai.in&nbsp;&nbsp;&#8599;</a>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- HERO                                                -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <header class="relative overflow-hidden">
+    <div class="glow" style="width:480px;height:480px;background:radial-gradient(circle,rgba(0,167,179,0.28),transparent 70%);top:-120px;right:-60px;" aria-hidden="true"></div>
+    <div class="glow" style="width:420px;height:420px;background:radial-gradient(circle,rgba(0,122,131,0.22),transparent 70%);bottom:-180px;left:-120px;" aria-hidden="true"></div>
+
+    <div class="wrap relative" style="z-index:10; padding-top:130px; padding-bottom:84px;">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+        <!-- left -->
+        <div>
+          <p class="kicker rv in" style="margin-bottom:22px;">// for D2C founders who already run the ops</p>
+          <h1 class="h-hero rv in" style="transition-delay:.08s;">
+            Run your whole D2C brand<br><span class="accent">from one screen.</span>
+          </h1>
+          <p class="lede rv in" style="transition-delay:.18s; margin-top:22px; max-width:31rem;">
+            You know the drill: forecasts, COD reconciliation, channel stock, RTO, influencer payouts. One AI ops layer runs all of it, drafts every call, and surfaces the three that actually need you. You approve, it executes.
+          </p>
+          <div class="rv in" style="transition-delay:.28s; margin-top:34px; display:flex; flex-wrap:wrap; align-items:center; gap:18px 26px;">
+            <a href="https://nsquareai.in/contact" target="_blank" rel="noopener" class="btn">
+              See what we'd build for you
+              <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+            <span class="mono" style="font-size:0.72rem; color:var(--text-muted);">demo data &middot; not a real brand</span>
+          </div>
+        </div>
+
+        <!-- right: command-center console -->
+        <div class="rv in" style="transition-delay:.22s;">
+          <div class="win">
+            <div class="win-bar">
+              <span class="dot" style="background:#FF6B5A99;"></span>
+              <span class="dot" style="background:#FFC65A99;"></span>
+              <span class="dot" style="background:#4ade8099;"></span>
+              <span class="win-name">command-center.admin</span>
+              <span class="win-live">reading 6 systems</span>
+            </div>
+            <div class="win-body">
+              <p class="win-eyebrow">08:00 &middot; daily brief</p>
+              <p class="greet">8 decisions today <b>&middot; 3 urgent</b></p>
+              <div>
+                <div class="brow">
+                  <span class="sev sev-h"></span>
+                  <div><p class="brow-t">3 purchase orders ready to approve</p><p class="brow-s">&#8377;1.8L &middot; prevents stockouts</p></div>
+                  <span class="brow-chip">approve</span>
+                </div>
+                <div class="brow">
+                  <span class="sev sev-h"></span>
+                  <div><p class="brow-t">&#8377;18,000 COD remittance overdue</p><p class="brow-s">cash held by courier</p></div>
+                  <span class="brow-chip">review</span>
+                </div>
+                <div class="brow">
+                  <span class="sev sev-m"></span>
+                  <div><p class="brow-t">2 listings out of sync</p><p class="brow-s">oversell risk</p></div>
+                  <span class="brow-chip">fix</span>
+                </div>
+                <div class="brow">
+                  <span class="sev sev-l"></span>
+                  <div><p class="brow-t">14 customers due to reorder</p><p class="brow-s">nudge ready</p></div>
+                  <span class="brow-chip">send</span>
+                </div>
+              </div>
+              <p class="mono" style="font-size:0.68rem; color:var(--text-muted); margin-top:16px; padding-top:14px; border-top:1px solid var(--hair);">
+                &#8226; 23 tasks already handled today, no clicks
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- 01 · PROBLEM                                        -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section class="sec">
+    <span class="ghost" aria-hidden="true">01</span>
+    <div class="glow" style="width:360px;height:300px;background:radial-gradient(ellipse,rgba(255,139,122,0.06),transparent 70%);top:0;left:-10%;" aria-hidden="true"></div>
+    <div class="wrap relative" style="z-index:10;">
+      <div class="rv" style="max-width:46rem;">
+        <p class="kicker" style="margin-bottom:18px;">// 01 &nbsp; the 8am ritual</p>
+        <h2 class="h-sec">Every morning, six tabs open <span class="accent">just to read yesterday.</span></h2>
+        <p class="lede" style="margin-top:18px;">
+          Shopify, the Delhivery panel, the Razorpay dashboard, an accounts sheet, the Meta ad manager, and WhatsApp going off the whole time. Forty minutes of tab-switching just to know whether yesterday was good. And the things quietly costing you are never on the screen:
+        </p>
+      </div>
+
+      <ol class="ledger st" style="margin-top:44px;">
+        <li class="led rv">
+          <div class="led-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></div>
+          <div>
+            <span class="led-id">ERR_01</span>
+            <h3 class="led-t">You find out you're low when it's already too late</h3>
+            <p class="led-b">The best-seller hits single digits and you check the supplier: a 35-day lead on the imported pump. That SKU is gone for a month, in peak season, and all you can do is watch it run out.</p>
+          </div>
+        </li>
+        <li class="led rv">
+          <div class="led-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17H5a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4m-6 0v4m0-4h6m-6 4h6m0-4v4"/></svg></div>
+          <div>
+            <span class="led-id">ERR_02</span>
+            <h3 class="led-t">Nykaa says in stock. The warehouse says no.</h3>
+            <p class="led-b">Listed quantity drifts from real quantity. You oversell on Nykaa or Flipkart and eat the penalty and a one-star review, or show out of stock on Blinkit while the units sit in Bhiwandi.</p>
+          </div>
+        </li>
+        <li class="led rv">
+          <div class="led-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+          <div>
+            <span class="led-id">ERR_03</span>
+            <h3 class="led-t">COD cash you can't see, RTO you can't predict</h3>
+            <p class="led-b">Lakhs in COD sit with the courier past the remittance cycle and nobody is reconciling it. Meanwhile a high-RTO pincode keeps shipping, coming back, and costing you the freight both ways.</p>
+          </div>
+        </li>
+        <li class="led rv">
+          <div class="led-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M5 19h14a2 2 0 001.84-2.75L13.74 4a2 2 0 00-3.48 0L3.16 16.25A2 2 0 005 19z"/></svg></div>
+          <div>
+            <span class="led-id">ERR_04</span>
+            <h3 class="led-t">You paid the creator. Did you make money?</h3>
+            <p class="led-b">Payout sent, TDS deducted under 194J, coupon code live. Three weeks on, you still can't say whether that collab returned 3x or quietly burned the budget. The attribution lives in someone's head.</p>
+          </div>
+        </li>
+        <li class="led rv">
+          <div class="led-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div>
+          <div>
+            <span class="led-id">ERR_05</span>
+            <h3 class="led-t">A batch quietly ages into a write-off</h3>
+            <p class="led-b">Stock with a shelf life slides past its clearance window while you're firefighting. What could have moved at 30% off, or gone to a salon chain, lands on the books as a 100% loss.</p>
+          </div>
+        </li>
+        <li class="led rv">
+          <div class="led-ico"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.77 9.77 0 01-4-.8L3 20l1.3-3.9C3.48 15 3 13.55 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg></div>
+          <div>
+            <span class="led-id">ERR_06</span>
+            <h3 class="led-t">Regulars go quiet, carts die in silence</h3>
+            <p class="led-b">Seven in ten carts abandoned, and the customer who reordered every 50 days just stopped. The WhatsApp nudge that would bring either of them back never goes out, because who has the time.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- 02 · OUTCOME                                        -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section class="sec">
+    <span class="ghost" aria-hidden="true">02</span>
+    <div class="glow" style="width:480px;height:380px;background:radial-gradient(circle,rgba(0,167,179,0.08),transparent 70%);top:10%;right:-14%;" aria-hidden="true"></div>
+    <div class="wrap relative" style="z-index:10;">
+      <div class="rv" style="max-width:46rem;">
+        <p class="kicker" style="margin-bottom:18px;">// 02 &nbsp; what changes</p>
+        <h2 class="h-sec">The system does the watching. <span class="accent">You just approve.</span></h2>
+        <p class="lede" style="margin-top:18px;">
+          On one layer, the morning changes shape. The system reads every part of the business at once, surfaces the few calls that need a human, and quietly handles the rest in the background.
+        </p>
+      </div>
+
+      <!-- delta readouts -->
+      <div class="deltas rv" style="margin-top:44px;">
+        <div class="delta">
+          <p class="k">Morning review</p>
+          <div class="val">
+            <span class="from">4 hrs</span><span class="arr">&rarr;</span>
+            <span class="to"><span data-counter="30">0</span><span class="u">min</span></span>
+          </div>
+          <p class="note">to review the entire business each day.</p>
+        </div>
+        <div class="delta">
+          <p class="k">Tabs open</p>
+          <div class="val">
+            <span class="from">6 tools</span><span class="arr">&rarr;</span>
+            <span class="to"><span data-counter="1">0</span></span>
+          </div>
+          <p class="note">one screen for orders, stock, supply, finance, retention.</p>
+        </div>
+        <div class="delta">
+          <p class="k">Operating leverage</p>
+          <div class="val">
+            <span class="from">1&times;</span><span class="arr">&rarr;</span>
+            <span class="to"><span data-counter="3">0</span><span class="u">&times;</span></span>
+          </div>
+          <p class="note">a team three times the size, on the same headcount.</p>
+        </div>
+      </div>
+
+      <!-- terminal log -->
+      <div class="term rv" style="margin-top:18px;">
+        <div class="term-bar">
+          <span class="nm">automations.log</span>
+          <span class="tg">always on</span>
+        </div>
+        <div class="term-body">
+          <div class="logline"><span class="ok">[&check;]</span><p class="lt"><b>Reorders drafted nightly,</b> before stock runs out, with Indian supplier lead times built in.</p></div>
+          <div class="logline"><span class="ok">[&check;]</span><p class="lt"><b>Stock synced across Amazon, Nykaa, Flipkart and Blinkit,</b> so oversell and lost sales stop.</p></div>
+          <div class="logline"><span class="ok">[&check;]</span><p class="lt"><b>COD reconciled,</b> and overdue remittances chased the moment they cross the line.</p></div>
+          <div class="logline"><span class="ok">[&check;]</span><p class="lt"><b>Influencer payouts drafted</b> with TDS deducted, and ROAS attributed per coupon code.</p></div>
+          <div class="logline"><span class="ok">[&check;]</span><p class="lt"><b>Customers nudged on WhatsApp</b> on their reorder cycle and when a cart is left behind.</p></div>
+          <div class="logline"><span class="ok">[&check;]</span><p class="lt"><b>A daily brief at 8 AM</b> with the numbers and the three calls that actually need you.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- 03 · SPOTLIGHT                                      -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section class="sec">
+    <span class="ghost" aria-hidden="true">03</span>
+    <div class="glow" style="width:520px;height:420px;background:radial-gradient(circle,rgba(0,167,179,0.10),transparent 70%);bottom:-12%;left:-12%;" aria-hidden="true"></div>
+    <div class="wrap relative" style="z-index:10;">
+      <div class="rv" style="max-width:48rem; margin-bottom:48px;">
+        <p class="kicker" style="margin-bottom:18px;">// 03 &nbsp; feature spotlight &middot; supply chain</p>
+        <h2 class="h-sec">The agent reorders your stock <span class="accent">before you run out.</span></h2>
+        <p class="lede" style="margin-top:18px;">
+          One workflow out of many, and the one that protects the most revenue. A stockout on a best-seller is a sale you can never get back.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <!-- steps -->
+        <div class="rv-l steps">
+          <div class="step">
+            <span class="step-n">STEP 1</span>
+            <div>
+              <h3 class="step-h">It forecasts the run-out</h3>
+              <p class="step-b">Reads live inventory and real sell-through, then projects the date each SKU hits zero. It knows the 35-day lead time on imported parts and counts backwards from it.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-n">STEP 2</span>
+            <div>
+              <h3 class="step-h">It drafts the purchase orders</h3>
+              <p class="step-b">One PO per supplier, respecting minimum order quantities and lead times. It runs every night and never double-orders something already on the way.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-n">STEP 3</span>
+            <div>
+              <h3 class="step-h">It pings you on WhatsApp</h3>
+              <p class="step-b">The brief arrives at 8 AM, before the first meeting.</p>
+              <p class="wa-line"><span class="pfx">[08:00] supply-agent &gt;</span> drafted 3 POs (&#8377;1.8L). 1 is for imported pumps on a 35-day lead. approve early to avoid a stockout.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-n">STEP 4</span>
+            <div>
+              <h3 class="step-h">You tap approve. Once.</h3>
+              <p class="step-b">That single tap is the entire human contribution. The analysis, the drafting and the timing were already done for you.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-n">STEP 5</span>
+            <div>
+              <h3 class="step-h">Then the cascade runs itself</h3>
+              <p class="step-b">The formal PO is generated and sent to the supplier, accounts is told what is due and when, the committed spend is booked, and the manufacturer is warned that materials are coming. No further clicks.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- supply console -->
+        <div class="rv lg:sticky lg:top-10">
+          <div class="win">
+            <div class="win-bar">
+              <span class="dot" style="background:#FF6B5A99;"></span>
+              <span class="dot" style="background:#FFC65A99;"></span>
+              <span class="dot" style="background:#4ade8099;"></span>
+              <span class="win-name">supply-chain.admin</span>
+              <span class="win-live">agent active</span>
+            </div>
+            <div class="win-body">
+              <p class="win-eyebrow">forecast &middot; days of cover</p>
+              <div class="fc" style="margin-bottom:6px;">
+                <div class="fc-row"><span class="fc-sku">Niacinamide Serum</span><span class="fc-cv">6d</span><span class="fc-fl fc-re">reorder</span></div>
+                <div class="fc-row"><span class="fc-sku">Barrier Cream</span><span class="fc-cv">9d</span><span class="fc-fl fc-re">reorder</span></div>
+                <div class="fc-row"><span class="fc-sku">Vitamin C Toner</span><span class="fc-cv">41d</span><span class="fc-fl fc-ok">ok</span></div>
+              </div>
+
+              <div class="decision">
+                <div class="dec-top"><span class="sev sev-h" style="margin-top:0;"></span><span class="dec-cat">supply chain</span></div>
+                <p class="dec-t">3 purchase orders ready to approve</p>
+                <p class="dec-i"><b>&#8377;1.8L</b> committed &middot; 1 PO on a 35-day lead</p>
+                <button class="approve" type="button" aria-label="Approve all (demo)">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  Approve all
+                </button>
+              </div>
+
+              <div class="casc">
+                <p class="casc-h"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> then, automatically</p>
+                <div class="ci"><span class="ci-tk"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span><span class="ci-t"><b>PO document</b> generated with GST and terms</span></div>
+                <div class="ci"><span class="ci-tk"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span><span class="ci-t"><b>Supplier notified</b> by email and WhatsApp</span></div>
+                <div class="ci"><span class="ci-tk"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span><span class="ci-t"><b>Accounts told</b> what advance is due and when</span></div>
+                <div class="ci"><span class="ci-tk"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span><span class="ci-t"><b>Ledger updated</b> with the committed spend</span></div>
+                <div class="ci"><span class="ci-tk"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span><span class="ci-t"><b>Manufacturer alerted</b> that materials are inbound</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- 04 · CLOSING                                        -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="close-panel rv">
+        <div class="glow" style="width:420px;height:420px;background:radial-gradient(circle,rgba(0,167,179,0.16),transparent 70%);top:-40%;right:-8%;" aria-hidden="true"></div>
+        <div class="relative" style="z-index:10; max-width:38rem;">
+          <p class="close-prompt">// status: ready to go live &middot; first brands only<span class="c"></span></p>
+          <h2 class="h-sec">I'm taking on <span class="accent">2 or 3 brands</span> as the first real deployments.</h2>
+          <p class="lede" style="margin-top:20px;">
+            Everything here is a working demo, and it is ready to go live. It is looking for its first real brand. Not open to everyone: a few D2C brands I build this into completely, from the inside. Your Shopify, your suppliers, your Nykaa and Blinkit listings, your COD, your real numbers. We map the operation first, then run it together.
+          </p>
+          <p class="mono" style="margin-top:18px; font-size:0.82rem; color:var(--text-secondary); border-left:2px solid var(--brand); padding-left:14px; line-height:1.6;">
+            Honest version: this is a deployment-ready demo still looking for its first brand to go live with. Come in as one of the first few, and you get an operations layer built around you, on terms that reflect that.
+          </p>
+          <div style="margin-top:32px; display:flex; flex-wrap:wrap; align-items:center; gap:18px 26px;">
+            <a href="https://nsquareai.in/contact" target="_blank" rel="noopener" class="btn">
+              See if your brand's a fit
+              <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+            <a href="https://nsquareai.in" target="_blank" rel="noopener" class="btn-ghost">or just see what else we build&nbsp;&#8599;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="foot">
+    <div class="wrap">
+      <a href="https://nsquareai.in" target="_blank" rel="noopener" class="wordmark" style="font-size:1.2rem;">nsquare<b>ai</b></a>
+      <p class="foot-meta">a demo by nsquareai &middot; mumbai, india &middot; &copy; 2026</p>
+      <a href="https://nsquareai.in" target="_blank" rel="noopener" class="topbar-link">nsquareai.in&nbsp;&nbsp;&#8599;</a>
+    </div>
+  </footer>
+
+  <script>
+    // reveal
+    const rv = document.querySelectorAll('.rv, .rv-l');
+    if (rv.length) {
+      const io = new IntersectionObserver((es) => {
+        es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold:0.04, rootMargin:'0px 0px -50px 0px' });
+      rv.forEach(el => io.observe(el));
+      requestAnimationFrame(() => rv.forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < innerHeight && r.bottom > 0) el.classList.add('in');
+      }));
+    }
+    // counters
+    const cs = document.querySelectorAll('[data-counter]');
+    if (cs.length) {
+      const io2 = new IntersectionObserver((es) => {
+        es.forEach(e => {
+          if (!e.isIntersecting) return;
+          const el = e.target, t = parseInt(el.dataset.counter), start = performance.now();
+          (function step(now){
+            const p = Math.min((now-start)/1100, 1), eased = 1 - Math.pow(1-p,3);
+            el.textContent = Math.round(eased*t);
+            if (p<1) requestAnimationFrame(step);
+          })(start);
+          io2.unobserve(el);
+        });
+      }, { threshold:0.6 });
+      cs.forEach(el => io2.observe(el));
+    }
+  </script>
+
+</body>
+</html>
