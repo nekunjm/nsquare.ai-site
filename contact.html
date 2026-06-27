@@ -259,34 +259,5 @@
   </footer>
 
   <script src="main.js" defer></script>
-  <script>
-    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxR8sMYsILbvQY7FX24MONPA9fVH7NEgMnkBhEKogFBp0jfo5Tk0HrhMKY_VxYiTV-z/exec';
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-      contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const btn = form.querySelector('button[type="submit"]');
-        btn.disabled = true;
-        btn.textContent = 'Sending…';
-        const payload = {
-          name:     form.name.value,
-          business: form.business.value,
-          contact:  form['contact-info'].value,
-          message:  form.message.value,
-        };
-        try {
-          const params = new URLSearchParams(payload);
-          await fetch(SHEET_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
-          document.getElementById('form-success').classList.remove('hidden');
-          form.classList.add('hidden');
-        } catch (err) {
-          btn.disabled = false;
-          btn.textContent = 'Send Message';
-          alert('Something went wrong. Please try again.');
-        }
-      });
-    }
-  </script>
 </body>
 </html>
