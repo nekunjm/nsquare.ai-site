@@ -511,7 +511,7 @@ Scrapes Google for a target type of business, then runs each result through conf
 > from one screen.
 
 **Subheading:**
-> You know the drill: forecasts, COD reconciliation, channel stock, RTO, influencer payouts. One AI ops layer runs all of it, drafts every call, and surfaces the three that actually need you. You approve, it executes.
+> Forecasts, COD reconciliation, channel stock, RTO, influencer payouts. Most D2C brands I studied were managing each one separately. I built an AI ops layer that runs all of it, drafts every call, and surfaces the three decisions that actually need you. You approve, it executes.
 
 **CTA Button:** See what we'd build for you *(→ nsquareai.in/contact)*
 
@@ -522,13 +522,13 @@ Scrapes Google for a target type of business, then runs each result through conf
 ---
 
 ### Problem
-**Label:** 01 · The 8am ritual
+**Label:** 01 · What I kept finding
 
 **Heading:**
-> Every morning, six tabs open just to read yesterday.
+> Six tabs open, just to read yesterday.
 
 **Body:**
-> Shopify, the Delhivery panel, the Razorpay dashboard, an accounts sheet, the Meta ad manager, and WhatsApp going off the whole time. Forty minutes of tab-switching just to know whether yesterday was good. And the things quietly costing you are never on the screen:
+> When I went deep on D2C operations in India, this is the picture I kept finding: Shopify, the Delhivery panel, Razorpay, an accounts sheet, the Meta ad manager, with WhatsApp running the whole time. What I kept finding was forty minutes of tab-switching just to understand whether yesterday was good. And the things quietly compounding were never on any of those screens:
 
 **Cards (ledger, ERR_01–06):**
 1. **You find out you're low when it's already too late** — The best-seller hits single digits and you check the supplier: a 35-day lead on the imported pump. That SKU is gone for a month, in peak season, and all you can do is watch it run out.
@@ -541,13 +541,13 @@ Scrapes Google for a target type of business, then runs each result through conf
 ---
 
 ### Outcome
-**Label:** The outcome
+**Label:** 02 · What it's built to do
 
 **Heading:**
-> One system does the watching. You just approve.
+> The system does the watching. You just approve.
 
 **Body:**
-> When the whole operation runs on one layer, the morning changes shape. The system reads every part of the business at once, surfaces the few decisions that actually need a human, and quietly handles the rest in the background.
+> The design: one layer that reads every part of the operation, surfaces the few decisions that actually need you, and handles everything else. Here's what that looks like if it works the way I built it to:
 
 **Stats:**
 - **30 min** *(down from 4 hours)* — to review the whole business each morning.
