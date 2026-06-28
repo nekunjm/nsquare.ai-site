@@ -52,7 +52,7 @@
       --r:14px;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
+    html { scroll-behavior:smooth; overflow-x:hidden; }
     body {
       font-family:'Inter',sans-serif; background:var(--bg-primary); color:var(--text-primary);
       overflow-x:hidden; -webkit-font-smoothing:antialiased; font-size:16px;
@@ -166,6 +166,27 @@
     }
     .btn-ghost:hover { color:var(--brand-soft); border-color:var(--brand-soft); }
     .btn-ghost:focus-visible { outline:2px solid var(--brand-soft); outline-offset:3px; }
+
+    /* ── Scroll-down cue ── */
+    .scroll-cue {
+      display:inline-flex; flex-direction:column; align-items:center; gap:8px;
+      cursor:pointer; background:none; border:none; padding:0; text-decoration:none;
+      color:var(--text-muted); transition:color .3s;
+    }
+    .scroll-cue:hover { color:var(--brand-soft); }
+    .scroll-cue:focus-visible { outline:2px solid var(--brand-soft); outline-offset:4px; border-radius:4px; }
+    .scroll-cue-label {
+      font-family:var(--mono); font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase;
+    }
+    .scroll-cue-arrow {
+      display:flex; flex-direction:column; align-items:center; gap:2px;
+      animation:scrollBounce 2s ease-in-out infinite;
+    }
+    @keyframes scrollBounce {
+      0%,100% { transform:translateY(0); }
+      50%      { transform:translateY(7px); }
+    }
+    .scroll-cue:hover .scroll-cue-arrow { animation-play-state:paused; }
 
     /* ══════════════════════════════════════════════════ */
     /* CONSOLE WINDOW (mockups)                            */
@@ -373,11 +394,14 @@
           <p class="lede rv in" style="transition-delay:.18s; margin-top:22px; max-width:31rem;">
             The next few years decide which Indian D2C brands run on AI from the inside, and which spend them catching up. Forecasts, COD reconciliation, channel stock, RTO, influencer payouts: most brands I studied were running each one separately. I built an AI ops layer that runs all of it, drafts every call, and surfaces the three decisions that actually need you. You approve, it executes.
           </p>
-          <div class="rv in" style="transition-delay:.28s; margin-top:34px; display:flex; flex-wrap:wrap; align-items:center; gap:18px 26px;">
-            <a href="https://nsquareai.in/contact" target="_blank" rel="noopener" class="btn">
-              See what we'd build for you
-              <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
-            </a>
+          <div class="rv in" style="transition-delay:.28s; margin-top:38px; display:flex; flex-wrap:wrap; align-items:center; gap:18px 26px;">
+            <button class="scroll-cue" onclick="document.getElementById('section-01').scrollIntoView({behavior:'smooth'})" aria-label="Scroll down to see how it works">
+              <span class="scroll-cue-label">see how it works</span>
+              <span class="scroll-cue-arrow">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="opacity:0.4;"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </span>
+            </button>
             <span class="mono" style="font-size:0.72rem; color:var(--text-muted);">demo data &middot; not a real brand</span>
           </div>
         </div>
@@ -431,7 +455,7 @@
   <!-- ══════════════════════════════════════════════════ -->
   <!-- 01 · PROBLEM                                        -->
   <!-- ══════════════════════════════════════════════════ -->
-  <section class="sec">
+  <section class="sec" id="section-01">
     <span class="ghost" aria-hidden="true">01</span>
     <div class="glow" style="width:360px;height:300px;background:radial-gradient(ellipse,rgba(255,139,122,0.06),transparent 70%);top:0;left:-10%;" aria-hidden="true"></div>
     <div class="wrap relative" style="z-index:10;">

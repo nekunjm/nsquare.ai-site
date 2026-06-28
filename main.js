@@ -284,8 +284,7 @@ if (workGrid && workChips.length) {
   });
 }
 
-// ── Google Sheets contact form ──
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxR8sMYsILbvQY7FX24MONPA9fVH7NEgMnkBhEKogFBp0jfo5Tk0HrhMKY_VxYiTV-z/exec';
+// ── Contact form → Web3Forms ──
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
@@ -295,20 +294,30 @@ if (contactForm) {
     btn.disabled = true;
     btn.textContent = 'Sending…';
     const payload = {
-      name:     form.name.value,
-      business: form.business.value,
-      contact:  form['contact-info'].value,
-      message:  form.message.value,
+      access_key: '0c1b7aae-f345-4c31-9243-25366ed2f725',
+      subject:    'New enquiry via nsquareai.in',
+      name:       form.name.value,
+      business:   form.business.value,
+      contact:    form['contact-info'].value,
+      message:    form.message.value,
     };
     try {
-      const params = new URLSearchParams(payload);
-      await fetch(SHEET_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
-      document.getElementById('form-success').classList.remove('hidden');
-      form.classList.add('hidden');
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body:    JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('form-success').classList.remove('hidden');
+        form.classList.add('hidden');
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
     } catch (err) {
       btn.disabled = false;
       btn.textContent = 'Send Message';
-      alert('Something went wrong. Please try again.');
+      alert('Something went wrong. Please try again or email nekunj@nsquareai.in directly.');
     }
   });
 }
