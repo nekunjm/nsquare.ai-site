@@ -511,7 +511,7 @@ Scrapes Google for a target type of business, then runs each result through conf
 > from one screen.
 
 **Subheading:**
-> Forecasts, COD reconciliation, channel stock, RTO, influencer payouts. Most D2C brands I studied were managing each one separately. I built an AI ops layer that runs all of it, drafts every call, and surfaces the three decisions that actually need you. You approve, it executes.
+> The next few years decide which Indian D2C brands run on AI from the inside, and which spend them catching up. Forecasts, COD reconciliation, channel stock, RTO, influencer payouts: most brands I studied were running each one separately. I built an AI ops layer that runs all of it, drafts every call, and surfaces the three decisions that actually need you. You approve, it executes.
 
 **CTA Button:** See what we'd build for you *(→ nsquareai.in/contact)*
 
@@ -528,7 +528,7 @@ Scrapes Google for a target type of business, then runs each result through conf
 > Six tabs open, just to read yesterday.
 
 **Body:**
-> When I went deep on D2C operations in India, this is the picture I kept finding: Shopify, the Delhivery panel, Razorpay, an accounts sheet, the Meta ad manager, with WhatsApp running the whole time. What I kept finding was forty minutes of tab-switching just to understand whether yesterday was good. And the things quietly compounding were never on any of those screens:
+> When I went deep on D2C operations in India, this is the picture that kept showing up: Shopify, the Delhivery panel, Razorpay, an accounts sheet, the Meta ad manager, with WhatsApp running the whole time. Forty minutes of tab-switching just to learn whether yesterday was good. And the things quietly compounding were never on any of those screens:
 
 **Cards (ledger, ERR_01–06):**
 1. **You find out you're low when it's already too late** — The best-seller hits single digits and you check the supplier: a 35-day lead on the imported pump. That SKU is gone for a month, in peak season, and all you can do is watch it run out.
@@ -585,13 +585,13 @@ Scrapes Google for a target type of business, then runs each result through conf
 ---
 
 ### Closing CTA
-**Label:** status: ready to go live · first brands only
+**Label:** status: ready to go live · first movers only
 
 **Heading:**
-> I'm taking on 2 or 3 brands as the first real deployments.
+> I'm looking for 2 or 3 brands to figure this out with, first.
 
 **Body:**
-> Everything here is a working demo, and it is ready to go live. It is looking for its first real brand. Not open to everyone: a few D2C brands I build this into completely, from the inside. Your Shopify, your suppliers, your Nykaa and Blinkit listings, your COD, your real numbers. We map the operation first, then run it together.
+> There's no playbook yet for running an Indian D2C brand on AI from the inside. The ones who work it out early will write it. That's the invitation: not open to everyone, a few brands I build this into completely, from the inside. Your Shopify, your suppliers, your Nykaa and Blinkit listings, your COD, your real numbers. We map the operation first, then run it together.
 
 **Honest line:** Honest version: this is a deployment-ready demo still looking for its first brand to go live with. Come in as one of the first few, and you get an operations layer built around you, on terms that reflect that.
 
