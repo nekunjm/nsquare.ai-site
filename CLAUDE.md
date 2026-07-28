@@ -10,15 +10,24 @@
 
 ## Local Server
 - **Always serve on localhost** — never screenshot a `file:///` URL.
-- Start the dev server: `node serve.mjs` (serves the project root at `http://localhost:3000`)
+- Start the dev server: `node serve.mjs` (serves the project root at `http://localhost:3001` by default)
 - `serve.mjs` lives in the project root. Start it in the background before taking any screenshots.
 - If the server is already running, do not start a second instance.
 
+## Mobile Testing (Phone Preview)
+- When the user asks to test on mobile / on their phone, do NOT just describe it — stand up a public tunnel so they can open it on a real device.
+- Domain: `https://preview.nsquareai.in` is a pre-registered Cloudflare tunnel hostname reserved for this. It routes to `http://localhost:3001`.
+- Start the dev server if it isn't already running: `node serve.mjs` (defaults to port 3001; override with `PORT=xxxx` or a CLI arg).
+- Start the named tunnel (background it): `cloudflared tunnel --config ~/.cloudflared/preview-config.yml run`
+- Once connected (log shows "Registered tunnel connection"), tell the user to open `https://preview.nsquareai.in/<path>` on their phone.
+- Do not spin up an ad-hoc `trycloudflare.com` quick tunnel for this project — always use the named `preview.nsquareai.in` tunnel so the link is stable and doesn't need to be re-shared.
+- Leave the tunnel running for the rest of the session; no need to tear it down unless asked.
+
 ## Screenshot Workflow
 - Puppeteer is installed at `C:/Users/nateh/AppData/Local/Temp/puppeteer-test/`. Chrome cache is at `C:/Users/nateh/.cache/puppeteer/`.
-- **Always screenshot from localhost:** `node screenshot.mjs http://localhost:3000`
+- **Always screenshot from localhost:** `node screenshot.mjs http://localhost:3001`
 - Screenshots are saved automatically to `./temporary screenshots/screenshot-N.png` (auto-incremented, never overwritten).
-- Optional label suffix: `node screenshot.mjs http://localhost:3000 label` → saves as `screenshot-N-label.png`
+- Optional label suffix: `node screenshot.mjs http://localhost:3001 label` → saves as `screenshot-N-label.png`
 - `screenshot.mjs` lives in the project root. Use it as-is.
 - After screenshotting, read the PNG from `temporary screenshots/` with the Read tool — Claude can see and analyze the image directly.
 - When comparing, be specific: "heading is 32px but reference shows ~24px", "card gap is 16px but should be 24px"

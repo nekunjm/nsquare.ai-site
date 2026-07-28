@@ -4,7 +4,7 @@ import { join, extname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
-const PORT = 3001;
+const PORT = process.env.PORT || process.argv[2] || 3001;
 
 const MIME = {
   '.html': 'text/html',
@@ -22,7 +22,7 @@ const MIME = {
 
 createServer(async (req, res) => {
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
-  if (urlPath === '/') urlPath = '/index.html';
+  if (urlPath.endsWith('/')) urlPath += 'index.html';
   const filePath = join(__dirname, urlPath);
   try {
     const data = await readFile(filePath);

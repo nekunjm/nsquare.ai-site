@@ -5,8 +5,8 @@
 ## index.html (Home Page)
 
 ### Page Meta
-- **Title:** nsquareai: AI Automation for Mumbai Businesses
-- **Description:** Custom AI workflows and automation that save Mumbai businesses hours every week. From workflow automation to intelligent integrations.
+- **Title:** nsquareai: Operations Automation for D2C & Growing Businesses
+- **Description:** We map how your business runs on the inside, then automate the parts that slow it down. Operations diagnostics and custom automation for D2C brands, agencies, real estate, coaching, and SaaS teams.
 
 ---
 
@@ -25,16 +25,28 @@
 > Focus on growth.
 
 **Subheading:**
-> Custom AI workflows that save Mumbai businesses hours every week.
+> We map how your business runs on the inside, then automate the parts that slow it down. One customer message, handled end-to-end by AI, in the time it takes to read this.
+
+**Eyebrow:** Operations automation · Mumbai
+
+**Chaos → flow pipeline:** Customer DM ("where's my order?") → AI core (read · matched · routed) → CRM + team (reply sent ✓)
+
+**Mobile cinematic beats (<901px, motion-enabled):** the mobile hero is one sticky stage driven by a single scroll-scrubbed timeline, using the SAME three chapters as the desktop hero so the two don't read as different sites. Scrolling is free and continuous; the timeline only magnetises onto a beat when you come to rest genuinely near one, so a slow scroll passes through every frame instead of being yanked forward. Masked words rise in and exit through the top, with each line starting before the previous has finished leaving so the headline is never absent. Behind them, ONE persistent story layer carries elements that morph from beat to beat, so it reads as a single continuous story rather than separate slides. The particle stream is full strength on the flow beat, then recedes below the copy and dims to background texture for the payoff so the type stays readable. The subheading paragraph and the Get Started CTA appear only on the final state.
+1. First, the chaos. *(shared with desktop)* — a handful of scattered alert chips, kept clear of the centre so the headline reads (mobile echo of the desktop chaos chips): `"where's my order?"`, `refund?`, `STOCK SYNC ERROR`, `+47 unread`, `payment failed`.
+2. Then, flow. *(shared with desktop)* — the chips ignite into glowing orbs and are pulled down into streams that flow across the screen (business messages moving through the operation). Mid-beat the stream surfaces one real message, `where's my order?`, held at low opacity above the headline so it sits behind the type in the hierarchy rather than competing with it.
+3. Automate the busywork. Focus on growth. *(shared with desktop, final — the stream recedes into a payoff bloom; subheading + CTA appear here)*
 
 **CTA Button:** Get Started
 
-**Workflow Mockup Labels:**
-- Order Received *(via WhatsApp)*
-- AI Processes *(categorize & route)*
-- Team Notified *(instant update)*
-- Live: 3 workflows active
-- 12 tasks automated today
+**Live workflow band (proof) — framed as the reader's own operation:**
+- Eyebrow: Your operation, on nsquareai
+- Your workflow *(live)*
+  - Customer message in *(DM, email, or WhatsApp)*
+  - AI reads it *(categorize & route)*
+  - Handled or escalated *(team notified)*
+- 3 of your workflows running right now
+- 12 of your tasks handled today
+- Runs on: Shopify, CRM, Sheets, Slack, WhatsApp, n8n
 
 ---
 
@@ -45,9 +57,9 @@
 > Built around how you actually work.
 
 **Body:**
-> Every workflow nsquareai builds is custom made for the business it runs in. We map how your team actually works, then design automations around your existing tools and processes, so your people reclaim hours every week for work that actually matters.
+> Every workflow nsquareai builds is custom made for the business it runs in. We go inside your operation, map how work actually moves, then automate the internal friction around the tools your team already uses, so your people reclaim hours every week for work that actually matters.
 
-**Pillars:** Process-first design · Your existing tools · Days, not months
+**Pillars:** Diagnosis first · Your existing tools · Days, not months
 
 **CTA Button:** Learn More About Us
 
@@ -60,19 +72,19 @@
 > Before us. After us.
 
 **Subheading:**
-> Concrete, anonymized examples of what we build for businesses that look a lot like yours.
+> Concrete, illustrative examples of what we build for businesses that look a lot like yours.
 
-**Case 01, A 30-seat cafe in Bandra**
-- *Before, Order intake chaos:* Owner manually retypes WhatsApp orders into the POS during peak hours, often missing items. Kitchen runs blind for the first ten minutes of every rush.
-- *After, WhatsApp to kitchen, untouched:* Orders captured from WhatsApp, parsed by AI, pushed to the POS. Kitchen ticket auto-prints. Owner is back to running the floor.
-- *Time saved:* ~9 hrs/week
+**Case 01, D2C brand**
+- *Before, Support inbox chaos:* Founder answers a flood of "where's my order?" DMs by hand, switching between Shopify, the courier panel, and WhatsApp to trace each one.
+- *After, Traced and replied:* AI reads each message, pulls the live order status from Shopify and the courier, drafts an accurate reply, and flags only the ones that truly need a human.
+- *Time saved:* ~10 hrs/week
 
-**Case 02, A 4-doctor clinic in Andheri**
-- *Before, Confirmations by hand, every day:* Receptionist sends 80+ appointment confirmations and follow-ups by hand each week, juggling between Sheets and WhatsApp.
-- *After, Confirmations send themselves:* AI sends WhatsApp confirms, reschedules, and same-day reminders straight from the appointment sheet. No-shows drop. Receptionist actually answers the desk.
+**Case 02, Agency**
+- *Before, Onboarding drift:* Every new client means the same manual checklist: access requests, kickoff docs, and invoice follow-ups chased across email and Sheets.
+- *After, Onboarding on rails:* A signed proposal triggers the whole sequence: onboarding tasks created, access requested, invoice scheduled, and gentle follow-ups sent until it's paid.
 - *Time saved:* ~12 hrs/week
 
-**Footer note:** Examples are anonymized. Names withheld so businesses keep moving.
+**Footer note:** Examples are illustrative, built to show the mechanics of what we automate.
 
 ---
 
@@ -85,19 +97,19 @@
 **Cards:**
 
 1. **Workflow Automation**
-   Repetitive tasks on autopilot: order processing, follow-ups, scheduling, and more.
+   Repetitive internal tasks on autopilot: order handling, follow-ups, onboarding, scheduling, and more.
 
 2. **AI-Powered Insights**
-   Turn your data into decisions: sales trends, inventory alerts, customer behavior patterns.
+   Turn your data into decisions: sales trends, stock and cash alerts, customer behavior patterns.
 
 3. **Custom Integrations**
-   Connect your tools seamlessly: POS systems, WhatsApp, billing, CRM, and everything in between.
+   Connect your tools seamlessly: Shopify, CRM, billing, WhatsApp, and everything in between.
 
 4. **Process Optimization**
-   Streamline operations end-to-end. Less manual work, fewer errors, faster results.
+   Streamline operations end-to-end. Less manual work, fewer errors, less load on your team.
 
 **Footer note:**
-> nsquareai adapts to any industry, from cafes and restaurants to clinics, retail, and logistics.
+> nsquareai adapts to any operation, from D2C brands to professional services, real estate, coaching, and SaaS teams.
 
 ---
 
@@ -111,10 +123,11 @@
 > A concrete automation we'd build on day one for the kind of business you run.
 
 **Cards:**
-1. **Cafe** — WhatsApp orders parsed and pushed straight into the POS, with the kitchen ticket auto-printed before the customer hits send twice. *Flow: WhatsApp → POS → Kitchen*
-2. **Clinic** — Appointment sheet drives WhatsApp confirms, reminders, and same-day reschedules. Receptionist stops chasing, no-shows drop. *Flow: Sheet → AI sender → WhatsApp*
-3. **Retail** — POS pushes nightly stock deltas to Sheets, low-stock alerts ping the owner on WhatsApp before the next morning's coffee. *Flow: POS → Sheets → Owner*
-4. **Logistics** — Delivery sheet drives WhatsApp ETAs to customers and live pings to drivers. Fewer "where is my order" calls, fewer angry inboxes. *Flow: Delivery sheet → WhatsApp*
+1. **D2C brand** — AI watches your sales patterns and stock levels, forecasts when each product will run out, and works backward through supplier lead times to flag the reorder date days early. Approve, and it drafts every PO for you. *Flow: Sales + stock → forecast → draft POs*
+2. **Professional services** — A signed proposal triggers the whole onboarding: tasks created, access requested, invoice scheduled, and follow-ups sent until it's paid. *Flow: Intake → onboarding → invoicing*
+3. **Real estate** — Portal and website leads land in the CRM enriched and tagged, then get a nurture sequence so no enquiry goes cold while you're on a viewing. *Flow: Portal lead → CRM → nurture*
+4. **Coaching** — Enquiries answered and qualified around the clock, enrolments logged, and payment plus session reminders sent so the desk stops chasing. *Flow: Enquiry → enrol → reminders*
+5. **SaaS ops** — New signups routed and enriched, the right internal handoff fired in Slack, and onboarding tasks created so nothing stalls between teams. *Flow: Signup → routing → ops handoff*
 
 ---
 
@@ -124,9 +137,9 @@
 **Heading:**
 > Works with the tools you already use
 
-**Marquee row 1:** WhatsApp, Google Sheets, Slack, n8n, Zapier, Gmail, Notion, Stripe
+**Marquee row 1:** Shopify, Google Sheets, Slack, n8n, Zapier, Gmail, Notion, Stripe
 
-**Marquee row 2:** Twitter / X, GitHub, Airtable, Power BI, Discord, Razorpay
+**Marquee row 2:** HubSpot, WhatsApp, Airtable, Power BI, GitHub, Razorpay
 
 ---
 
@@ -137,9 +150,9 @@
 > Three reasons over the alternatives.
 
 **Columns:**
-1. **vs DIY tools** — Zapier and friends give you Lego pieces. We deliver the finished thing, fitted to your stack and tuned for your team. *Rule: No glue work, no half-builds*
-2. **vs Generic agencies** — Agencies bill hours. We measure ours by yours saved. Every workflow is scoped to a clear weekly time return, not a slide deck. *Rule: Outcome over output*
-3. **What makes us nsquare** — A day with your team before any code. Custom builds in days, not months. Ongoing tuning, never set-and-forget. *Rule: Built around how you work*
+1. **vs doing it yourself** — Automation platforms give you the building blocks and leave the assembly, the edge cases, and the upkeep to you. We deliver the finished system, fitted to your stack and tuned for your team. *Rule: No glue work, no half-builds*
+2. **vs Off-the-shelf software** — SaaS tools make you change how you work to fit them. We do the opposite: diagnose how you already run, then build around it. No process overhaul. *Rule: The software adapts to you*
+3. **What makes us nsquare** — We work on the inside of your operation. Map the real workflow before any code, build in days not months, and keep tuning it, never set-and-forget. *Rule: Built around how you work*
 
 ---
 
@@ -151,8 +164,8 @@
 
 **Steps:**
 
-1. **Discover**
-   We learn how your business runs and where time is being wasted on tasks that could be automated.
+1. **Diagnose**
+   We go inside your operation, map every step and handoff, and find exactly where time and money are leaking.
    *Average: 1–2 conversations*
 
 2. **Build**
@@ -164,9 +177,9 @@
    *Ongoing optimization included*
 
 **Sample timeline (week-by-week):**
-- **Week 1, Discover:** One or two working sessions with your team. We sit in, watch the actual workflow, and map every handoff. No slide deck. No questionnaire.
-- **Week 2, Build:** First automation goes live in your existing tools. WhatsApp, Sheets, POS, whatever you already run. Nothing new for the team to learn.
-- **Week 3, Refine:** Tune against real usage. Edge cases handled. The 1% of orders that look weird get their own gentle path.
+- **Week 1, Diagnose:** One or two working sessions with your team. We sit in, watch the actual workflow, and map every handoff. No slide deck. No questionnaire.
+- **Week 2, Build:** First automation goes live in your existing tools. Shopify, your CRM, Sheets, Slack, WhatsApp, whatever you already run. Nothing new for the team to learn.
+- **Week 3, Refine:** Tune against real usage. Edge cases handled. The 1% of requests that look odd get their own gentle path.
 - **Week 4+, Scale:** New workflows added as you grow. Monthly check-ins keep things sharp. Nothing is set-and-forget.
 
 ---
@@ -210,10 +223,13 @@
 **A:** Most workflows are built and deployed within 3–7 days, depending on complexity. Simple automations can be live within 24–48 hours.
 
 **Q:** Do I need any technical knowledge?
-**A:** Not at all. nsquareai handles everything, from design to deployment. You just explain how your business works, and the rest is taken care of.
+**A:** Not at all. nsquareai handles everything, from diagnosis to design to deployment. You just explain how your business works, and the rest is taken care of.
+
+**Q:** Is this just Zapier, or do you build real software?
+**A:** Both, whichever the job needs. Sometimes the fix is a clean automation between tools you already use. Sometimes it needs custom logic or a small piece of software built from scratch. We diagnose first, then build the right thing, not the thing we happen to sell.
 
 **Q:** What tools can you integrate with?
-**A:** WhatsApp, Google Sheets, Slack, Gmail, Notion, POS systems, billing software, CRMs, and hundreds more. If it has an API, it can be connected.
+**A:** Shopify, CRMs like HubSpot, Google Sheets, Slack, Gmail, Notion, WhatsApp, billing and payment tools, and hundreds more. If it has an API, it can be connected.
 
 **Q:** How much does it cost?
 **A:** Every business is different, so pricing depends on the scope and complexity of the automation. Reach out for a free consultation with no commitment required.
@@ -222,7 +238,7 @@
 **A:** You get ongoing support and optimization. As your business evolves, the workflows are refined and expanded. Nothing is set-and-forget, it grows with you.
 
 **Q:** Can you automate [specific task]?
-**A:** Probably! From order management and customer follow-ups to invoice generation and inventory alerts, if it's repetitive, it can likely be automated. Just ask.
+**A:** Probably! From customer support and follow-ups to onboarding, invoicing, and stock or cash alerts, if it's repetitive and internal, it can likely be automated. Just ask.
 
 ---
 
@@ -238,7 +254,7 @@
 
 ### Page Meta
 - **Title:** About | nsquareai
-- **Description:** I build custom AI automation for SMEs in Mumbai. Learn about nsquareai and why I started it.
+- **Description:** I go inside growing businesses, map how they actually run, and automate the internal friction. Learn about nsquareai and why I started it.
 
 ---
 
@@ -261,11 +277,11 @@
 > Built from a simple observation.
 
 **Body:**
-> Walking through Mumbai's streets, I noticed the same pattern everywhere: owners of cafes, clinics, and retail stores drowning in spreadsheets, WhatsApp messages, and follow-ups. The AI revolution was happening somewhere else entirely.
+> The deeper I dug into how these businesses actually run, the more I saw the same pattern: D2C brands, agencies, brokers, and coaching centers drowning in the internal running of the place. Order queries, follow-ups, onboarding, supplier coordination, reconciliation. The AI revolution was happening somewhere else entirely.
 >
-> Enterprise software wasn't built for them. Off-the-shelf tools demanded process changes instead of adapting to the business. The gap between what AI could do and what SMEs could actually use was enormous.
+> Enterprise software wasn't built for them. Off-the-shelf tools demanded process changes instead of adapting to the business. The gap between what AI could do and what growing businesses could actually use was enormous.
 >
-> **nsquareai exists to close that gap,** building automations that fit into the tools and workflows you already run, not the other way around.
+> **nsquareai exists to close that gap,** going inside the operation and building automation that fits the tools and workflows you already run, not the other way around.
 
 ---
 
@@ -283,12 +299,12 @@
 **Label:** My Mission
 
 **Heading:**
-> Bridging the gap for SMEs.
+> Bridging the gap for growing businesses.
 
 **Body:**
-> I observed a massive disconnect: powerful AI tools existed, but local businesses, from restaurants to clinics, were spending countless hours on manual coordination and busywork.
+> I observed a massive disconnect: powerful AI tools existed, but growing businesses, from D2C brands to agencies and coaching centers, were spending countless hours on manual coordination and internal busywork.
 >
-> My mission is to create custom AI workflows that seamlessly integrate into the tools you already use. No learning curves. No complex dashboards. Just automation that gives you back your time.
+> My mission is to create custom automation that fits inside the operation and the tools you already use. No learning curves. No complex dashboards. Just less load on your team and more of your time back.
 
 **Value Cards:**
 
@@ -296,7 +312,7 @@
    I map your unique operations before writing a single line of code, ensuring the automation fits perfectly into your workflow.
 
 2. **Frictionless Integration**
-   Whether it's WhatsApp, Sheets, or your POS system, I ensure the pieces connect natively across your existing ecosystem.
+   Whether it's Shopify, your CRM, Sheets, or WhatsApp, I make the pieces connect natively across your existing ecosystem.
 
 3. **Time-Saving Guarantee**
    My goal is measurable impact. I stand by solutions that reclaim lost hours from administrative tasks, safely and smartly.
@@ -318,7 +334,7 @@
    I document every handoff, tool, and manual step, then identify the highest-leverage places to automate first.
 
 3. **Build**
-   Custom AI workflows wired into your existing stack: WhatsApp, Sheets, POS, CRM, with no new dashboards to learn.
+   Custom AI workflows wired into your existing stack: Shopify, CRM, Sheets, Slack, WhatsApp, with no new dashboards to learn.
 
 4. **Refine**
    Week by week I tune the automation against real usage until it's invisible, doing the work in the background, reliably.
@@ -332,9 +348,9 @@
 > Built for teams of 5 to 50.
 
 **Subheading:**
-> I partner with local businesses across industries where every saved hour pays back directly.
+> I partner with growing businesses whose day runs on repeatable internal work, where taking that load off the team pays back directly.
 
-**Industries:** Restaurants, Cafes, Clinics, Retail, Logistics, Services
+**Industries:** D2C brands, Professional services, Real estate, Coaching & education, SaaS & tech, Operations-heavy SMEs
 
 ---
 
@@ -344,7 +360,7 @@
 **Heading:** Why I built nsquareai.
 
 **Body:**
-> I'm studying entrepreneurship in Mumbai, and for the past couple of years, most of my time has gone into learning everything I can about AI. Not just reading about it, but actually getting into the tools, the workflows, and the real ways it creates leverage inside a business.
+> I'm studying entrepreneurship in Mumbai, and a huge share of my time goes into learning everything I can about AI. Not just reading about it, but actually getting into the tools, the workflows, and the real ways it creates leverage inside a business.
 >
 > What I kept coming back to is this: the way business gets done is fundamentally shifting. AI is moving from being a curiosity to being a real operating layer, and businesses that figure out how to actually embed it into how they work are going to have a real, durable advantage. This is true regardless of size, whether you're running a five-person operation or a five-hundred-person one.
 >
@@ -391,7 +407,7 @@
 
 ### Page Meta
 - **Title:** Our Work | nsquareai
-- **Description:** A selection of automations and AI builds we have shipped, prototyped, and explored. From WhatsApp workflows to a personal AI study assistant.
+- **Description:** A selection of automations and AI builds we have shipped, prototyped, and explored. From customer-facing workflows to internal automations and a personal AI study assistant.
 
 ---
 
@@ -449,21 +465,21 @@
 
 ---
 
-#### 02 · Table reservation bot · WhatsApp Automation
-Captures bookings from WhatsApp, parses out the time, name, party size, and any special asks like a baby seat. Sends a reminder before the slot and a feedback message after.
-**Logged to:** a Google Sheet with name, date, time, party size, special instructions, feedback, status.
+#### 02 · Booking & intake bot · WhatsApp Automation
+Captures bookings from WhatsApp, parses out the time, name, and any special requirements, then sends a reminder before the slot and a feedback message after. The same mechanic works for viewings, consults, and coaching sessions.
+**Logged to:** a Google Sheet with name, date, time, requirements, feedback, and status.
 
 #### 03 · Reputation management system · Web App + Workflow
 Three pipelines running at different cadences. Daily review scrape, weekly theme detection, quarterly sentiment trend. The owner gets a WhatsApp digest, the rest lives in a web dashboard.
 **The interesting bit:** the 12-week pipeline replays metrics it stored weekly, so trends are real data, not snapshots.
 
 #### 04 · Daily sales summary · Workflow
-Pulls a day's orders, cross-references the product catalogue, writes a plain-English summary for the owner on WhatsApp. Built standalone; clearly more useful as a Petpooja integration layer than as a replacement.
-**Honest take:** most cafes use Petpooja, which already does basic summaries. The real value is plugging this on top to turn raw reports into a daily plain-English message.
+Pulls a day's orders, cross-references the product catalogue, and writes a plain-English summary for the owner on WhatsApp or Slack. Built standalone, and just as useful plugged on top of a Shopify or POS export.
+**Honest take:** most storefronts already export raw sales data. The real value is turning those reports into a daily plain-English message someone will actually read.
 
 #### 05 · Customer win-back · WhatsApp Automation
-Notices when a regular has gone quiet, pulls what they ordered last, drafts a warm WhatsApp message with the right details slotted in. Approved templates with AI-written variables underneath.
-**Where this goes next:** a building block in a wider loyalty system, not a standalone product.
+Notices when a repeat customer has gone quiet, pulls what they bought last, and drafts a warm WhatsApp message with the right details slotted in. Approved templates with AI-written variables underneath.
+**Where this goes next:** a building block in a wider D2C retention and loyalty system, not a standalone product.
 
 #### 06 · Admission inquiry agent · AI Agent
 A chatbot that knows a coaching center's offerings cold and answers parents and students with the same patience at 11pm as at 11am. WhatsApp-ready. Built to plug into the channel the center already uses.
@@ -605,3 +621,239 @@ Scrapes Google for a target type of business, then runs each result through conf
 - nsquareai
 - A demo by nsquareai · Mumbai, India · © 2026
 - nsquareai.in
+
+---
+---
+
+## services.html (Services Page)
+
+> Standalone deeper-dive page in the redesigned multi-page site. Copy ported from the original Services page (fuller than the home-page Services section).
+
+### Page Meta
+- **Title:** Services | nsquareai
+- **Description:** We diagnose how your business runs on the inside, then automate the internal friction: customer communication, vendor coordination, logistics, billing, reporting, and onboarding. Custom workflows built around the tools you already use.
+
+### Hero
+**Label:** Services
+**Heading:**
+> What we build for you.
+**Subheading:**
+> We work on the inside of your business. First we map how your operation actually runs and where it slows down, then we build custom automation into the tools you already use. No new dashboards to learn, no process overhauls to survive.
+
+### Four ways we save your time
+**Label:** What we do
+**Heading:** Four ways we save your time.
+
+1. **Workflow Automation**
+   *Hook:* Repetitive internal tasks handled automatically, every time, without anyone lifting a finger.
+   *Detail:* Any task your team does the same way more than twice a week is a candidate. A D2C brand's "where's my order?" replies, an agency's client onboarding checklist, invoice follow-ups, lead routing, stock and cash alerts: we map the trigger, the action, and the exception, then build the workflow around it so the work just happens.
+   *Pills:* Order & support handling · Follow-up sequences · Onboarding · Data entry · Alerts & notifications
+   *Note:* Most workflows deliver measurable hours saved within the first week.
+
+2. **AI-Powered Insights**
+   *Hook:* Your data, turned into decisions and delivered wherever you'll actually see them.
+   *Detail:* We pull signals from your sales, stock, cash flow, pipeline, or customer activity and surface the ones that matter. When a unified dashboard is the right call, we build one. When it isn't, the insight just comes to you: a plain-English Slack ping, a WhatsApp message, or a Sheets summary. Either way you catch the RTO spike or the stalled deal before it costs you, not a week later.
+   *Pills:* Sales trend detection · Stock & cash alerts · Customer behaviour · Weekly summaries
+   *Note:* Delivered where you'll actually see it, dashboard or not.
+
+3. **Custom Integrations**
+   *Hook:* Connect tools that were never meant to talk to each other, without anyone in the middle.
+   *Detail:* Most business software has an API. We use it to build bridges between your Shopify, CRM, courier panel, billing platform, spreadsheets, and chat tools, so data flows automatically instead of being copied by hand across tabs. If it has an API or a webhook, it can be connected.
+   *Pills:* Shopify & storefronts · CRM & HubSpot · WhatsApp Business · Billing & payments · Any API-capable tool
+   *Note:* Your team keeps using the tools they know. We just make them talk.
+
+4. **Process Optimization**
+   *Hook:* Find the friction points in how your business runs, then eliminate them systematically.
+   *Detail:* Before any automation is built, we map your end-to-end workflow: every step, every handoff, every bottleneck, and every place work waits on a person. Sometimes the fix is a well-placed automation. Sometimes it's a simpler process or one less approval. We help you see the difference and act on it, so you're not just automating a broken process faster.
+   *Pills:* Workflow mapping · Bottleneck identification · Handoff reduction · Error prevention
+   *Note:* Automation amplifies a good process. We make sure yours is one.
+
+### What we automate on the inside
+**Label:** The work itself
+**Heading:** What we automate on the inside.
+**Subheading:** Most of what slows a business down isn't the work it sells. It's the internal running of the place: the messages, the handoffs, the chasing, the reconciling. These are the areas we go after first.
+
+1. **Customer communication** — Replies, order updates, follow-ups, and win-back messages, drafted or sent by AI so nobody types the same answer for the hundredth time. Only the messages that genuinely need a human reach one. *(Support replies · Follow-ups · Retention)*
+2. **Vendor & supplier coordination** — Purchase orders raised, dispatch status chased, and delays surfaced to you before they become a stockout or a missed deadline. *(Purchase orders · Status chasing · Delay alerts)*
+3. **Logistics & fulfillment** — Orders traced end-to-end, delivery and ETA updates sent automatically, and the exceptions that eat your day (RTOs, failed deliveries, stuck shipments) flagged the moment they happen. *(Order tracking · ETA updates · RTO / NDR)*
+4. **Billing, invoicing & reconciliation** — Invoices generated and sent on schedule, payment reminders that go out on their own until paid, and payouts reconciled against orders. *(Invoice generation · Payment reminders · Reconciliation)*
+5. **Reporting & insights** — A plain-English read on how the business is doing, pushed daily or weekly, plus alerts the moment something moves the wrong way. A dashboard when it helps, but nobody has to remember to open it. *(Daily summaries · Live alerts · Trend detection)*
+6. **Onboarding & handoffs** — Onboarding a new client or hire, provisioning access, and firing the right internal handoff so nothing stalls in the gap between two people or two teams. *(Client onboarding · Access setup · Internal handoffs)*
+
+**Footer note:** Every one of these takes work off your team's plate. The goal isn't a flashier tool. It's a lighter week.
+
+### How we find what to automate (diagnostic)
+**Label:** Diagnosis first
+**Heading:** How we find what to automate.
+**Subheading:** We don't start with a tool and look for a use for it. We start inside your operation and follow the work, because the most expensive friction is usually the part nobody thinks to mention.
+
+1. **We watch the real workflow** — Real conversations with the people who do the work, not a questionnaire. We see how a normal week actually moves.
+2. **We map every handoff** — Every step, every tool, every place work waits on a person. The map makes the bottlenecks impossible to miss.
+3. **We build the highest-leverage first** — We score each opportunity by time returned and effort to build, then start with the one that pays back fastest. Proof before scale.
+
+### How it plays out across industries
+**Label:** Automation in the real world
+**Heading:** How it plays out across industries.
+**Subheading:** Every industry has its own repetitive handoffs. Pick a floor and follow the flow, hover any step to see what nsquare automates at that point.
+
+*(Interactive industry tabs, each with a flow diagram. All examples are fictional, scoped to the client's real setup. D2C is the default tab.)*
+- **D2C / eCommerce brand** (~10 hrs saved / week) — From a customer message to an accurate answer, without you opening five tabs. Flow: Customer DM (order query) → AI reads (intent + order) → Order lookup (Shopify + courier) → Reply sent (accurate + instant) → Retention (tagged for care).
+- **Professional services / Agency** (~12 hrs saved / week) — Every new client onboarded the same clean way, without the manual scramble. Flow: New client (proposal signed) → Onboarding (checklist runs) → Access setup (tools + team) → Invoice (scheduled) → Follow-ups (until it's paid).
+- **Real estate / Brokerage** (~10 hrs saved / week) — No enquiry goes cold while you're out on a viewing. Flow: New lead (portal / ad) → CRM (enriched + tagged) → Nurture (kept warm) → Viewing (booked + reminded) → Follow-up (feedback captured).
+- **Coaching / Education** (~9 hrs saved / week) — Enquiries answered around the clock, so the front desk stops chasing. Flow: Enquiry (any hour) → AI answers (from your info) → Enrolment (logged + welcomed) → Payment (reminded) → Reminders (fewer no-shows).
+- **SaaS / Tech ops** (~11 hrs saved / week) — Signups and internal handoffs move on their own, nothing stalls between teams. Flow: Signup (new lead) → Enriched (scored + routed) → Slack handoff (no dropped balls) → Onboarding (tasks tracked) → Renewal risk (flagged early).
+
+### CTA
+**Heading:** Ready to automate your operation?
+**Subheading:** Tell us what's slowing your business down on the inside. We'll map it and build something that fixes it.
+**CTA Button:** Get in Touch
+
+---
+---
+
+## how-it-works.html (How it Works Page)
+
+> Standalone deeper-dive page. Copy ported from the original How-it-Works page (fuller than the home-page process section): an interactive 3-phase stepper with "You do / We do" splits, a week-by-week timeline, and its own FAQ.
+
+### Page Meta
+- **Title:** How it Works | nsquareai
+- **Description:** From first call to live automation. We start by diagnosing how your business runs on the inside, then build in phases over a handful of weeks. Here's exactly how we get there.
+
+### Hero
+**Label:** How it Works
+**Heading:**
+> From first call to live automation.
+**Subheading:**
+> We start by diagnosing how your business actually runs on the inside, then build in phases over a handful of weeks. One automation, live and saving you time every single day. Here's exactly how we get there.
+
+### The three phases (interactive stepper)
+**Label:** The three phases
+**Heading:** Click each step to explore it.
+
+1. **Phase 1: Diagnose**
+   *Tab summary:* We go inside your operation and find exactly where time and money leak.
+   *Detail:* Before any code is written, we go inside your operation and map how it actually runs. Not a questionnaire. Real conversations with the people who do the work every day, following the messages, the handoffs, and the tab-switching that quietly eats the week. By the end we can point at exactly where time and money are leaking, and which fix pays back fastest.
+   *You do:* Walk us through a normal week · Show us the tools you use · Tell us what drives you crazy
+   *We do:* Map every step, tool, and handoff · Find where work waits on a person · Score each fix by time returned · Propose a scoped first automation
+   *Timeline:* 1–2 conversations, usually under a week
+
+2. **Phase 2: Build**
+   *Tab summary:* Custom workflows built into your existing tools. Live in days.
+   *Detail:* We design and deploy the automation into your existing tools: no new platforms to learn, no migration to survive. Where a clean connection between tools does the job, we build that. Where it needs real custom logic or a small piece of software, we build that instead. Either way the first workflow is live and in use within days of starting, not months.
+   *You do:* Give us access to your tools · Test the first version · Tell us what feels off
+   *We do:* Build the workflow end-to-end · Connect your existing tools · Handle edge cases and errors
+   *Timeline:* First automation live within 3–7 days
+
+3. **Phase 3: Scale**
+   *Tab summary:* Save hours every week, then expand as your business grows.
+   *Detail:* Once the first workflow is running, we tune it against real usage, then start on the next highest-leverage problem from the diagnosis. One automation at a time, the manual load comes off your team and the internal running of the business gets quieter. Nothing is set-and-forget. The system grows with you.
+   *You do:* Run your business normally · Flag anything that breaks · Tell us the next thing you hate doing
+   *We do:* Tune and optimize monthly · Build the next workflow · Keep everything running cleanly
+   *Timeline:* Ongoing, with monthly check-ins
+
+### What the first month looks like
+**Label:** Week by week
+**Heading:** What the first month looks like.
+**Subheading:** Most businesses are running their first live automation by the end of week two.
+- **Week 1 · Diagnose — We watch how you actually work:** One or two working sessions with your team. We sit in, observe the real workflow, and map every handoff. No slide deck, no questionnaire. Just us watching and asking the right questions.
+- **Week 2 · Build — First automation goes live:** The highest-leverage workflow is built and deployed into your existing tools. Shopify, your CRM, Sheets, Slack, WhatsApp, whatever you already run. Your team doesn't need to learn anything new.
+- **Week 3 · Refine — We tune it against real usage:** The automation runs in the wild for a week. We collect every edge case, every odd request, every scenario that slipped through, then handle each one with its own clean path.
+- **Week 4+ · Scale — The next workflow starts:** With the first automation humming, we identify what to tackle next. Monthly check-ins keep the whole system sharp. Nothing sits still while your business keeps moving.
+
+### FAQ
+**Label:** FAQ · **Heading:** Common questions.
+- **How long does it take to build a workflow?** Most workflows are built and live within 3–7 days. Simpler automations can be running within 24–48 hours of the first conversation.
+- **Do I need any technical knowledge?** Not at all. You explain how your business works. We handle everything, from diagnosis to design to build to deployment. You never need to touch a config file or write a line of code.
+- **Is this just Zapier, or do you build real software?** Whichever the job actually needs. Sometimes the right fix is a clean automation between tools you already use. Sometimes it needs custom logic, or a small piece of software built from scratch. We diagnose first, then build the right thing, not the thing we happen to sell.
+- **What kinds of internal work do you automate first?** Usually the highest-friction, highest-repetition areas: customer communication, order and support handling, onboarding, invoicing and reminders, supplier coordination, and reporting. The diagnosis tells us which one pays back fastest for you.
+- **What tools can you integrate with?** Shopify, CRMs like HubSpot, Google Sheets, Slack, Gmail, Notion, WhatsApp, billing and payment tools like Razorpay and Stripe, and hundreds more. If it has an API or a webhook, it can be connected.
+- **How much does it cost?** Every business is different, so pricing depends on scope and complexity. Reach out for a free conversation, no commitment required to find out if it makes sense for you.
+- **What happens after the workflow is built?** Ongoing support and monthly optimization. As your business evolves, the workflows are refined and expanded. Nothing is set-and-forget, we keep it sharp.
+- **Can you automate a specific task I have in mind?** Probably yes. From customer support and follow-ups to onboarding, invoicing, and stock or cash alerts, most repetitive internal work can be automated. Just tell us what it is.
+- **Do you work with D2C brands specifically?** D2C is our primary focus, since so much of a brand's operation is already software and lives in tools we can connect. That said, the same approach works for professional services, real estate, coaching, and SaaS teams.
+
+### CTA
+**Heading:** Ready to start the first call?
+**Subheading:** Tell us about the work that's eating your week. We'll show you what automation could look like.
+**CTA Button:** Get in Touch
+
+---
+---
+
+## contact.html (Contact Page)
+
+> Standalone page. Reuses the home-page contact form (Web3Forms) and trust signals; adds a page hero and a "Direct lines" panel.
+
+### Page Meta
+- **Title:** Contact | nsquareai
+- **Description:** Tell us about your business and what you'd like to automate. We usually respond within 24 hours, no commitment required.
+
+### Hero
+**Label:** Contact
+**Heading:**
+> Let's automate your next workflow.
+**Subheading:**
+> Tell us about your business and we'll figure out the best way to help.
+
+### Direct lines
+**Label:** Direct lines
+**Body:**
+> However you reach out, it comes straight to Nekunj. No forms lost in a queue, no bot in the middle.
+- **Email:** nekunj@nsquareai.in
+- **WhatsApp / Call:** +91 88798 97814
+- **Instagram:** @nsquareai.in
+- **Based in:** Mumbai, India
+
+**Trust Signals:** No commitment required · Usually respond within 24 hours
+
+(Form fields and success state are the same as the home-page contact section.)
+
+---
+---
+
+## privacy.html (Privacy Policy)
+
+### Page Meta
+- **Title:** Privacy Policy | nsquareai
+- **Description:** How nsquareai handles the information of its clients and website visitors.
+
+### Hero
+**Label:** Legal
+**Heading:** Privacy Policy
+**Meta:** Last updated · May 2026
+
+### Body
+> This Privacy Policy is currently being finalized. We take the privacy of our clients and website visitors seriously and are committed to handling all information responsibly and only for the purpose it was shared.
+>
+> In practice, that means we collect only what we need to respond to an enquiry or run an automation we have built for you: the details you send us through the contact form, over email, or on WhatsApp. We do not sell your information, and we do not share it beyond the tools required to deliver the work.
+>
+> In the meantime, if you have any questions about how nsquareai collects, uses, or stores your information, or you would like something removed, please reach out directly and we will sort it out.
+
+**Contact:** nekunj@nsquareai.in
+
+> Note: placeholder copy pending Nekunj's review and a full published policy.
+
+---
+---
+
+## terms.html (Terms of Service)
+
+### Page Meta
+- **Title:** Terms of Service | nsquareai
+- **Description:** The terms that cover working with nsquareai on custom AI automation.
+
+### Hero
+**Label:** Legal
+**Heading:** Terms of Service
+**Meta:** Last updated · May 2026
+
+### Body
+> These Terms of Service are currently being finalized. We are committed to clear and fair terms for everyone we work with, written in plain language rather than pages of boilerplate.
+>
+> Every engagement starts with a scope we agree on together: what gets built, what it connects to, and what a good outcome looks like. Work is delivered into the tools you already run, and you own the automations we build for your business.
+>
+> If you have any questions about how nsquareai engagements work, what is included in a workflow build, or anything related to our service terms, please reach out directly before the full terms are published.
+
+**Contact:** nekunj@nsquareai.in
+
+> Note: placeholder copy pending Nekunj's review and a full published policy.

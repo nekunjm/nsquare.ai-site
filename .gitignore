@@ -10,6 +10,16 @@ node_modules/
 # Temporary files
 temporary screenshots/
 
+# Internal design material — not for the public site
+New Design Wireframe/
+admin-guide.html
+
+# Redesign staging copy — promoted to root, root is now canonical
+redesign/
+
+# Cloudflare local state
+.wrangler/
+
 # OS files
 .DS_Store
 Thumbs.db

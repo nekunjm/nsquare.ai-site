@@ -1,557 +1,405 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Services | nsquareai</title>
-  <meta name="description" content="Custom AI automation services for any business: workflow automation, AI insights, custom integrations, and process optimization.">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="We diagnose how your business runs on the inside, then automate the internal friction: customer communication, vendor coordination, logistics, billing, reporting, and onboarding. Custom workflows built around the tools you already use.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: '#00A7B3',
-            'brand-soft': '#2BC4CF',
-            'brand-deep': '#007A83',
-            primary: '#0D1F22',
-            elevated: '#122A2E',
-            floating: '#173438',
-            deep: '#081518',
-            'accent-zone': '#0E2629',
-            base: '#0D1F22',
-            surface: '#122A2E',
-            'text-primary': '#F2F5F5',
-            'text-secondary': '#A8B5B7',
-            'text-muted': '#6E7E80',
-          },
-          fontFamily: {
-            heading: ['Montserrat', 'sans-serif'],
-            body: ['Inter', 'sans-serif'],
-          },
-        },
-      },
-    }
-  </script>
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20">
   <style>
-    /* Service card expand/collapse */
-    .svc-card { cursor: pointer; }
-    .svc-detail { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease; opacity: 0; }
-    .svc-card.open .svc-detail { max-height: 400px; opacity: 1; }
-    .svc-toggle-icon { transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
-    .svc-card.open .svc-toggle-icon { transform: rotate(45deg); }
+    /* ── services page-scoped ── */
+    .svc-hook { color: var(--ink); font-weight: 500; font-size: 0.98rem; margin-top: 0.6rem; line-height: 1.5; }
+    .svc-note { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.03em; color: var(--ink-4); margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid var(--hair); }
 
-    /* Industry flow diagram */
-    .flow-diagram { display: flex; align-items: center; flex-wrap: nowrap; gap: 0; }
-    .flow-node {
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      padding: 12px 16px; border-radius: 12px; min-width: 90px; text-align: center;
-      border: 1px solid rgba(0,167,179,0.2); background: rgba(0,167,179,0.06);
-      position: relative; cursor: default;
-      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+    /* industry flow */
+    .ind-panel { border: 1px solid var(--hair); background: var(--card); border-radius: var(--r-lg); padding: clamp(1.5rem, 3.5vw, 2.2rem); }
+    .ind-panel.hide { display: none; }
+    .ind-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
+    .ind-head .k { font-family: var(--font-mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-4); }
+    .ind-head h3 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; margin-top: 0.35rem; }
+    .ind-head .one { font-size: 0.88rem; color: var(--ink-3); margin-top: 0.4rem; max-width: 44ch; }
+    .hours-pill { font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--wa-soft); border: 1px solid var(--hair-strong); border-radius: 999px; padding: 0.45em 0.95em; white-space: nowrap; }
+    .flow { display: flex; align-items: stretch; gap: 0.4rem; flex-wrap: wrap; }
+    .flow-node { flex: 1; min-width: 116px; border: 1px solid var(--hair); background: rgba(255,255,255,0.015); border-radius: 12px; padding: 1rem 0.7rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; position: relative; transition: border-color 0.25s, background 0.25s, transform 0.25s; }
+    .flow-node:hover { border-color: var(--wa); background: rgba(0,167,179,0.06); transform: translateY(-3px); }
+    .flow-node .ico { width: 34px; height: 34px; border: 1px solid var(--hair-strong); border-radius: 10px; display: grid; place-items: center; color: var(--wa-soft); }
+    .flow-node .ico svg { width: 18px; height: 18px; }
+    .flow-node .lbl { font-size: 0.82rem; font-weight: 600; color: var(--ink); }
+    .flow-node .sub { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.05em; color: var(--ink-3); text-transform: uppercase; }
+    .flow-node[data-tip]::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(4px); width: max-content; max-width: 190px; background: #0d0d0f; border: 1px solid var(--hair-strong); color: var(--ink-2); font-size: 0.7rem; line-height: 1.4; padding: 0.5rem 0.6rem; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; z-index: 5; text-align: left; }
+    .flow-node[data-tip]:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .flow-arrow { display: flex; align-items: center; color: var(--wa); flex-shrink: 0; opacity: 0.7; }
+    .ind-note { font-size: 0.72rem; font-style: italic; color: var(--ink-4); margin-top: 1.3rem; }
+    @media (max-width: 720px) {
+      .flow { flex-direction: column; }
+      .flow-arrow { transform: rotate(90deg); align-self: center; }
     }
-    .flow-node:hover { background: rgba(0,167,179,0.14); border-color: rgba(0,167,179,0.4); transform: translateY(-2px); }
-    .flow-node-icon { width: 28px; height: 28px; color: #00A7B3; }
-    .flow-node-label { font-size: 11px; font-weight: 600; color: #F2F5F5; font-family: 'Montserrat', sans-serif; }
-    .flow-node-sub { font-size: 10px; color: #6E7E80; }
-    .flow-arrow-lg { flex-shrink: 0; width: 32px; display: flex; align-items: center; justify-content: center; color: #00A7B3; opacity: 0.5; }
-
-    @media (max-width: 600px) {
-      .flow-diagram { flex-direction: column; align-items: center; }
-      .flow-node {
-        display: grid;
-        grid-template-areas: "icon label" "icon sub";
-        grid-template-columns: 28px 1fr;
-        column-gap: 12px; row-gap: 1px;
-        text-align: left; min-width: unset;
-        width: 100%; max-width: 260px;
-        padding: 10px 14px;
-      }
-      .flow-node-icon { grid-area: icon; align-self: center; width: 24px; height: 24px; }
-      .flow-node-label { grid-area: label; align-self: end; }
-      .flow-node-sub { grid-area: sub; align-self: start; }
-      .flow-arrow-lg { transform: rotate(90deg); width: 28px; height: 20px; margin: 2px 0; }
-    }
-
-    /* Tooltip */
-    .flow-node[data-tip]:hover::after {
-      content: attr(data-tip);
-      position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%);
-      background: #122A2E; border: 1px solid rgba(0,167,179,0.3); color: #A8B5B7;
-      font-size: 11px; padding: 6px 10px; border-radius: 8px; white-space: nowrap; z-index: 20;
-      font-family: 'Inter', sans-serif; pointer-events: none; box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    }
-
-    /* Industry tabs */
-    .ind-tab { padding: 8px 18px; border-radius: 999px; font-size: 13px; font-weight: 600; font-family: 'Montserrat', sans-serif; cursor: pointer; transition: background 0.2s, color 0.2s; border: 1px solid rgba(255,255,255,0.08); color: #6E7E80; background: transparent; }
-    .ind-tab.active, .ind-tab:hover { background: rgba(0,167,179,0.12); border-color: rgba(0,167,179,0.3); color: #00A7B3; }
-    .ind-panel { display: none; }
-    .ind-panel.active { display: block; }
-
-    /* Stats bar */
-    .stat-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; background: rgba(0,167,179,0.1); border: 1px solid rgba(0,167,179,0.2); color: #2BC4CF; font-family: 'Montserrat', sans-serif; }
   </style>
 </head>
 <body>
-  <div id="cursor-glow" class="cursor-glow" aria-hidden="true"></div>
-  <div class="noise" aria-hidden="true"></div>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <div class="progress-rail" aria-hidden="true"><i></i></div>
 
-  <!-- NAVBAR -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50" style="background: transparent; transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" class="flex items-center shrink-0" aria-label="nsquareai home">
-        <span class="font-heading font-bold text-3xl tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span>
-      </a>
-      <div class="hidden md:flex items-center gap-8">
-        <a href="/about" class="nav-link text-sm font-medium text-gray-400">About</a>
-        <a href="/services" class="nav-link text-sm font-medium" style="color:#00A7B3;">Services</a>
-        <a href="/how-it-works" class="nav-link text-sm font-medium text-gray-400">How it Works</a>
-        <a href="/our-work" class="nav-link text-sm font-medium text-gray-400">Our Work</a>
-        <a href="/contact" class="nav-cta-btn">Get in Touch</a>
+  <!-- ══ NAV ══ -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand" aria-label="nsquareai home">nsquare<b>ai</b></a>
+      <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="services.html" aria-current="page">Services</a>
+        <a href="how-it-works.html">How it Works</a>
+        <a href="our-work.html">Our Work</a>
+        <a href="contact.html" class="btn nav-cta" data-magnetic>Get in Touch</a>
       </div>
-      <button id="mobile-menu-btn" class="md:hidden text-gray-400 p-2 -mr-2" aria-label="Open menu" aria-expanded="false">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <button class="nav-burger" aria-label="Open menu" aria-expanded="false">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
-    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" style="background: rgba(13,31,34,0.95); backdrop-filter: blur(16px);">
-      <a href="/about" class="block py-3 text-sm text-gray-400 border-b border-white/5">About</a>
-      <a href="/services" class="block py-3 text-sm border-b border-white/5" style="color:#00A7B3;">Services</a>
-      <a href="/how-it-works" class="block py-3 text-sm text-gray-400 border-b border-white/5">How it Works</a>
-      <a href="/our-work" class="block py-3 text-sm text-gray-400 border-b border-white/5">Our Work</a>
-      <a href="/contact" class="block py-3 text-sm font-semibold" style="color:#00A7B3;">Get in Touch</a>
+    <div class="nav-mobile">
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="how-it-works.html">How it Works</a>
+      <a href="our-work.html">Our Work</a>
+      <a href="contact.html">Get in Touch</a>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="relative pt-36 pb-20 overflow-hidden">
-    <div class="hero-bg" aria-hidden="true"><div class="hero-orb-3"></div></div>
-    <div class="dot-grid" aria-hidden="true"></div>
-    <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-      <div class="reveal-scale visible">
-        <p class="eyebrow mb-5">Services</p>
-        <h1 class="display-lg text-white pb-2">
-          <span class="block">What we</span>
-          <span class="block mt-2 text-brand-soft">build for you.</span>
-        </h1>
-        <p class="mt-8 body-lg font-body mx-auto max-w-2xl" style="color: var(--text-secondary);">
-          Custom AI workflows that slot into how your business already works. No new dashboards to learn, no process overhauls to survive.
-        </p>
+  <!-- ══ HERO ══ -->
+  <header class="wrap page-hero">
+    <span class="eyebrow reveal">Services</span>
+    <h1 class="h-xl reveal" style="margin-top:1.2rem;max-width:14ch">What we build for you.</h1>
+    <p class="lead reveal" style="margin-top:1.6rem">We work on the inside of your business. First we map how your operation actually runs and where it slows down, then we build custom automation into the tools you already use. No new dashboards to learn, no process overhauls to survive.</p>
+  </header>
+
+  <!-- ══ FOUR WAYS ══ -->
+  <section class="pad-y" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">What we do</span>
+        <h2 class="h-lg reveal">Four ways we save your time.</h2>
+      </div>
+      <div class="bento" data-stagger>
+        <div class="tile lit col-6 reveal">
+          <span class="card-index">01</span>
+          <h3 class="card-title" style="margin-top:.7rem">Workflow Automation</h3>
+          <p class="svc-hook">Repetitive internal tasks handled automatically, every time, without anyone lifting a finger.</p>
+          <p class="card-body" style="margin-top:.6rem">Any task your team does the same way more than twice a week is a candidate. A D2C brand's "where's my order?" replies, an agency's client onboarding checklist, invoice follow-ups, lead routing, stock and cash alerts: we map the trigger, the action, and the exception, then build the workflow around it so the work just happens.</p>
+          <div class="runs-on" style="margin-top:1rem;gap:.5rem">
+            <span class="chip-tool">Order &amp; support handling</span>
+            <span class="chip-tool">Follow-up sequences</span>
+            <span class="chip-tool">Onboarding</span>
+            <span class="chip-tool">Data entry</span>
+            <span class="chip-tool">Alerts &amp; notifications</span>
+          </div>
+          <p class="svc-note">Most workflows deliver measurable hours saved within the first week.</p>
+        </div>
+        <div class="tile lit col-6 reveal">
+          <span class="card-index">02</span>
+          <h3 class="card-title" style="margin-top:.7rem">AI-Powered Insights</h3>
+          <p class="svc-hook">Your data, turned into decisions and delivered wherever you'll actually see them.</p>
+          <p class="card-body" style="margin-top:.6rem">We pull signals from your sales, stock, cash flow, pipeline, or customer activity and surface the ones that matter. When a unified dashboard is the right call, we build one. When it isn't, the insight just comes to you: a plain-English Slack ping, a WhatsApp message, or a Sheets summary. Either way you catch the RTO spike or the stalled deal before it costs you, not a week later.</p>
+          <div class="runs-on" style="margin-top:1rem;gap:.5rem">
+            <span class="chip-tool">Sales trend detection</span>
+            <span class="chip-tool">Stock &amp; cash alerts</span>
+            <span class="chip-tool">Customer behaviour</span>
+            <span class="chip-tool">Weekly summaries</span>
+          </div>
+          <p class="svc-note">Delivered where you'll actually see it, dashboard or not.</p>
+        </div>
+        <div class="tile lit col-6 reveal">
+          <span class="card-index">03</span>
+          <h3 class="card-title" style="margin-top:.7rem">Custom Integrations</h3>
+          <p class="svc-hook">Connect tools that were never meant to talk to each other, without anyone in the middle.</p>
+          <p class="card-body" style="margin-top:.6rem">Most business software has an API. We use it to build bridges between your Shopify, CRM, courier panel, billing platform, spreadsheets, and chat tools, so data flows automatically instead of being copied by hand across tabs. If it has an API or a webhook, it can be connected.</p>
+          <div class="runs-on" style="margin-top:1rem;gap:.5rem">
+            <span class="chip-tool">Shopify &amp; storefronts</span>
+            <span class="chip-tool">CRM &amp; HubSpot</span>
+            <span class="chip-tool">WhatsApp Business</span>
+            <span class="chip-tool">Billing &amp; payments</span>
+            <span class="chip-tool">Any API-capable tool</span>
+          </div>
+          <p class="svc-note">Your team keeps using the tools they know. We just make them talk.</p>
+        </div>
+        <div class="tile lit col-6 reveal">
+          <span class="card-index">04</span>
+          <h3 class="card-title" style="margin-top:.7rem">Process Optimization</h3>
+          <p class="svc-hook">Find the friction points in how your business runs, then eliminate them systematically.</p>
+          <p class="card-body" style="margin-top:.6rem">Before any automation is built, we map your end-to-end workflow: every step, every handoff, every bottleneck, and every place work waits on a person. Sometimes the fix is a well-placed automation. Sometimes it's a simpler process or one less approval. We help you see the difference and act on it, so you're not just automating a broken process faster.</p>
+          <div class="runs-on" style="margin-top:1rem;gap:.5rem">
+            <span class="chip-tool">Workflow mapping</span>
+            <span class="chip-tool">Bottleneck identification</span>
+            <span class="chip-tool">Handoff reduction</span>
+            <span class="chip-tool">Error prevention</span>
+          </div>
+          <p class="svc-note">Automation amplifies a good process. We make sure yours is one.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="section-glow"></div>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- SERVICES: EXPANDABLE CARDS                 -->
-  <!-- ═══════════════════════════════════════════ -->
-  <section class="py-20 sm:py-28 relative overflow-hidden" style="background: var(--bg-accent-zone);">
-    <div class="section-orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(0,167,179,0.07),transparent 70%);top:10%;right:-10%;" aria-hidden="true"></div>
-
-    <div class="max-w-4xl mx-auto px-6 relative z-10">
-      <div class="reveal max-w-2xl mb-12">
-        <p class="eyebrow mb-4">What we do</p>
-        <h2 class="heading-xl text-white">Four ways we <span class="text-brand-soft">save your time.</span></h2>
+  <!-- ══ WHAT WE AUTOMATE ON THE INSIDE ══ -->
+  <section class="pad-y" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">The work itself</span>
+        <h2 class="h-lg reveal">What we automate on the inside.</h2>
+        <p class="lead reveal">Most of what slows a business down isn't the work it sells. It's the internal running of the place: the messages, the handoffs, the chasing, the reconciling. These are the areas we go after first.</p>
       </div>
-
-      <div class="space-y-4" id="svc-list">
-
-        <!-- Card 1: Workflow Automation -->
-        <div class="svc-card reveal rounded-2xl p-6 sm:p-8" style="background:rgba(18,42,46,0.7);border:1px solid rgba(0,167,179,0.12);backdrop-filter:blur(10px);">
-          <div class="flex items-start justify-between gap-4">
-            <div class="flex items-start gap-5">
-              <div class="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 010 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 010-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-              </div>
-              <div>
-                <h3 class="font-heading font-bold text-lg text-white mb-1">Workflow Automation</h3>
-                <p class="text-sm" style="color:var(--text-secondary);">Repetitive tasks handled automatically, every time, without anyone lifting a finger.</p>
-              </div>
-            </div>
-            <div class="svc-toggle-icon w-7 h-7 rounded-full bg-brand/10 flex items-center justify-center shrink-0 mt-1">
-              <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
-            </div>
-          </div>
-          <div class="svc-detail mt-6 pt-6" style="border-top:1px solid rgba(255,255,255,0.06);">
-            <p class="text-sm leading-relaxed mb-5" style="color:var(--text-secondary);">Any task your team does the same way more than twice a week is a candidate for automation. Order confirmations, appointment reminders, invoice generation, stock alerts, follow-up messages — we map the trigger, the action, and the exception, then build the workflow around it.</p>
-            <div class="flex flex-wrap gap-2 mb-5">
-              <span class="stat-pill">Order processing</span>
-              <span class="stat-pill">Follow-up sequences</span>
-              <span class="stat-pill">Scheduling</span>
-              <span class="stat-pill">Data entry</span>
-              <span class="stat-pill">Alerts & notifications</span>
-            </div>
-            <p class="text-xs" style="color:var(--text-muted);">Most workflows deliver measurable hours saved within the first week.</p>
-          </div>
+      <div class="bento" data-stagger>
+        <div class="tile lit col-4 reveal">
+          <span class="card-index">01</span>
+          <h3 class="card-title" style="margin-top:.8rem">Customer communication</h3>
+          <p class="card-body" style="margin-top:.5rem">Replies, order updates, follow-ups, and win-back messages, drafted or sent by AI so nobody is typing the same answer for the hundredth time. Only the messages that genuinely need a human reach one.</p>
+          <div class="runs-on" style="margin-top:1rem;gap:.5rem"><span class="chip-tool">Support replies</span><span class="chip-tool">Follow-ups</span><span class="chip-tool">Retention</span></div>
         </div>
-
-        <!-- Card 2: AI-Powered Insights -->
-        <div class="svc-card reveal rounded-2xl p-6 sm:p-8" style="background:rgba(18,42,46,0.7);border:1px solid rgba(0,167,179,0.12);backdrop-filter:blur(10px);">
-          <div class="flex items-start justify-between gap-4">
-            <div class="flex items-start gap-5">
-              <div class="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/></svg>
-              </div>
-              <div>
-                <h3 class="font-heading font-bold text-lg text-white mb-1">AI-Powered Insights</h3>
-                <p class="text-sm" style="color:var(--text-secondary);">Your data, turned into decisions — without building a dashboard you'll never check.</p>
-              </div>
-            </div>
-            <div class="svc-toggle-icon w-7 h-7 rounded-full bg-brand/10 flex items-center justify-center shrink-0 mt-1">
-              <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
-            </div>
-          </div>
-          <div class="svc-detail mt-6 pt-6" style="border-top:1px solid rgba(255,255,255,0.06);">
-            <p class="text-sm leading-relaxed mb-5" style="color:var(--text-secondary);">We pull signals from your sales data, stock levels, bookings, or customer activity and surface the ones that matter — as a WhatsApp message, a Sheets summary, or a Slack ping. No login required. The insight comes to you.</p>
-            <div class="flex flex-wrap gap-2 mb-5">
-              <span class="stat-pill">Sales trend detection</span>
-              <span class="stat-pill">Low-stock alerts</span>
-              <span class="stat-pill">Customer behaviour</span>
-              <span class="stat-pill">Weekly summaries</span>
-            </div>
-            <p class="text-xs" style="color:var(--text-muted);">Delivered where you already spend time — not in a new tool.</p>
-          </div>
+        <div class="tile lit col-4 reveal">
+          <span class="card-index">02</span>
+          <h3 class="card-title" style="margin-top:.8rem">Vendor &amp; supplier coordination</h3>
+          <p class="card-body" style="margin-top:.5rem">The back-and-forth with suppliers, manufacturers, and partners: purchase orders raised, dispatch status chased, and delays surfaced to you before they become a stockout or a missed deadline.</p>
+          <div class="runs-on" style="margin-top:1rem;gap:.5rem"><span class="chip-tool">Purchase orders</span><span class="chip-tool">Status chasing</span><span class="chip-tool">Delay alerts</span></div>
         </div>
-
-        <!-- Card 3: Custom Integrations -->
-        <div class="svc-card reveal rounded-2xl p-6 sm:p-8" style="background:rgba(18,42,46,0.7);border:1px solid rgba(0,167,179,0.12);backdrop-filter:blur(10px);">
-          <div class="flex items-start justify-between gap-4">
-            <div class="flex items-start gap-5">
-              <div class="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m9.86-2.556a4.5 4.5 0 00-1.242-7.244l-4.5-4.5a4.5 4.5 0 00-6.364 6.364L4.25 8.81"/></svg>
-              </div>
-              <div>
-                <h3 class="font-heading font-bold text-lg text-white mb-1">Custom Integrations</h3>
-                <p class="text-sm" style="color:var(--text-secondary);">Connect tools that were never meant to talk to each other, without anyone in the middle.</p>
-              </div>
-            </div>
-            <div class="svc-toggle-icon w-7 h-7 rounded-full bg-brand/10 flex items-center justify-center shrink-0 mt-1">
-              <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
-            </div>
-          </div>
-          <div class="svc-detail mt-6 pt-6" style="border-top:1px solid rgba(255,255,255,0.06);">
-            <p class="text-sm leading-relaxed mb-5" style="color:var(--text-secondary);">Most business software has an API. We use it to build bridges between your POS, WhatsApp, billing platform, spreadsheet, and CRM so data flows automatically instead of being copied by hand. If it has an API or a webhook, it can be connected.</p>
-            <div class="flex flex-wrap gap-2 mb-5">
-              <span class="stat-pill">POS systems</span>
-              <span class="stat-pill">WhatsApp Business</span>
-              <span class="stat-pill">Google Sheets</span>
-              <span class="stat-pill">Billing & CRM</span>
-              <span class="stat-pill">Any API-capable tool</span>
-            </div>
-            <p class="text-xs" style="color:var(--text-muted);">Your team keeps using the tools they know. We just make them talk.</p>
-          </div>
+        <div class="tile lit col-4 reveal">
+          <span class="card-index">03</span>
+          <h3 class="card-title" style="margin-top:.8rem">Logistics &amp; fulfillment</h3>
+          <p class="card-body" style="margin-top:.5rem">Orders traced end-to-end, delivery and ETA updates sent automatically, and the exceptions that eat your day, RTOs, failed deliveries, stuck shipments, flagged the moment they happen.</p>
+          <div class="runs-on" style="margin-top:1rem;gap:.5rem"><span class="chip-tool">Order tracking</span><span class="chip-tool">ETA updates</span><span class="chip-tool">RTO / NDR</span></div>
         </div>
-
-        <!-- Card 4: Process Optimization -->
-        <div class="svc-card reveal rounded-2xl p-6 sm:p-8" style="background:rgba(18,42,46,0.7);border:1px solid rgba(0,167,179,0.12);backdrop-filter:blur(10px);">
-          <div class="flex items-start justify-between gap-4">
-            <div class="flex items-start gap-5">
-              <div class="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
-              </div>
-              <div>
-                <h3 class="font-heading font-bold text-lg text-white mb-1">Process Optimization</h3>
-                <p class="text-sm" style="color:var(--text-secondary);">Find the friction points in how your business runs, then eliminate them systematically.</p>
-              </div>
-            </div>
-            <div class="svc-toggle-icon w-7 h-7 rounded-full bg-brand/10 flex items-center justify-center shrink-0 mt-1">
-              <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
-            </div>
-          </div>
-          <div class="svc-detail mt-6 pt-6" style="border-top:1px solid rgba(255,255,255,0.06);">
-            <p class="text-sm leading-relaxed mb-5" style="color:var(--text-secondary);">Before any automation is built, we map your end-to-end workflow — every step, every handoff, every bottleneck. Sometimes the fix is a well-placed automation. Sometimes it's a simpler process. We help you see the difference and act on it.</p>
-            <div class="flex flex-wrap gap-2 mb-5">
-              <span class="stat-pill">Workflow mapping</span>
-              <span class="stat-pill">Bottleneck identification</span>
-              <span class="stat-pill">Handoff reduction</span>
-              <span class="stat-pill">Error prevention</span>
-            </div>
-            <p class="text-xs" style="color:var(--text-muted);">Automation amplifies a good process. We make sure yours is one.</p>
-          </div>
+        <div class="tile lit col-4 reveal">
+          <span class="card-index">04</span>
+          <h3 class="card-title" style="margin-top:.8rem">Billing, invoicing &amp; reconciliation</h3>
+          <p class="card-body" style="margin-top:.5rem">Invoices generated and sent on schedule, payment reminders that go out on their own until it's paid, and payouts reconciled against orders so the numbers match without a manual cross-check.</p>
+          <div class="runs-on" style="margin-top:1rem;gap:.5rem"><span class="chip-tool">Invoice generation</span><span class="chip-tool">Payment reminders</span><span class="chip-tool">Reconciliation</span></div>
         </div>
+        <div class="tile lit col-4 reveal">
+          <span class="card-index">05</span>
+          <h3 class="card-title" style="margin-top:.8rem">Reporting &amp; insights</h3>
+          <p class="card-body" style="margin-top:.5rem">A plain-English read on how the business is doing, pushed to you daily or weekly, plus alerts the moment something moves the wrong way. A dashboard when it helps, but nobody has to remember to open it or build a report by hand.</p>
+          <div class="runs-on" style="margin-top:1rem;gap:.5rem"><span class="chip-tool">Daily summaries</span><span class="chip-tool">Live alerts</span><span class="chip-tool">Trend detection</span></div>
+        </div>
+        <div class="tile lit col-4 reveal">
+          <span class="card-index">06</span>
+          <h3 class="card-title" style="margin-top:.8rem">Onboarding &amp; handoffs</h3>
+          <p class="card-body" style="margin-top:.5rem">The repeatable startup work: onboarding a new client or hire, provisioning access, and firing the right internal handoff so nothing stalls in the gap between two people or two teams.</p>
+          <div class="runs-on" style="margin-top:1rem;gap:.5rem"><span class="chip-tool">Client onboarding</span><span class="chip-tool">Access setup</span><span class="chip-tool">Internal handoffs</span></div>
+        </div>
+      </div>
+      <p class="lead reveal" style="margin-top:1.4rem;font-size:.95rem">Every one of these takes work off your team's plate. The goal isn't a flashier tool. It's a lighter week.</p>
+    </div>
+  </section>
 
+  <!-- ══ THE DIAGNOSTIC (how we find what to automate) ══ -->
+  <section class="pad-y" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">Diagnosis first</span>
+        <h2 class="h-lg reveal">How we find what to automate.</h2>
+        <p class="lead reveal">We don't start with a tool and look for a use for it. We start inside your operation and follow the work, because the most expensive friction is usually the part nobody thinks to mention.</p>
+      </div>
+      <div class="bento" data-stagger>
+        <div class="tile lit col-4 reveal">
+          <span class="card-index">01</span>
+          <h3 class="card-title" style="margin-top:.8rem">We watch the real workflow</h3>
+          <p class="card-body" style="margin-top:.5rem">Real conversations with the people who do the work, not a questionnaire. We see how a normal week actually moves, tabs and messages and all.</p>
+        </div>
+        <div class="tile lit col-4 reveal">
+          <span class="card-index">02</span>
+          <h3 class="card-title" style="margin-top:.8rem">We map every handoff</h3>
+          <p class="card-body" style="margin-top:.5rem">Every step, every tool, every place work waits on a person. The map makes the bottlenecks and the silent time-sinks impossible to miss.</p>
+        </div>
+        <div class="tile lit col-4 reveal">
+          <span class="card-index">03</span>
+          <h3 class="card-title" style="margin-top:.8rem">We build the highest-leverage first</h3>
+          <p class="card-body" style="margin-top:.5rem">We score each opportunity by time returned and effort to build, then start with the one that pays back fastest. Proof before scale.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="section-glow"></div>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- AUTOMATION IN THE REAL WORLD               -->
-  <!-- ═══════════════════════════════════════════ -->
-  <section class="py-20 sm:py-28 relative overflow-hidden">
-    <div class="section-dot-grid" aria-hidden="true"></div>
-    <div class="section-orb" style="width:600px;height:400px;background:radial-gradient(ellipse,rgba(0,167,179,0.06),transparent 70%);bottom:0;left:-10%;" aria-hidden="true"></div>
-
-    <div class="max-w-5xl mx-auto px-6 relative z-10">
-      <div class="reveal max-w-3xl mb-10">
-        <p class="eyebrow mb-4">Automation in the real world</p>
-        <h2 class="heading-xl text-white">How it plays out <span class="text-brand-soft">across industries.</span></h2>
-        <p class="mt-5 body-lg" style="color:var(--text-secondary);">Every industry has its own repetitive handoffs. Hover over each step to see what nsquare automates at that point.</p>
+  <!-- ══ HOW IT PLAYS OUT (industries) ══ -->
+  <section class="pad-y" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">Automation in the real world</span>
+        <h2 class="h-lg reveal">How it plays out across industries.</h2>
+        <p class="lead reveal">Every industry has its own repetitive handoffs. Pick a floor and follow the flow, hover any step to see what nsquare automates at that point.</p>
       </div>
 
-      <!-- Industry tabs -->
-      <div class="flex flex-wrap gap-2 mb-10 reveal" id="ind-tabs">
-        <button class="ind-tab active" data-tab="restaurant">Restaurant</button>
-        <button class="ind-tab" data-tab="clinic">Healthcare</button>
-        <button class="ind-tab" data-tab="retail">Retail</button>
-        <button class="ind-tab" data-tab="logistics">Logistics</button>
+      <div class="filters reveal" role="tablist" aria-label="Choose an industry">
+        <button class="filter-chip active" data-tab="d2c">D2C</button>
+        <button class="filter-chip" data-tab="services">Professional services</button>
+        <button class="filter-chip" data-tab="realestate">Real estate</button>
+        <button class="filter-chip" data-tab="coaching">Coaching</button>
+        <button class="filter-chip" data-tab="saas">SaaS ops</button>
       </div>
 
-      <!-- Restaurant panel -->
-      <div class="ind-panel active reveal-scale" id="panel-restaurant">
-        <div class="rounded-2xl p-6 sm:p-8 mb-6" style="background:rgba(18,42,46,0.7);border:1px solid rgba(0,167,179,0.12);backdrop-filter:blur(10px);">
-          <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+      <div class="reveal">
+        <!-- D2C -->
+        <div class="ind-panel" data-panel="d2c">
+          <div class="ind-head">
             <div>
-              <p class="text-xs font-semibold uppercase mb-1" style="letter-spacing:0.12em;color:var(--text-muted);">Industry example</p>
-              <h3 class="font-heading font-bold text-xl text-white">Restaurant / F&amp;B</h3>
-              <p class="text-sm mt-1" style="color:var(--text-secondary);">From customer order to kitchen ticket, without a human in the middle.</p>
+              <p class="k">Industry example</p>
+              <h3>D2C / eCommerce brand</h3>
+              <p class="one">From a customer message to an accurate answer, without you opening five tabs.</p>
             </div>
-            <span class="stat-pill">~9 hrs saved / week</span>
+            <span class="hours-pill">~10 hrs saved / week</span>
           </div>
-          <div class="flow-diagram">
-            <div class="flow-node" data-tip="Customer sends order via WhatsApp">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
-              <span class="flow-node-label">WhatsApp</span>
-              <span class="flow-node-sub">Customer order</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="AI reads the order, extracts items and quantities">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
-              <span class="flow-node-label">AI Parser</span>
-              <span class="flow-node-sub">Reads order</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="Order pushed directly into your POS system">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"/></svg>
-              <span class="flow-node-label">POS Update</span>
-              <span class="flow-node-sub">Auto-entered</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="Kitchen ticket prints automatically, no delay">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z"/></svg>
-              <span class="flow-node-label">Kitchen</span>
-              <span class="flow-node-sub">Ticket prints</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="Customer gets a confirmation reply automatically">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              <span class="flow-node-label">Confirmed</span>
-              <span class="flow-node-sub">Auto-reply sent</span>
-            </div>
+          <div class="flow">
+            <div class="flow-node" data-tip="Customer sends a DM or WhatsApp: where's my order?"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg></span><span class="lbl">Customer DM</span><span class="sub">Order query</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="AI reads the message and works out the order and the intent"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></span><span class="lbl">AI reads</span><span class="sub">Intent + order</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Pulls live status from Shopify and the courier panel"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0112 19.5m9.75-9.75c0 .621-.504 1.125-1.125 1.125H12m8.625-3.375A1.125 1.125 0 0119.5 9.75v-1.5A1.125 1.125 0 0120.625 7.125"/></svg></span><span class="lbl">Order lookup</span><span class="sub">Shopify + courier</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Accurate reply drafted and sent, or flagged if it needs you"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span><span class="lbl">Reply sent</span><span class="sub">Accurate + instant</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Unhappy or high-value customers tagged for a follow-up"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg></span><span class="lbl">Retention</span><span class="sub">Tagged for care</span></div>
           </div>
-          <p class="mt-6 text-xs italic" style="color:var(--text-muted);">Fictional example for illustration. Real automation is scoped to your specific setup.</p>
+          <p class="ind-note">Fictional example for illustration. Real automation is scoped to your specific setup.</p>
+        </div>
+
+        <!-- Professional services -->
+        <div class="ind-panel hide" data-panel="services">
+          <div class="ind-head">
+            <div>
+              <p class="k">Industry example</p>
+              <h3>Professional services / Agency</h3>
+              <p class="one">Every new client onboarded the same clean way, without the manual scramble.</p>
+            </div>
+            <span class="hours-pill">~12 hrs saved / week</span>
+          </div>
+          <div class="flow">
+            <div class="flow-node" data-tip="Signed proposal or intake form comes in"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/></svg></span><span class="lbl">New client</span><span class="sub">Proposal signed</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Onboarding checklist auto-created, kickoff docs sent"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></span><span class="lbl">Onboarding</span><span class="sub">Checklist runs</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Tools and access provisioned, the right team assigned"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"/></svg></span><span class="lbl">Access setup</span><span class="sub">Tools + team</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Invoice generated and scheduled per the agreement"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg></span><span class="lbl">Invoice</span><span class="sub">Scheduled</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Payment and status follow-ups sent until it's done"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg></span><span class="lbl">Follow-ups</span><span class="sub">Until it's paid</span></div>
+          </div>
+          <p class="ind-note">Fictional example for illustration. Real automation is scoped to your specific setup.</p>
+        </div>
+
+        <!-- Real estate -->
+        <div class="ind-panel hide" data-panel="realestate">
+          <div class="ind-head">
+            <div>
+              <p class="k">Industry example</p>
+              <h3>Real estate / Brokerage</h3>
+              <p class="one">No enquiry goes cold while you're out on a viewing.</p>
+            </div>
+            <span class="hours-pill">~10 hrs saved / week</span>
+          </div>
+          <div class="flow">
+            <div class="flow-node" data-tip="Lead lands from a portal, website, or ad campaign"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg></span><span class="lbl">New lead</span><span class="sub">Portal / ad</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Auto-added to the CRM, enriched and tagged by budget and intent"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0112 19.5m9.75-9.75c0 .621-.504 1.125-1.125 1.125H12m8.625-3.375A1.125 1.125 0 0119.5 9.75v-1.5A1.125 1.125 0 0120.625 7.125"/></svg></span><span class="lbl">CRM</span><span class="sub">Enriched + tagged</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Personalized nurture sequence so no lead goes cold"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg></span><span class="lbl">Nurture</span><span class="sub">Kept warm</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Viewing scheduled, reminders sent to both sides"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg></span><span class="lbl">Viewing</span><span class="sub">Booked + reminded</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Post-viewing follow-up and feedback captured automatically"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span><span class="lbl">Follow-up</span><span class="sub">Feedback captured</span></div>
+          </div>
+          <p class="ind-note">Fictional example for illustration. Real automation is scoped to your specific setup.</p>
+        </div>
+
+        <!-- Coaching -->
+        <div class="ind-panel hide" data-panel="coaching">
+          <div class="ind-head">
+            <div>
+              <p class="k">Industry example</p>
+              <h3>Coaching / Education</h3>
+              <p class="one">Enquiries answered around the clock, so the front desk stops chasing.</p>
+            </div>
+            <span class="hours-pill">~9 hrs saved / week</span>
+          </div>
+          <div class="flow">
+            <div class="flow-node" data-tip="Parent or student asks about courses, any time of day"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg></span><span class="lbl">Enquiry</span><span class="sub">Any hour</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Answers and qualifies from your program details"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></span><span class="lbl">AI answers</span><span class="sub">From your info</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Enrolment logged, welcome pack sent automatically"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/></svg></span><span class="lbl">Enrolment</span><span class="sub">Logged + welcomed</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Fee reminders sent on schedule until paid"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg></span><span class="lbl">Payment</span><span class="sub">Reminded</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Class and session reminders cut no-shows"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg></span><span class="lbl">Reminders</span><span class="sub">Fewer no-shows</span></div>
+          </div>
+          <p class="ind-note">Fictional example for illustration. Real automation is scoped to your specific setup.</p>
+        </div>
+
+        <!-- SaaS ops -->
+        <div class="ind-panel hide" data-panel="saas">
+          <div class="ind-head">
+            <div>
+              <p class="k">Industry example</p>
+              <h3>SaaS / Tech ops</h3>
+              <p class="one">Signups and internal handoffs move on their own, nothing stalls between teams.</p>
+            </div>
+            <span class="hours-pill">~11 hrs saved / week</span>
+          </div>
+          <div class="flow">
+            <div class="flow-node" data-tip="New signup or inbound lead arrives"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z"/></svg></span><span class="lbl">Signup</span><span class="sub">New lead</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Enriched, scored, and routed to the right owner"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></span><span class="lbl">Enriched</span><span class="sub">Scored + routed</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Internal handoff fired in Slack so nothing gets dropped"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"/></svg></span><span class="lbl">Slack handoff</span><span class="sub">No dropped balls</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Onboarding tasks created and tracked to done"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg></span><span class="lbl">Onboarding</span><span class="sub">Tasks tracked</span></div>
+            <span class="flow-arrow"><svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="flow-node" data-tip="Usage or renewal risk flagged before churn"><span class="ico"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg></span><span class="lbl">Renewal risk</span><span class="sub">Flagged early</span></div>
+          </div>
+          <p class="ind-note">Fictional example for illustration. Real automation is scoped to your specific setup.</p>
         </div>
       </div>
-
-      <!-- Clinic panel -->
-      <div class="ind-panel" id="panel-clinic">
-        <div class="rounded-2xl p-6 sm:p-8 mb-6" style="background:rgba(18,42,46,0.7);border:1px solid rgba(0,167,179,0.12);backdrop-filter:blur(10px);">
-          <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
-            <div>
-              <p class="text-xs font-semibold uppercase mb-1" style="letter-spacing:0.12em;color:var(--text-muted);">Industry example</p>
-              <h3 class="font-heading font-bold text-xl text-white">Healthcare / Clinic</h3>
-              <p class="text-sm mt-1" style="color:var(--text-secondary);">Appointment management that runs itself, fewer no-shows, less manual follow-up.</p>
-            </div>
-            <span class="stat-pill">~12 hrs saved / week</span>
-          </div>
-          <div class="flow-diagram">
-            <div class="flow-node" data-tip="Appointment booked by patient via call or form">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
-              <span class="flow-node-label">Booking</span>
-              <span class="flow-node-sub">Sheet logged</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="Patient receives WhatsApp confirmation instantly">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
-              <span class="flow-node-label">Confirm</span>
-              <span class="flow-node-sub">WhatsApp sent</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="Day-before reminder sent automatically">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
-              <span class="flow-node-label">Reminder</span>
-              <span class="flow-node-sub">Day before</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="Post-visit follow-up with care instructions or review ask">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
-              <span class="flow-node-label">Follow-up</span>
-              <span class="flow-node-sub">Post-visit</span>
-            </div>
-          </div>
-          <p class="mt-6 text-xs italic" style="color:var(--text-muted);">Fictional example for illustration. Real automation is scoped to your specific setup.</p>
-        </div>
-      </div>
-
-      <!-- Retail panel -->
-      <div class="ind-panel" id="panel-retail">
-        <div class="rounded-2xl p-6 sm:p-8 mb-6" style="background:rgba(18,42,46,0.7);border:1px solid rgba(0,167,179,0.12);backdrop-filter:blur(10px);">
-          <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
-            <div>
-              <p class="text-xs font-semibold uppercase mb-1" style="letter-spacing:0.12em;color:var(--text-muted);">Industry example</p>
-              <h3 class="font-heading font-bold text-xl text-white">Retail / eCommerce</h3>
-              <p class="text-sm mt-1" style="color:var(--text-secondary);">Inventory intelligence that keeps shelves stocked without manual stock checks.</p>
-            </div>
-            <span class="stat-pill">~8 hrs saved / week</span>
-          </div>
-          <div class="flow-diagram">
-            <div class="flow-node" data-tip="Sale recorded in your POS as it happens">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
-              <span class="flow-node-label">Sale</span>
-              <span class="flow-node-sub">POS records</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="Stock levels updated automatically in your spreadsheet">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0112 19.5m9.75-9.75c0 .621-.504 1.125-1.125 1.125H12m8.625-3.375A1.125 1.125 0 0119.5 9.75v-1.5A1.125 1.125 0 0120.625 7.125"/></svg>
-              <span class="flow-node-label">Inventory</span>
-              <span class="flow-node-sub">Auto-updated</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="Owner gets WhatsApp alert when any item goes below threshold">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
-              <span class="flow-node-label">Alert</span>
-              <span class="flow-node-sub">Low stock ping</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="Reorder request drafted or sent to supplier automatically">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
-              <span class="flow-node-label">Reorder</span>
-              <span class="flow-node-sub">Auto-triggered</span>
-            </div>
-          </div>
-          <p class="mt-6 text-xs italic" style="color:var(--text-muted);">Fictional example for illustration. Real automation is scoped to your specific setup.</p>
-        </div>
-      </div>
-
-      <!-- Logistics panel -->
-      <div class="ind-panel" id="panel-logistics">
-        <div class="rounded-2xl p-6 sm:p-8 mb-6" style="background:rgba(18,42,46,0.7);border:1px solid rgba(0,167,179,0.12);backdrop-filter:blur(10px);">
-          <div class="flex items-center justify-between flex-wrap gap-4 mb-6">
-            <div>
-              <p class="text-xs font-semibold uppercase mb-1" style="letter-spacing:0.12em;color:var(--text-muted);">Industry example</p>
-              <h3 class="font-heading font-bold text-xl text-white">Logistics / Courier</h3>
-              <p class="text-sm mt-1" style="color:var(--text-secondary);">Customers and drivers informed at every step, without a coordinator in the middle.</p>
-            </div>
-            <span class="stat-pill">~10 hrs saved / week</span>
-          </div>
-          <div class="flow-diagram">
-            <div class="flow-node" data-tip="Job assigned in your dispatch sheet or system">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"/></svg>
-              <span class="flow-node-label">Job Assigned</span>
-              <span class="flow-node-sub">Sheet logged</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="Driver gets WhatsApp with pickup details and address">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
-              <span class="flow-node-label">Driver Notified</span>
-              <span class="flow-node-sub">WhatsApp details</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="Customer gets ETA and tracking update automatically">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z"/></svg>
-              <span class="flow-node-label">ETA Update</span>
-              <span class="flow-node-sub">Customer pinged</span>
-            </div>
-            <div class="flow-arrow-lg"><svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M14 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="flow-node" data-tip="Delivery confirmed and invoice auto-generated">
-              <svg class="flow-node-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              <span class="flow-node-label">Delivered</span>
-              <span class="flow-node-sub">Invoice sent</span>
-            </div>
-          </div>
-          <p class="mt-6 text-xs italic" style="color:var(--text-muted);">Fictional example for illustration. Real automation is scoped to your specific setup.</p>
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <div class="section-glow"></div>
-
-  <!-- CTA -->
-  <section class="py-24 sm:py-28 text-center relative overflow-hidden" style="background:var(--bg-deep);">
-    <div class="section-orb" style="width:600px;height:400px;background:radial-gradient(ellipse,rgba(0,167,179,0.10),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);" aria-hidden="true"></div>
-    <div class="reveal max-w-2xl mx-auto px-6 relative z-10">
-      <h2 class="heading-xl text-white mb-6">Ready to automate <span class="text-brand-soft">your business?</span></h2>
-      <p class="body-lg mb-10 max-w-lg mx-auto" style="color:var(--text-secondary);">Tell us what's eating your week. We'll build something that fixes it.</p>
-      <a href="/contact" class="btn-brand inline-flex items-center px-8 py-4 rounded-full font-heading font-semibold text-sm bg-brand" style="color:var(--text-on-brand);">
-        Get in Touch
-      </a>
+  <!-- ══ CTA ══ -->
+  <section class="pad-y" style="padding-top:0">
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <h2 class="h-lg">Ready to automate your operation?</h2>
+        <p class="lead" style="margin:1rem auto 1.8rem">Tell us what's slowing your business down on the inside. We'll map it and build something that fixes it.</p>
+        <a href="contact.html" class="btn btn-primary" data-magnetic>Get in Touch</a>
+      </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="py-16 border-t border-white/5">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-        <div class="col-span-2 lg:col-span-1">
-          <a href="/" class="inline-block mb-4"><span class="font-heading font-bold text-xl tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span></a>
-          <p class="text-sm leading-relaxed mb-4" style="color:var(--text-muted);">Automation built for real business.</p>
-          <span class="text-xs flex items-center gap-1.5" style="color:var(--text-muted);">
-            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z"/></svg>
-            Mumbai, India
-          </span>
-        </div>
-        <div>
-          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing:0.14em;color:var(--text-muted);">Company</p>
-          <ul class="space-y-3">
-            <li><a href="/" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">Home</a></li>
-            <li><a href="/about" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">About</a></li>
-            <li><a href="/services" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">Services</a></li>
-            <li><a href="/how-it-works" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">How it Works</a></li>
-            <li><a href="/our-work" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">Our Work</a></li>
-            <li><a href="/#faq" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">FAQ</a></li>
-          </ul>
-        </div>
-        <div>
-          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing:0.14em;color:var(--text-muted);">Contact</p>
-          <ul class="space-y-3">
-            <li><a href="mailto:nekunj@nsquareai.in" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">nekunj@nsquareai.in</a></li>
-            <li><a href="tel:+918879897814" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">+91 8879897814</a></li>
-            <li><a href="https://www.instagram.com/nsquareai.in" target="_blank" rel="noopener noreferrer" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">@nsquareai.in</a></li>
-          </ul>
-        </div>
-        <div>
-          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing:0.14em;color:var(--text-muted);">Legal</p>
-          <ul class="space-y-3">
-            <li><a href="/privacy" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">Privacy Policy</a></li>
-            <li><a href="/terms" class="text-sm transition-colors duration-200 hover:text-brand" style="color:var(--text-secondary);">Terms of Service</a></li>
-          </ul>
-        </div>
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="wrap footer-top">
+      <div>
+        <a href="index.html" class="brand">nsquare<b>ai</b></a>
+        <p class="mono" style="color:var(--ink-4);font-size:.74rem;margin-top:.7rem;letter-spacing:.08em">Mumbai, India</p>
       </div>
-      <div class="mt-12 pt-8 border-t border-white/5 text-center">
-        <p class="text-xs" style="color:var(--text-muted);">&copy; 2026 nsquareai. All rights reserved.</p>
+      <div class="footer-meta">
+        <a href="mailto:nekunj@nsquareai.in">nekunj@nsquareai.in</a>
+        <span class="footer-legal"><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
+        <span>© 2026 nsquareai. All rights reserved.</span>
       </div>
     </div>
   </footer>
 
-  <script src="main.js" defer></script>
+  <!-- page-scoped: industry tabs -->
   <script>
-    // Service card expand/collapse
-    document.querySelectorAll('.svc-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const wasOpen = card.classList.contains('open');
-        document.querySelectorAll('.svc-card.open').forEach(c => c.classList.remove('open'));
-        if (!wasOpen) card.classList.add('open');
+    (function () {
+      var tabs = document.querySelectorAll('[data-tab]');
+      var panels = document.querySelectorAll('.ind-panel');
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () {
+          tabs.forEach(function (x) { x.classList.remove('active'); });
+          t.classList.add('active');
+          var id = t.dataset.tab;
+          panels.forEach(function (p) { p.classList.toggle('hide', p.dataset.panel !== id); });
+        });
       });
-    });
-
-    // Industry tabs
-    const tabs = document.querySelectorAll('.ind-tab');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.tab;
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        document.querySelectorAll('.ind-panel').forEach(p => p.classList.remove('active'));
-        document.getElementById('panel-' + target).classList.add('active');
-      });
-    });
+    })();
   </script>
+  <script src="main.js?v=20"></script>
 </body>
 </html>

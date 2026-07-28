@@ -1,666 +1,408 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>nsquareai: AI Automation for Mumbai Businesses</title>
-  <meta name="description" content="Custom AI workflows and automation that save Mumbai businesses hours every week. From workflow automation to intelligent integrations.">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>nsquareai: Operations Automation for D2C & Growing Businesses</title>
+  <meta name="description" content="We map how your business runs on the inside, then automate the parts that slow it down. Operations diagnostics and custom automation for D2C brands, agencies, real estate, coaching, and SaaS teams.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: '#00A7B3',
-            'brand-soft': '#2BC4CF',
-            'brand-deep': '#007A83',
-            'brand-glow': 'rgba(0, 167, 179, 0.2)',
-            primary: '#0D1F22',
-            elevated: '#122A2E',
-            floating: '#173438',
-            deep: '#081518',
-            'accent-zone': '#0E2629',
-            base: '#0D1F22', /* alias for backwards-compat with existing utility uses */
-            surface: '#122A2E',
-            'text-primary': '#F2F5F5',
-            'text-secondary': '#A8B5B7',
-            'text-muted': '#6E7E80',
-          },
-          fontFamily: {
-            heading: ['Montserrat', 'sans-serif'],
-            body: ['Inter', 'sans-serif'],
-          },
-        },
-      },
-    }
-  </script>
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20">
 </head>
 <body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <div class="progress-rail" aria-hidden="true"><i></i></div>
 
-  <!-- Cursor glow -->
-  <div id="cursor-glow" class="cursor-glow" aria-hidden="true"></div>
-
-  <!-- Noise texture overlay -->
-  <div class="noise" aria-hidden="true"></div>
-
-  <!-- ════════════════════════════════════════════════ -->
-  <!-- NAVBAR                                          -->
-  <!-- ════════════════════════════════════════════════ -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50" style="background: transparent; transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center shrink-0" aria-label="nsquareai home">
-        <span class="font-heading font-bold text-3xl tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span>
-      </a>
-      <div class="hidden md:flex items-center gap-8">
-        <a href="/about" class="nav-link text-sm font-medium text-gray-400">About</a>
-        <a href="/services" class="nav-link text-sm font-medium text-gray-400">Services</a>
-        <a href="/how-it-works" class="nav-link text-sm font-medium text-gray-400">How it Works</a>
-        <a href="/our-work" class="nav-link text-sm font-medium text-gray-400">Our Work</a>
-        <a href="/contact" class="nav-cta-btn">Get in Touch</a>
+  <!-- ══ NAV ══ -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand" aria-label="nsquareai home">nsquare<b>ai</b></a>
+      <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="how-it-works.html">How it Works</a>
+        <a href="our-work.html">Our Work</a>
+        <a href="contact.html" class="btn nav-cta" data-magnetic>Get in Touch</a>
       </div>
-      <button id="mobile-menu-btn" class="md:hidden text-gray-400 p-2 -mr-2" aria-label="Open menu" aria-expanded="false">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <button class="nav-burger" aria-label="Open menu" aria-expanded="false">
+        <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
-    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4" style="background: rgba(13,31,34,0.95); backdrop-filter: blur(16px);">
-      <a href="/about" class="block py-3 text-sm text-gray-400 border-b border-white/5">About</a>
-      <a href="/services" class="block py-3 text-sm text-gray-400 border-b border-white/5">Services</a>
-      <a href="/how-it-works" class="block py-3 text-sm text-gray-400 border-b border-white/5">How it Works</a>
-      <a href="/our-work" class="block py-3 text-sm text-gray-400 border-b border-white/5">Our Work</a>
-      <a href="/contact" class="block py-3 text-sm font-semibold" style="color:#00A7B3;">Get in Touch</a>
+    <div class="nav-mobile">
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="how-it-works.html">How it Works</a>
+      <a href="our-work.html">Our Work</a>
+      <a href="contact.html">Get in Touch</a>
     </div>
   </nav>
 
-  <!-- ════════════════════════════════════════════════ -->
-  <!-- HERO                                            -->
-  <!-- ════════════════════════════════════════════════ -->
-  <section class="relative min-h-screen flex items-center overflow-hidden">
-    <div class="hero-bg" aria-hidden="true">
-      <div class="hero-orb-3"></div>
-    </div>
-    <!-- Floating animated paths -->
-    <div class="floating-paths" id="floating-paths-1" aria-hidden="true"></div>
-    <div class="floating-paths" id="floating-paths-2" aria-hidden="true"></div>
-    <!-- Dark gradient overlay to keep text readable -->
-    <div style="position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 70% 80% at 30% 50%, rgba(13,31,34,0.38) 0%, rgba(13,31,34,0.70) 100%);" aria-hidden="true"></div>
-    <div class="dot-grid" aria-hidden="true"></div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-24 w-full">
-      <div class="flex flex-col lg:flex-row lg:items-center lg:gap-16">
-
-        <!-- Left: headline + CTA -->
-        <div class="flex-1 min-w-0 lg:text-left text-center">
-          <h1 class="display-xl text-white">
-            <span class="hero-text-1 block">Automate</span>
-            <span class="hero-text-1 block">the busywork.</span>
-            <span class="hero-text-2 block text-brand-soft">Focus on growth.</span>
-          </h1>
-          <p class="hero-text-3 mt-8 body-lg max-w-lg lg:mx-0 mx-auto font-body">
-            Custom AI workflows that save Mumbai businesses hours every week.
-          </p>
-          <div class="hero-text-4 mt-10 flex gap-4 lg:justify-start justify-center">
-            <a href="/contact" class="btn-slide">
-              <span class="btn-slide-text">Get Started</span>
-              <span class="btn-slide-icon">
-                <svg fill="none" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Right: workflow mockup -->
-        <div class="hero-visual hero-floating-mockup hidden lg:flex lg:items-center lg:justify-center flex-shrink-0">
-          <div class="relative">
-            <!-- Ambient glow -->
-            <div class="absolute inset-0 -m-16 pointer-events-none" style="background: radial-gradient(ellipse at 50% 55%, rgba(0,167,179,0.13) 0%, transparent 65%); filter: blur(40px);" aria-hidden="true"></div>
-
-            <!-- Live badge top-left -->
-            <div class="absolute -top-6 -left-3 z-10 bg-elevated/90 border border-brand/30 rounded-xl px-3.5 py-2 shadow-xl backdrop-blur-sm" style="transform: rotate(-2.5deg);">
-              <div class="flex items-center gap-2">
-                <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0"></div>
-                <span class="text-xs font-medium text-gray-300 font-body">3 workflows live</span>
-              </div>
-            </div>
-
-            <!-- Main card -->
-            <div class="workflow-card p-8 relative" style="transform: rotate(1.5deg);">
-              <!-- Title bar -->
-              <div class="flex items-center gap-2 mb-6">
-                <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
-                <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
-                <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
-                <span class="text-xs text-gray-500 ml-3 font-body">workflow.nsquareai</span>
-              </div>
-              <!-- Workflow nodes -->
-              <div class="flex items-center gap-0">
-                <!-- Node 1 -->
-                <div class="workflow-node flex-1 border border-brand/20 rounded-xl p-4 bg-base/50 relative">
-                  <div class="ping-ring"></div>
-                  <div class="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center mb-3">
-                    <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
-                  </div>
-                  <p class="text-xs font-semibold text-white">Order Received</p>
-                  <p class="text-xs text-gray-500 mt-0.5">via WhatsApp</p>
-                </div>
-                <!-- Connector -->
-                <div class="workflow-connector w-8 flex-shrink-0"></div>
-                <!-- Node 2 -->
-                <div class="workflow-node flex-1 border border-brand/20 rounded-xl p-4 bg-base/50 relative">
-                  <div class="ping-ring"></div>
-                  <div class="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center mb-3">
-                    <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
-                  </div>
-                  <p class="text-xs font-semibold text-white">AI Processes</p>
-                  <p class="text-xs text-gray-500 mt-0.5">categorize & route</p>
-                </div>
-                <!-- Connector -->
-                <div class="workflow-connector w-8 flex-shrink-0"></div>
-                <!-- Node 3 -->
-                <div class="workflow-node flex-1 border border-brand/20 rounded-xl p-4 bg-base/50 relative">
-                  <div class="ping-ring"></div>
-                  <div class="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center mb-3">
-                    <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
-                  </div>
-                  <p class="text-xs font-semibold text-white">Team Notified</p>
-                  <p class="text-xs text-gray-500 mt-0.5">instant update</p>
-                </div>
-              </div>
-              <!-- Status bar -->
-              <div class="mt-6 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-                  <span class="text-xs text-gray-500">Live: 3 workflows active</span>
-                </div>
-                <span class="text-xs text-brand font-medium">12 tasks automated today</span>
-              </div>
-            </div>
-
-            <!-- Tasks badge bottom-right -->
-            <div class="absolute -bottom-5 -right-3 z-10 bg-elevated/90 border border-brand/30 rounded-xl px-3.5 py-2 shadow-xl backdrop-blur-sm" style="transform: rotate(2.5deg);">
-              <p class="text-xs text-gray-500 font-body leading-tight">Today</p>
-              <p class="text-base font-bold text-brand font-heading leading-tight">12 <span class="text-xs text-gray-500 font-normal font-body">tasks automated</span></p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 opacity-40" aria-hidden="true">
-      <div class="w-5 h-8 border-2 border-gray-500 rounded-full flex items-start justify-center p-1">
-        <div class="w-1 h-2 bg-gray-400 rounded-full" style="animation: fadeUp 1.5s ease-in-out infinite;"></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section-glow"></div>
-
-  <!-- ════════════════════════════════════════════════ -->
-  <!-- ABOUT                                           -->
-  <!-- ════════════════════════════════════════════════ -->
-  <section id="about" class="py-24 sm:py-32 relative overflow-hidden" style="background: var(--bg-accent-zone);">
-    <!-- Decorative bg -->
-    <div class="section-orb" style="width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,167,179,0.10), transparent 70%); top: 50%; left: 80%; transform: translate(-50%, -50%);" aria-hidden="true"></div>
-
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-        <!-- Left: eyebrow + oversized headline -->
-        <div class="lg:col-span-5 reveal-left">
-          <p class="eyebrow mb-5">About nsquareai</p>
-          <h2 class="heading-xl text-white word-reveal">
-            Built around how you actually work.
-          </h2>
-        </div>
-
-        <!-- Right: body + pillars + CTA -->
-        <div class="lg:col-span-7 reveal lg:pt-8">
-          <p class="body-lg" style="color: var(--text-secondary);">
-            Every workflow nsquareai builds is custom made for the business it runs in. We map how your team actually works, then design automations around your existing tools and processes, so your people reclaim hours every week for work that actually matters.
-          </p>
-          <div class="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 font-heading font-semibold text-sm uppercase" style="letter-spacing: 0.12em; color: var(--text-secondary);">
-            <span style="color: var(--brand);">Process-first design</span>
-            <span style="color: var(--text-muted);">·</span>
-            <span style="color: var(--brand);">Your existing tools</span>
-            <span style="color: var(--text-muted);">·</span>
-            <span style="color: var(--brand);">Days, not months</span>
-          </div>
-          <div class="mt-12">
-            <a href="about.html" class="nav-cta-btn" style="padding: 12px 28px; font-size: 14px;">Learn More About Us</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════════════════════════════════════ -->
-  <!-- FEATURED AUTOMATIONS / BEFORE-AFTER (NEW)        -->
-  <!-- ════════════════════════════════════════════════ -->
-  <section id="featured" class="py-24 sm:py-32 relative overflow-hidden" style="background: var(--bg-accent-zone);">
-    <div class="section-orb" style="width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(0,167,179,0.06), transparent 70%); top: 0; left: -10%;" aria-hidden="true"></div>
-
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
-      <div class="reveal max-w-3xl">
-        <p class="eyebrow mb-5">Featured Automations</p>
-        <h2 class="heading-xl text-white">
-          Before us. <span class="text-brand-soft">After us.</span>
-        </h2>
-        <p class="mt-6 body-lg" style="color: var(--text-secondary);">
-          Concrete, anonymized examples of what we build for businesses that look a lot like yours.
-        </p>
+  <!-- ══ HERO · CHAOS → FLOW ══ -->
+  <section class="hero" id="hero">
+    <div class="hero__stage">
+      <canvas class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero__chapters" aria-hidden="true">
+        <span class="ch-rail"><i></i></span>
+        <b class="ch0">01 · Chaos</b>
+        <b class="ch1">02 · The fix</b>
+        <b class="ch2">03 · Flow</b>
       </div>
 
-      <div class="mt-14 grid lg:grid-cols-1 gap-8">
-        <!-- Case 1: Cafe -->
-        <div class="reveal-scale">
-          <p class="ba-context">Case 01 / A 30-seat cafe in Bandra</p>
-          <div class="ba-card">
-            <div class="ba-side before">
-              <span class="ba-tag before-tag">Before</span>
-              <h3 class="ba-title">Order intake chaos</h3>
-              <p class="ba-body">Owner manually retypes WhatsApp orders into the POS during peak hours, often missing items. Kitchen runs blind for the first ten minutes of every rush.</p>
-              <div class="ba-flow">
-                <span class="flow-tag" style="color: #FF8B8B; border-color: rgba(255,130,130,0.3);">WhatsApp</span>
-                <span style="color: var(--text-muted);">→</span>
-                <span class="flow-tag" style="color: #FF8B8B; border-color: rgba(255,130,130,0.3);">Hand-typed</span>
-                <span style="color: var(--text-muted);">→</span>
-                <span class="flow-tag" style="color: #FF8B8B; border-color: rgba(255,130,130,0.3);">POS</span>
-              </div>
-            </div>
-            <div class="ba-side after">
-              <span class="ba-tag after-tag">After</span>
-              <h3 class="ba-title">WhatsApp to kitchen, untouched</h3>
-              <p class="ba-body">Orders captured from WhatsApp, parsed by AI, pushed to the POS. Kitchen ticket auto-prints. Owner is back to running the floor.</p>
-              <div class="ba-flow">
-                <span class="flow-tag">WhatsApp</span>
-                <span style="color: var(--brand);">→</span>
-                <span class="flow-tag">AI parser</span>
-                <span style="color: var(--brand);">→</span>
-                <span class="flow-tag">POS + Kitchen</span>
-              </div>
-              <div class="ba-saved">
-                <div class="ba-saved-label">Time saved</div>
-                <div class="ba-saved-num" data-counter="9" data-suffix="">0</div>
-                <div class="ba-saved-unit">hrs / week</div>
-              </div>
+      <!-- scattered chaos chips — desktop only (see main.js buildDesktopHero).
+           Mobile hides .hero__stage entirely and uses the .hero-m paging
+           panels below instead. -->
+      <div class="hero__field" aria-hidden="true">
+        <span class="chip" style="--x:-490px;--y:-295px;--rot:-9deg;--collapse:90px"><span class="chip-in">DM: <span class="k">"where's my order?"</span></span></span>
+        <span class="chip" style="--x:355px;--y:-220px;--rot:6deg;--collapse:80px"><span class="chip-in">orders_export_v3.xlsx</span></span>
+        <span class="chip" style="--x:-470px;--y:-70px;--rot:5deg;--collapse:20px"><span class="chip-in">supplier: dispatch delayed</span></span>
+        <span class="chip" style="--x:500px;--y:35px;--rot:-7deg;--collapse:30px"><span class="chip-in">refund request · <span class="k">"still waiting"</span></span></span>
+        <span class="chip err" style="--x:-400px;--y:255px;--rot:8deg;--collapse:-70px"><span class="chip-in">STOCK SYNC ERROR</span></span>
+        <span class="chip" style="--x:445px;--y:160px;--rot:-3deg;--collapse:-80px"><span class="chip-in">abandoned carts · <span class="k">41 today</span></span></span>
+      </div>
+
+      <!-- copy -->
+      <div class="hero__copy">
+        <span class="eyebrow hero__eyebrow">Operations automation · Mumbai</span>
+        <div class="hero__headline h-xl">
+          <span class="line hl-0">First, the chaos.</span>
+          <span class="line hl-1">Then, flow.</span>
+          <span class="line hl-2">Automate the busywork.<br>Focus on growth.</span>
+        </div>
+        <p class="hero__sub">We map how your business runs on the inside, then automate the parts that slow it down. One customer message, handled end-to-end by AI, in the time it takes to read this.</p>
+        <!-- the pipeline that emerges — grows in above the CTA (desktop only) -->
+        <div class="hero__pipe" aria-hidden="true">
+          <div class="pipe-node"><span class="lbl">Customer DM</span><span class="val">"where's my order?"</span></div>
+          <span class="pipe-arrow"></span>
+          <div class="pipe-node"><span class="lbl">AI core</span><span class="val">read · matched · routed</span></div>
+          <span class="pipe-arrow"></span>
+          <div class="pipe-node"><span class="lbl">CRM + team</span><span class="val ok">reply sent ✓</span></div>
+          <span class="pipe-pulse"></span>
+        </div>
+        <div class="hero__cta">
+          <a href="#contact" class="btn btn-primary" data-magnetic>Get Started</a>
+          <a href="#proof" class="btn-link">See how it works →</a>
+        </div>
+      </div>
+      <div class="hero__hint" aria-hidden="true">scroll</div>
+    </div>
+
+    <!-- ══ MOBILE HERO · one sticky stage, one scroll-scrubbed story ══
+         Shown only on the heroMobile path (.hero.hero--mobile, added by
+         main.js/buildMobileHero when the GSAP engine is live on a narrow
+         screen). The outer .hero-m is a tall scroll track; everything lives
+         inside the sticky stage and is driven by ONE scrubbed master
+         timeline, so words, chips and orbs physically travel with the user's
+         scroll — the same engine as the desktop chaos→flow. Three beats,
+         mirroring the desktop's three chapters exactly. -->
+    <div class="hero-m">
+      <div class="hero-m__stage">
+        <!-- soft glow blob, drifts per beat -->
+        <span class="hm-glow" aria-hidden="true"></span>
+
+        <!-- kinetic ghost type: one oversized outlined word per beat,
+             rising through the stage at its own parallax rate -->
+        <div class="hero-m__ghost" aria-hidden="true">
+          <span class="hg">CHAOS</span>
+          <span class="hg">FLOW</span>
+          <span class="hg">GROWTH</span>
+        </div>
+
+        <!-- the chaos→flow particle field — same canvas engine as desktop,
+             tuned down, plus recede + growth phases for the payoff beat -->
+        <canvas class="hero-m-canvas" aria-hidden="true"></canvas>
+
+        <!-- ══ STORY PROPS ══ persistent nodes the master timeline morphs
+             across the three beats: scattered alerts → orbs absorbed into the
+             stream, one message surfacing behind the type → payoff bloom. -->
+        <div class="hero-m__story" aria-hidden="true">
+          <!-- chaos: alert chips. Kept clear of the centre band where the
+               headline sits; each dissolves into an orb that dives into the
+               particle stream as the scroll passes beat 0→1. -->
+          <div class="st-chaos">
+            <span class="st-alert st-alert--thread" style="--fx:28%;--fy:19%;--fr:-7deg"><span class="st-alert-card">"where's my order?"</span><span class="st-alert-orb"></span></span>
+            <span class="st-alert" style="--fx:74%;--fy:27%;--fr:8deg"><span class="st-alert-card">refund?</span><span class="st-alert-orb"></span></span>
+            <span class="st-alert st-alert--err" style="--fx:25%;--fy:76%;--fr:5deg"><span class="st-alert-card">STOCK SYNC ERROR</span><span class="st-alert-orb"></span></span>
+            <span class="st-alert" style="--fx:76%;--fy:69%;--fr:-8deg"><span class="st-alert-card">+47 unread</span><span class="st-alert-orb"></span></span>
+            <span class="st-alert" style="--fx:49%;--fy:87%;--fr:3deg"><span class="st-alert-card">payment failed</span><span class="st-alert-orb"></span></span>
+          </div>
+
+          <!-- flow beat: the stream surfaces one real message, sitting BEHIND
+               the headline at low opacity so it reads as depth, not a second
+               thing competing for attention -->
+          <div class="st-msg">
+            <span class="st-msg-ping"></span>
+            <span class="st-msg-bubble">where's my order?</span>
+          </div>
+
+          <!-- automate/grow: payoff bloom -->
+          <span class="st-bloom"></span>
+        </div>
+
+        <span class="eyebrow hero-m__eyebrow">Operations automation · Mumbai</span>
+
+        <!-- headline stack: all beats share one grid cell; masked words
+             scrub in from below and out through the top as the story moves -->
+        <div class="hero-m__copy">
+          <div class="hm-beat"><h1 class="hm-line h-xl">First, the chaos.</h1></div>
+          <div class="hm-beat"><p class="hm-line h-xl">Then, flow.</p></div>
+          <div class="hm-beat hm-beat--final">
+            <p class="hm-line h-xl">Automate the busywork.<br>Focus on growth.</p>
+            <p class="hm-sub">We map how your business runs on the inside, then automate the parts that slow it down. One customer message, handled end-to-end by AI, in the time it takes to read this.</p>
+            <div class="hm-cta">
+              <a href="#contact" class="btn btn-primary" data-magnetic>Get Started</a>
+              <a href="#proof" class="btn-link">See how it works →</a>
             </div>
           </div>
         </div>
 
-        <!-- Case 2: Clinic -->
-        <div class="reveal-scale">
-          <p class="ba-context">Case 02 / A 4-doctor clinic in Andheri</p>
-          <div class="ba-card">
-            <div class="ba-side before">
-              <span class="ba-tag before-tag">Before</span>
-              <h3 class="ba-title">Confirmations by hand, every day</h3>
-              <p class="ba-body">Receptionist sends 80+ appointment confirmations and follow-ups by hand each week, juggling between Sheets and WhatsApp.</p>
-              <div class="ba-flow">
-                <span class="flow-tag" style="color: #FF8B8B; border-color: rgba(255,130,130,0.3);">Appointment sheet</span>
-                <span style="color: var(--text-muted);">→</span>
-                <span class="flow-tag" style="color: #FF8B8B; border-color: rgba(255,130,130,0.3);">Manual WhatsApp</span>
-              </div>
-            </div>
-            <div class="ba-side after">
-              <span class="ba-tag after-tag">After</span>
-              <h3 class="ba-title">Confirmations send themselves</h3>
-              <p class="ba-body">AI sends WhatsApp confirms, reschedules, and same-day reminders straight from the appointment sheet. No-shows drop. Receptionist actually answers the desk.</p>
-              <div class="ba-flow">
-                <span class="flow-tag">Sheet</span>
-                <span style="color: var(--brand);">→</span>
-                <span class="flow-tag">AI sender</span>
-                <span style="color: var(--brand);">→</span>
-                <span class="flow-tag">WhatsApp</span>
-              </div>
-              <div class="ba-saved">
-                <div class="ba-saved-label">Time saved</div>
-                <div class="ba-saved-num" data-counter="12" data-suffix="">0</div>
-                <div class="ba-saved-unit">hrs / week</div>
-              </div>
-            </div>
-          </div>
+        <!-- continuous scrub meter: hairline fills 1:1 with scroll -->
+        <div class="hero-m__meter" aria-hidden="true">
+          <i></i>
+          <span class="hm-pip"></span><span class="hm-pip"></span><span class="hm-pip"></span>
         </div>
+        <div class="hm-hint" aria-hidden="true">scroll</div>
       </div>
-
-      <p class="mt-10 text-sm" style="color: var(--text-muted);">Examples are anonymized. Names withheld so businesses keep moving.</p>
     </div>
   </section>
 
-  <div class="section-glow"></div>
-
-  <!-- ════════════════════════════════════════════════ -->
-  <!-- INDUSTRY USE-CASES                              -->
-  <!-- ════════════════════════════════════════════════ -->
-  <section id="use-cases" class="py-24 sm:py-32 relative overflow-hidden" style="background: var(--bg-accent-zone);">
-    <div class="section-orb" style="width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,167,179,0.07), transparent 70%); bottom: -20%; right: -10%;" aria-hidden="true"></div>
-
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
-      <div class="reveal max-w-3xl">
-        <p class="eyebrow mb-5">Built for</p>
-        <h2 class="heading-xl text-white">
-          Pick your floor. <span class="text-brand-soft">We'll fit in.</span>
-        </h2>
-        <p class="mt-6 body-lg" style="color: var(--text-secondary);">
-          A concrete automation we'd build on day one for the kind of business you run.
-        </p>
-      </div>
-
-      <div class="mt-14 grid sm:grid-cols-2 gap-6 stagger">
-        <div class="industry-card reveal-scale">
-          <div class="ind-num">01 / Cafe</div>
-          <h3 class="ind-name">Cafe</h3>
-          <p class="ind-desc">WhatsApp orders parsed and pushed straight into the POS, with the kitchen ticket auto-printed before the customer hits send twice.</p>
-          <div class="ind-flow">
-            <span class="flow-step">WhatsApp</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-step">POS</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-step">Kitchen</span>
+  <!-- ══ LIVE BAND (proof) ══ -->
+  <section class="pad-y" id="proof">
+    <div class="wrap">
+      <span class="eyebrow reveal" style="display:block;margin-bottom:1.4rem">Your operation, on nsquareai</span>
+      <div class="bento" data-stagger>
+        <!-- live workflow -->
+        <div class="tile lit col-5 reveal flow-live">
+          <span class="live-dot"><i></i> Your workflow</span>
+          <div class="flow-steps">
+            <div class="flow-step pulse"><span class="n">1</span><span class="t">Customer message in <span>· DM, email, or WhatsApp</span></span></div>
+            <div class="flow-step"><span class="n">2</span><span class="t">AI reads it <span>· categorize &amp; route</span></span></div>
+            <div class="flow-step"><span class="n">3</span><span class="t">Handled or escalated <span>· team notified</span></span></div>
           </div>
         </div>
-
-        <div class="industry-card reveal-scale">
-          <div class="ind-num">02 / Clinic</div>
-          <h3 class="ind-name">Clinic</h3>
-          <p class="ind-desc">Appointment sheet drives WhatsApp confirms, reminders, and same-day reschedules. Receptionist stops chasing, no-shows drop.</p>
-          <div class="ind-flow">
-            <span class="flow-step">Sheet</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-step">AI sender</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-step">WhatsApp</span>
+        <!-- counters -->
+        <div class="tile lit col-4 reveal" style="display:flex;flex-direction:column;justify-content:center;gap:2rem">
+          <div class="stat">
+            <div class="num tabnum"><span data-counter="3">0</span></div>
+            <div class="cap">of your workflows running right now</div>
+          </div>
+          <div class="stat">
+            <div class="num tabnum"><span data-counter="12">0</span></div>
+            <div class="cap">of your tasks handled today</div>
           </div>
         </div>
-
-        <div class="industry-card reveal-scale">
-          <div class="ind-num">03 / Retail</div>
-          <h3 class="ind-name">Retail</h3>
-          <p class="ind-desc">POS pushes nightly stock deltas to Sheets, low-stock alerts ping the owner on WhatsApp before the next morning's coffee.</p>
-          <div class="ind-flow">
-            <span class="flow-step">POS</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-step">Sheets</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-step">Owner</span>
-          </div>
-        </div>
-
-        <div class="industry-card reveal-scale">
-          <div class="ind-num">04 / Logistics</div>
-          <h3 class="ind-name">Logistics</h3>
-          <p class="ind-desc">Delivery sheet drives WhatsApp ETAs to customers and live pings to drivers. Fewer "where is my order" calls, fewer angry inboxes.</p>
-          <div class="ind-flow">
-            <span class="flow-step">Delivery sheet</span>
-            <span class="flow-arrow">→</span>
-            <span class="flow-step">WhatsApp</span>
+        <!-- runs on -->
+        <div class="tile lit col-3 reveal">
+          <span class="tile-label">Runs on</span>
+          <div class="runs-on" style="margin-top:1rem">
+            <span class="chip-tool">Shopify</span>
+            <span class="chip-tool">CRM</span>
+            <span class="chip-tool">Sheets</span>
+            <span class="chip-tool">Slack</span>
+            <span class="chip-tool">WhatsApp</span>
+            <span class="chip-tool">n8n</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="section-glow"></div>
-
-  <!-- ════════════════════════════════════════════════ -->
-  <!-- INTEGRATION TICKER                              -->
-  <!-- ════════════════════════════════════════════════ -->
-  <section class="py-20 sm:py-28 relative overflow-hidden" style="background: var(--bg-deep);">
-    <!-- Atmospheric bleed headline -->
-    <div class="marquee-bleed marquee-bleed-bg" aria-hidden="true">
-      <div class="marquee-bleed-track">
-        <span>INTEGRATIONS&nbsp;·&nbsp;</span>
-        <span>INTEGRATIONS&nbsp;·&nbsp;</span>
-        <span>INTEGRATIONS&nbsp;·&nbsp;</span>
-        <span>INTEGRATIONS&nbsp;·&nbsp;</span>
+  <!-- ══ ABOUT ══ -->
+  <section class="pad-y" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">About nsquareai</span>
+        <h2 class="h-lg reveal">Built around how you actually work.</h2>
+        <p class="lead reveal">Every workflow nsquareai builds is custom made for the business it runs in. We go inside your operation, map how work actually moves, then automate the internal friction around the tools your team already uses, so your people reclaim hours every week for work that actually matters.</p>
       </div>
-    </div>
-
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
-      <div class="reveal mb-12 max-w-3xl">
-        <p class="eyebrow mb-5">Integrations</p>
-        <h2 class="heading-lg text-white">
-          Works with the tools <span class="text-brand-soft">you already use.</span>
-        </h2>
+      <div class="bento" data-stagger>
+        <div class="tile lit col-4 reveal"><span class="card-index">01</span><h3 class="card-title" style="margin-top:.8rem">Diagnosis first</h3><p class="card-body">We map your operation before writing a line of code, so the automation fixes the friction that actually costs you.</p></div>
+        <div class="tile lit col-4 reveal"><span class="card-index">02</span><h3 class="card-title" style="margin-top:.8rem">Your existing tools</h3><p class="card-body">Shopify, CRM, Sheets, Slack, WhatsApp. We build into the stack your team already opens every day.</p></div>
+        <div class="tile lit col-4 reveal"><span class="card-index">03</span><h3 class="card-title" style="margin-top:.8rem">Days, not months</h3><p class="card-body">First automation live within days. No long rollouts, no dashboards to learn.</p></div>
       </div>
+      <div style="margin-top:1.6rem" class="reveal"><a href="about.html" class="btn btn-ghost">Learn more about us</a></div>
     </div>
+  </section>
 
-    <!-- Marquee row 1 -->
-    <div class="marquee-row-1 overflow-hidden mb-4">
-      <div class="marquee-track">
-        <span class="marquee-pill"><svg class="w-4 h-4 text-green-400" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 17.03c-.248.694-.916 1.363-1.883 1.537-.521.094-1.199.168-3.487-.749-2.926-1.173-4.81-4.154-4.955-4.348-.146-.193-1.183-1.573-1.183-3.001 0-1.427.749-2.131 1.015-2.422.267-.292.58-.365.773-.365.193 0 .387.002.556.01.178.008.418-.068.653.498.237.572.806 1.966.878 2.109.073.143.121.311.024.498-.097.186-.146.302-.29.465-.145.164-.305.366-.435.491-.145.14-.296.292-.127.572.169.28.75 1.237 1.61 2.003 1.106.985 2.038 1.291 2.327 1.435.29.145.459.121.628-.073.169-.193.724-.844.917-1.135.193-.29.387-.242.652-.145.266.097 1.685.795 1.973.94.29.145.483.217.556.338.072.121.072.7-.176 1.394z" fill-rule="evenodd"/></svg>WhatsApp</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="currentColor"><path d="M11.318 12.545H7.91v-1.909h3.41c.318 0 .636.318.636.954 0 .636-.318.955-.637.955zM14.728 9.09c0-.636-.318-.954-.636-.954H7.91V10h6.182c.318 0 .636-.318.636-.91zm.318 3.636c0-.636-.318-1.09-.636-1.09H7.91v2.182h6.5c.318 0 .636-.41.636-1.09z"/><path d="M19.09 0H4.91A2.182 2.182 0 002.727 2.182v19.636A2.182 2.182 0 004.91 24h14.18a2.182 2.182 0 002.183-2.182V2.182A2.182 2.182 0 0019.09 0zM16 13.227c0 1.59-1.227 2.773-2.727 2.773H6.545V8h6.728C14.773 8 16 9.136 16 10.636c0 .818-.364 1.5-.91 1.91.637.363 .91 1.044.91 1.681z"/></svg>Google Sheets</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.528 2.528 0 012.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 012.521 2.521 2.528 2.528 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.528 2.528 0 01-2.522 2.521h-2.522V8.834zm-1.27 0a2.528 2.528 0 01-2.523 2.521 2.527 2.527 0 01-2.52-2.521V2.522A2.527 2.527 0 0115.163 0a2.528 2.528 0 012.523 2.522v6.312zM15.163 18.956a2.528 2.528 0 012.523 2.522A2.528 2.528 0 0115.163 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zm0-1.27a2.527 2.527 0 01-2.52-2.523 2.527 2.527 0 012.52-2.52h6.314A2.528 2.528 0 0124 15.163a2.528 2.528 0 01-2.523 2.523h-6.314z"/></svg>Slack</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm0 4.8a7.2 7.2 0 110 14.4 7.2 7.2 0 010-14.4z"/><circle cx="12" cy="12" r="3.6"/></svg>n8n</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-orange-500" viewBox="0 0 24 24" fill="currentColor"><path d="M18.861 4.14L12 .001 5.14 4.14 12 8.28zM4.56 5.18L0 7.86v8.28l4.56 2.68V5.18zm14.88 0v13.64L24 16.14V7.86l-4.56-2.68zM5.14 19.86L12 24l6.86-4.14L12 15.72z"/></svg>Zapier</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>Gmail</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.98-.7-2.055-.607L2.543 2.573c-.466.046-.56.28-.374.466l2.29 1.169zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.166V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.934zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952l1.448.327s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933l3.222-.186zM1.936 1.035l13.682-.84C17.765.054 18.371.234 19.03.7l3.735 2.66c.467.326.607.467.607.886v14.27c0 .96-.42 1.54-1.682 1.634L6.453 21.15c-.935.047-1.402-.093-1.869-.7L1.376 16.5c-.514-.7-.748-1.213-.748-1.82V2.482c0-.747.42-1.354 1.308-1.447z"/></svg>Notion</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="currentColor"><path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.591-7.305z"/></svg>Stripe</span>
+  <!-- ══ FEATURED AUTOMATIONS (before / after) ══ -->
+  <section class="pad-y" id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">Featured automations</span>
+        <h2 class="h-lg reveal">Before us. After us.</h2>
+        <p class="lead reveal">Concrete, illustrative examples of what we build for businesses that look a lot like yours.</p>
       </div>
+      <div class="ba-grid">
+        <div class="ba-card reveal">
+          <div class="ba-head"><span class="case">Case 01 · D2C brand</span><span class="saved">~10 hrs/week</span></div>
+          <div class="ba-body">
+            <div class="ba-col before"><span class="tag">Before · support inbox chaos</span><h4>Answered one by one</h4><p>Founder answers a flood of "where's my order?" DMs by hand, switching between Shopify, the courier panel, and WhatsApp to trace each one.</p></div>
+            <div class="ba-col after"><span class="tag">After · handled for them</span><h4>Traced and replied</h4><p>AI reads each message, pulls the live order status from Shopify and the courier, drafts an accurate reply, and flags only the ones that truly need a human.</p></div>
+          </div>
+        </div>
+        <div class="ba-card reveal">
+          <div class="ba-head"><span class="case">Case 02 · Agency</span><span class="saved">~12 hrs/week</span></div>
+          <div class="ba-body">
+            <div class="ba-col before"><span class="tag">Before · by hand, every client</span><h4>Onboarding drift</h4><p>Every new client means the same manual checklist: access requests, kickoff docs, and invoice follow-ups chased across email and Sheets.</p></div>
+            <div class="ba-col after"><span class="tag">After · runs itself</span><h4>Onboarding on rails</h4><p>A signed proposal triggers the whole sequence: onboarding tasks created, access requested, invoice scheduled, and gentle follow-ups sent until it's paid.</p></div>
+          </div>
+        </div>
+      </div>
+      <p class="mono reveal" style="color:var(--ink-4);font-size:.72rem;margin-top:1.4rem;letter-spacing:.06em">Examples are illustrative, built to show the mechanics of what we automate.</p>
     </div>
+  </section>
 
-    <!-- Marquee row 2 -->
-    <div class="marquee-row-2 overflow-hidden">
-      <div class="marquee-track">
-        <span class="marquee-pill"><svg class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 01-1.93.07 4.28 4.28 0 004 2.98 8.521 8.521 0 01-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>Twitter / X</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>GitHub</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>Airtable</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L1.608 6v12L12 24l10.392-6V6L12 0zm-1.2 17.4H8.4V10.2h2.4v7.2zm4.8 0h-2.4V6.6h2.4v10.8z"/></svg>Power BI</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-blue-300" viewBox="0 0 24 24" fill="currentColor"><path d="M19.54 0c1.356 0 2.46 1.104 2.46 2.472v21.528l-2.58-2.28-1.452-1.344-1.536-1.428.636 2.22H3.06c-1.356 0-2.46-1.104-2.46-2.472V2.472C.6 1.104 1.704 0 3.06 0h16.48zM14.22 15.756c3.168-.096 4.392-2.184 4.392-2.184 0-4.632-2.064-8.388-2.064-8.388-2.064-1.548-4.032-1.506-4.032-1.506l-.2.228c2.436.756 3.564 1.848 3.564 1.848a11.748 11.748 0 00-7.14-1.14c-.168.024-.3.048-.456.084-.792.084-2.712.456-5.136 1.8-.408.228-.648.384-.648.384s1.188-1.152 3.768-1.908l-.144-.168s-1.968-.042-4.032 1.506c0 0-2.064 3.756-2.064 8.388 0 0 1.2 2.088 4.368 2.184 0 0 .528-.648 .96-1.2-1.824-.552-2.52-1.704-2.52-1.704l.408.252.048.036.047.027.014.006.047.027c.264.144.528.264.768.372a12.186 12.186 0 002.712.756c1.488.144 3.216.012 4.788-.756.492-.192.996-.444 1.524-.816 0 0-.72 1.176-2.592 1.716.432.552.948 1.176.948 1.176z"/></svg>Discord</span>
-        <span class="marquee-pill"><svg class="w-4 h-4 text-green-300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.373 0 12s5.372 12 12 12 12-5.373 12-12S18.628 0 12 0zm-.714 18.01H8.572v-1.5h2.714v1.5zm4.285-5.143c0 .857-.571 1.607-1.393 1.893v1.535H11.57v-1.535c-.821-.286-1.393-1.036-1.393-1.893h2.143c0 .357.286.643.643.643s.643-.286.643-.643-.286-.643-.643-.643c-1.571 0-2.857-1.286-2.857-2.857S11.393 6.51 12.964 6.51c1.571 0 2.857 1.286 2.857 2.857h-2.143a.643.643 0 11-1.285 0c0-.357.286-.643.643-.643s.643.286.643.643c1.571 0 2.857 1.286 2.857 2.857z"/></svg>Razorpay</span>
+  <!-- ══ SERVICES ══ -->
+  <section class="pad-y" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">Services</span>
+        <h2 class="h-lg reveal">What nsquareai builds for you.</h2>
+      </div>
+      <div class="bento" data-stagger>
+        <div class="tile lit col-3 reveal"><h3 class="card-title">Workflow Automation</h3><p class="card-body">Repetitive internal tasks on autopilot: order handling, follow-ups, onboarding, scheduling, and more.</p></div>
+        <div class="tile lit col-3 reveal"><h3 class="card-title">AI-Powered Insights</h3><p class="card-body">Turn your data into decisions: sales trends, stock and cash alerts, customer behavior patterns.</p></div>
+        <div class="tile lit col-3 reveal"><h3 class="card-title">Custom Integrations</h3><p class="card-body">Connect your tools seamlessly: Shopify, CRM, billing, WhatsApp, and everything in between.</p></div>
+        <div class="tile lit col-3 reveal"><h3 class="card-title">Process Optimization</h3><p class="card-body">Streamline operations end-to-end. Less manual work, fewer errors, less load on your team.</p></div>
+      </div>
+      <p class="lead reveal" style="margin-top:1.4rem;font-size:.95rem">nsquareai adapts to any operation, from D2C brands to professional services, real estate, coaching, and SaaS teams.</p>
+    </div>
+  </section>
+
+  <!-- ══ BUILT FOR ══ -->
+  <section class="pad-y" id="built-for">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">Built for</span>
+        <h2 class="h-lg reveal">Pick your floor. We'll fit in.</h2>
+        <p class="lead reveal">A concrete automation we'd build on day one for the kind of business you run.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="bf-row reveal"><span class="bf-name">D2C brand</span><span class="bf-desc">AI watches your sales patterns and stock levels, forecasts when each product will run out, and works backward through supplier lead times to flag the reorder date days early. Approve, and it drafts every PO for you.</span><span class="bf-flow">Sales + stock → forecast → draft POs</span></div>
+        <div class="bf-row reveal"><span class="bf-name">Professional services</span><span class="bf-desc">A signed proposal triggers the whole onboarding: tasks created, access requested, invoice scheduled, and follow-ups sent until it's paid.</span><span class="bf-flow">Intake → onboarding → invoicing</span></div>
+        <div class="bf-row reveal"><span class="bf-name">Real estate</span><span class="bf-desc">Portal and website leads land in the CRM enriched and tagged, then get a nurture sequence so no enquiry goes cold while you're on a viewing.</span><span class="bf-flow">Portal lead → CRM → nurture</span></div>
+        <div class="bf-row reveal"><span class="bf-name">Coaching</span><span class="bf-desc">Enquiries answered and qualified around the clock, enrolments logged, and payment plus session reminders sent so the desk stops chasing.</span><span class="bf-flow">Enquiry → enrol → reminders</span></div>
+        <div class="bf-row reveal"><span class="bf-name">SaaS ops</span><span class="bf-desc">New signups routed and enriched, the right internal handoff fired in Slack, and onboarding tasks created so nothing stalls between teams.</span><span class="bf-flow">Signup → routing → ops handoff</span></div>
       </div>
     </div>
   </section>
 
-  <div class="section-glow"></div>
-
-  <!-- ════════════════════════════════════════════════ -->
-  <!-- WHY NSQUARE (NEW)                               -->
-  <!-- ════════════════════════════════════════════════ -->
-  <section id="why" class="py-24 sm:py-32 relative overflow-hidden">
-    <div class="section-orb" style="width: 700px; height: 500px; background: radial-gradient(ellipse, rgba(0,167,179,0.06), transparent 70%); top: 30%; left: 50%; transform: translate(-50%,-50%);" aria-hidden="true"></div>
-    <div class="section-dot-grid" aria-hidden="true"></div>
-
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
-      <div class="reveal max-w-3xl mb-14">
-        <p class="eyebrow mb-5">Why nsquare</p>
-        <h2 class="heading-xl text-white">
-          Three reasons over <span class="text-brand-soft">the alternatives.</span>
-        </h2>
+  <!-- ══ INTEGRATIONS ══ -->
+  <section class="pad-y" id="integrations">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">Integrations</span>
+        <h2 class="h-lg reveal">Works with the tools you already use.</h2>
       </div>
-
-      <div class="why-grid stagger">
-        <div class="why-card reveal-scale">
-          <div class="why-num">01</div>
-          <h3 class="why-title">vs DIY tools</h3>
-          <p class="why-body">Zapier and friends give you Lego pieces. We deliver the finished thing, fitted to your stack and tuned for your team.</p>
-          <span class="why-rule">No glue work, no half-builds</span>
-        </div>
-        <div class="why-card reveal-scale">
-          <div class="why-num">02</div>
-          <h3 class="why-title">vs Generic agencies</h3>
-          <p class="why-body">Agencies bill hours. We measure ours by yours saved. Every workflow is scoped to a clear weekly time return, not a slide deck.</p>
-          <span class="why-rule">Outcome over output</span>
-        </div>
-        <div class="why-card reveal-scale">
-          <div class="why-num">03</div>
-          <h3 class="why-title">What makes us nsquare</h3>
-          <p class="why-body">A day with your team before any code. Custom builds in days, not months. Ongoing tuning, never set-and-forget.</p>
-          <span class="why-rule">Built around how you work</span>
-        </div>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track" style="--dur:44s">
+        <span class="mq-item">Shopify</span><span class="mq-item">Google Sheets</span><span class="mq-item">Slack</span><span class="mq-item">n8n</span><span class="mq-item">Zapier</span><span class="mq-item">Gmail</span><span class="mq-item">Notion</span><span class="mq-item">Stripe</span>
+      </div>
+    </div>
+    <div class="marquee rev">
+      <div class="marquee-track" style="--dur:38s">
+        <span class="mq-item">HubSpot</span><span class="mq-item">WhatsApp</span><span class="mq-item">Airtable</span><span class="mq-item">Power BI</span><span class="mq-item">GitHub</span><span class="mq-item">Razorpay</span>
       </div>
     </div>
   </section>
 
-  <div class="section-glow"></div>
-
-  <!-- ════════════════════════════════════════════════ -->
-  <!-- FAQ                                             -->
-  <!-- ════════════════════════════════════════════════ -->
-  <section id="faq" class="py-24 sm:py-32 relative overflow-hidden" style="background: var(--bg-deep);">
-    <div class="section-orb" style="width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,167,179,0.04), transparent 70%); bottom: -10%; left: -5%;" aria-hidden="true"></div>
-
-    <div class="max-w-2xl mx-auto px-6 relative z-10">
-      <div class="text-center reveal">
-        <p class="eyebrow mb-5">FAQ</p>
-        <h2 class="heading-lg text-white">
-          Common <span class="text-brand-soft">questions.</span>
-        </h2>
+  <!-- ══ WHY NSQUARE ══ -->
+  <section class="pad-y" id="why">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">Why nsquare</span>
+        <h2 class="h-lg reveal">Three reasons over the alternatives.</h2>
       </div>
-
-      <div class="mt-12 space-y-3 reveal" id="faq-list">
-        <div class="faq-item">
-          <button class="faq-btn">
-            How long does it take to build a workflow?
-            <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
-          </button>
-          <div class="faq-answer">
-            <p class="text-sm text-gray-400 leading-relaxed">Most workflows are built and deployed within 3–7 days, depending on complexity. Simple automations can be live within 24–48 hours.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-btn">
-            Do I need any technical knowledge?
-            <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
-          </button>
-          <div class="faq-answer">
-            <p class="text-sm text-gray-400 leading-relaxed">Not at all. nsquareai handles everything, from design to deployment. You just explain how your business works, and the rest is taken care of.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-btn">
-            What tools can you integrate with?
-            <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
-          </button>
-          <div class="faq-answer">
-            <p class="text-sm text-gray-400 leading-relaxed">WhatsApp, Google Sheets, Slack, Gmail, Notion, POS systems, billing software, CRMs, and hundreds more. If it has an API, it can be connected.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-btn">
-            How much does it cost?
-            <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
-          </button>
-          <div class="faq-answer">
-            <p class="text-sm text-gray-400 leading-relaxed">Every business is different, so pricing depends on the scope and complexity of the automation. Reach out for a free consultation with no commitment required.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-btn">
-            What happens after the workflow is built?
-            <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
-          </button>
-          <div class="faq-answer">
-            <p class="text-sm text-gray-400 leading-relaxed">You get ongoing support and optimization. As your business evolves, the workflows are refined and expanded. The system keeps improving right alongside your business.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-btn">
-            Can you automate [specific task]?
-            <span class="faq-icon"><svg class="w-3.5 h-3.5 text-brand" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
-          </button>
-          <div class="faq-answer">
-            <p class="text-sm text-gray-400 leading-relaxed">Probably. From order management and customer follow-ups to invoice generation and inventory alerts, repetitive work can usually be automated. Just ask.</p>
-          </div>
-        </div>
+      <div class="bento" data-stagger>
+        <div class="tile lit col-4 reveal why-col"><span class="why-vs">01 · vs doing it yourself</span><h3>Finished, not half-built</h3><p class="card-body">Automation platforms give you the building blocks and leave the assembly, the edge cases, and the upkeep to you. We deliver the finished system, fitted to your stack and tuned for your team.</p><div class="why-rule">Rule: no glue work, no half-builds</div></div>
+        <div class="tile lit col-4 reveal why-col"><span class="why-vs">02 · vs Off-the-shelf software</span><h3>Fits you, not the reverse</h3><p class="card-body">SaaS tools make you change how you work to fit them. We do the opposite: diagnose how you already run, then build around it. No process overhaul.</p><div class="why-rule">Rule: the software adapts to you</div></div>
+        <div class="tile lit col-4 reveal why-col"><span class="why-vs">03 · What makes us nsquare</span><h3>Inside, not on top</h3><p class="card-body">We work on the inside of your operation. Map the real workflow before any code, build in days not months, and keep tuning it, never set-and-forget.</p><div class="why-rule">Rule: built around how you work</div></div>
       </div>
     </div>
   </section>
 
-  <div class="section-glow"></div>
-
-  <!-- ════════════════════════════════════════════════ -->
-  <!-- CLOSING CTA                                     -->
-  <!-- ════════════════════════════════════════════════ -->
-  <section class="py-24 sm:py-32 relative overflow-hidden" style="background: var(--bg-accent-zone);">
-    <div class="section-orb" style="width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(0,167,179,0.08), transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%);" aria-hidden="true"></div>
-    <div class="max-w-3xl mx-auto px-6 text-center relative z-10 reveal">
-      <p class="eyebrow mb-5">Get started</p>
-      <h2 class="heading-xl text-white mb-6">Ready to reclaim your time?</h2>
-      <p class="body-lg mb-10 mx-auto max-w-xl" style="color: var(--text-secondary);">Tell us what's eating your hours. We'll map it, build it, and have it running in days.</p>
-      <div class="flex flex-wrap gap-4 justify-center">
-        <a href="contact.html" class="btn-slide">
-          <span class="btn-slide-text">Get in Touch</span>
-          <span class="btn-slide-icon">
-            <svg fill="none" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10"/></svg>
-          </span>
-        </a>
-        <a href="https://wa.me/918879897814?text=Hi%20Nekunj%2C%20I%27d%20like%20to%20discuss%20automating%20my%20business." target="_blank" rel="noopener noreferrer" class="wa-cta-btn">
-          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          <span>Chat on WhatsApp</span>
-        </a>
+  <!-- ══ HOW IT WORKS ══ -->
+  <section class="pad-y" id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow reveal">How it works</span>
+        <h2 class="h-lg reveal">Three steps to smarter operations.</h2>
+      </div>
+      <div class="hiw reveal">
+        <div class="hiw-line"><i></i></div>
+        <div class="hiw-step"><div class="dot">1</div><span class="step-lbl">Step 01</span><h3>Diagnose</h3><p>We go inside your operation, map every step and handoff, and find exactly where time and money are leaking.</p><div class="note">Average: 1–2 conversations</div></div>
+        <div class="hiw-step"><div class="dot">2</div><span class="step-lbl">Step 02</span><h3>Build</h3><p>Custom AI workflows are designed and deployed, tailored to your exact processes and tools.</p><div class="note">Delivered in days, not months</div></div>
+        <div class="hiw-step"><div class="dot">3</div><span class="step-lbl">Step 03</span><h3>Scale</h3><p>You save hours every week. As your business grows, the workflows are optimized and expanded with you.</p><div class="note">Ongoing optimization included</div></div>
       </div>
     </div>
   </section>
 
-  <div class="section-glow"></div>
-
-  <!-- ════════════════════════════════════════════════ -->
-  <!-- FOOTER                                          -->
-  <!-- ════════════════════════════════════════════════ -->
-  <footer class="py-16 border-t border-white/5">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-        <!-- Brand -->
-        <div class="col-span-2 lg:col-span-1">
-          <a href="/" class="inline-block mb-4">
-            <span class="font-heading font-bold text-xl tracking-tight text-white">nsquare<span style="color:#00A7B3;">ai</span></span>
-          </a>
-          <p class="text-sm leading-relaxed mb-4" style="color: var(--text-muted);">Automation built for real business.</p>
-          <span class="text-xs flex items-center gap-1.5" style="color: var(--text-muted);">
-            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z"/></svg>
-            Mumbai, India
-          </span>
-        </div>
-        <!-- Company -->
+  <!-- ══ CONTACT ══ -->
+  <section class="pad-y" id="contact">
+    <div class="wrap">
+      <div class="contact-grid">
         <div>
-          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing: 0.14em; color: var(--text-muted);">Company</p>
-          <ul class="space-y-3">
-            <li><a href="/" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Home</a></li>
-            <li><a href="/about" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">About</a></li>
-            <li><a href="/services" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Services</a></li>
-            <li><a href="/how-it-works" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">How it Works</a></li>
-            <li><a href="/our-work" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Our Work</a></li>
-            <li><a href="#faq" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">FAQ</a></li>
-          </ul>
+          <span class="eyebrow reveal">Contact</span>
+          <h2 class="h-lg reveal" style="margin-top:.9rem">Let's automate your next workflow.</h2>
+          <p class="lead reveal" style="margin-top:1rem">Tell us about your business and we'll figure out the best way to help.</p>
+          <div class="trust reveal"><span>No commitment required</span><span>Usually respond within 24 hours</span></div>
         </div>
-        <!-- Contact -->
-        <div>
-          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing: 0.14em; color: var(--text-muted);">Contact</p>
-          <ul class="space-y-3">
-            <li><a href="mailto:nekunj@nsquareai.in" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">nekunj@nsquareai.in</a></li>
-            <li><a href="tel:+918879897814" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">+91 8879897814</a></li>
-            <li><a href="https://www.instagram.com/nsquareai.in" target="_blank" rel="noopener noreferrer" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">@nsquareai.in</a></li>
-            <li><a href="https://wa.me/918879897814" target="_blank" rel="noopener noreferrer" class="text-sm transition-colors duration-200" style="color: #25D366;">WhatsApp</a></li>
-          </ul>
-        </div>
-        <!-- Legal -->
-        <div>
-          <p class="text-xs font-semibold uppercase mb-5" style="letter-spacing: 0.14em; color: var(--text-muted);">Legal</p>
-          <ul class="space-y-3">
-            <li><a href="/privacy" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Privacy Policy</a></li>
-            <li><a href="/terms" class="text-sm transition-colors duration-200 hover:text-brand" style="color: var(--text-secondary);">Terms of Service</a></li>
-          </ul>
+        <div class="reveal-right">
+          <form id="contact-form">
+            <div class="field"><label for="c-name">Name</label><input id="c-name" name="name" type="text" required></div>
+            <div class="field"><label for="c-biz">Business name</label><input id="c-biz" name="business" type="text"></div>
+            <div class="field"><label for="c-contact">Email or phone</label><input id="c-contact" name="contact-info" type="text" required></div>
+            <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" name="message" placeholder="Tell us about your business and what you'd like to automate..."></textarea></div>
+            <button type="submit" class="btn btn-primary" data-magnetic style="width:100%;justify-content:center">Send Message</button>
+          </form>
+          <div id="form-success" class="form-success hidden">
+            <h3 class="h-md">Message received!</h3>
+            <p class="lead" style="margin:.6rem auto 0">We'll get back to you soon.</p>
+          </div>
         </div>
       </div>
-      <div class="mt-12 pt-8 border-t border-white/5 text-center">
-        <p class="text-xs" style="color: var(--text-muted);">&copy; 2026 nsquareai. All rights reserved.</p>
+    </div>
+  </section>
+
+  <!-- ══ FAQ ══ -->
+  <section class="pad-y" id="faq">
+    <div class="wrap" style="max-width:840px">
+      <div class="section-head">
+        <span class="eyebrow reveal">FAQ</span>
+        <h2 class="h-lg reveal">Common questions.</h2>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item"><button class="faq-q">How long does it take to build a workflow?<span class="ic">+</span></button><div class="faq-a"><p>Most workflows are built and deployed within 3–7 days, depending on complexity. Simple automations can be live within 24–48 hours.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Do I need any technical knowledge?<span class="ic">+</span></button><div class="faq-a"><p>Not at all. nsquareai handles everything, from diagnosis to design to deployment. You just explain how your business works, and the rest is taken care of.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Is this just Zapier, or do you build real software?<span class="ic">+</span></button><div class="faq-a"><p>Both, whichever the job needs. Sometimes the fix is a clean automation between tools you already use. Sometimes it needs custom logic or a small piece of software built from scratch. We diagnose first, then build the right thing, not the thing we happen to sell.</p></div></div>
+        <div class="faq-item"><button class="faq-q">What tools can you integrate with?<span class="ic">+</span></button><div class="faq-a"><p>Shopify, CRMs like HubSpot, Google Sheets, Slack, Gmail, Notion, WhatsApp, billing and payment tools, and hundreds more. If it has an API, it can be connected.</p></div></div>
+        <div class="faq-item"><button class="faq-q">How much does it cost?<span class="ic">+</span></button><div class="faq-a"><p>Every business is different, so pricing depends on the scope and complexity of the automation. Reach out for a free consultation with no commitment required.</p></div></div>
+        <div class="faq-item"><button class="faq-q">What happens after the workflow is built?<span class="ic">+</span></button><div class="faq-a"><p>You get ongoing support and optimization. As your business evolves, the workflows are refined and expanded. Nothing is set-and-forget, it grows with you.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Can you automate a specific task?<span class="ic">+</span></button><div class="faq-a"><p>Probably! From customer support and follow-ups to onboarding, invoicing, and stock or cash alerts, if it's repetitive and internal, it can likely be automated. Just ask.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="wrap footer-top">
+      <div>
+        <a href="index.html" class="brand">nsquare<b>ai</b></a>
+        <p class="mono" style="color:var(--ink-4);font-size:.74rem;margin-top:.7rem;letter-spacing:.08em">Mumbai, India</p>
+      </div>
+      <div class="footer-meta">
+        <a href="mailto:nekunj@nsquareai.in">nekunj@nsquareai.in</a>
+        <span class="footer-legal"><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
+        <span>© 2026 nsquareai. All rights reserved.</span>
       </div>
     </div>
   </footer>
 
-  <!-- ════════════════════════════════════════════════ -->
-  <!-- SCRIPTS                                         -->
-  <!-- ════════════════════════════════════════════════ -->
-  <script src="main.js" defer></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+  <script src="main.js?v=20"></script>
 </body>
 </html>
