@@ -111,6 +111,8 @@ function chapterFor(p) {
    which is gone because mobile no longer builds chips at all). */
 function buildDesktopHero(hero, chips) {
   const lines = { l0: hero.querySelector('.hl-0'), l1: hero.querySelector('.hl-1'), l2: hero.querySelector('.hl-2') };
+  const pipe   = hero.querySelector('.hero__pipe');
+  const payoff = hero.querySelector('.hero__payoff');
 
   gsap.set(lines.l0, { autoAlpha: 1, y: 0 });
   gsap.set([lines.l1, lines.l2], { autoAlpha: 0, y: 26 });
@@ -162,6 +164,21 @@ function buildDesktopHero(hero, chips) {
   tl.to(lines.l1, { autoAlpha: 1, y: 0, duration: 0.08, ease: 'power1.out' }, 0.31);
   tl.to(lines.l1, { autoAlpha: 0, y: -26, duration: 0.08, ease: 'power1.in' }, 0.60);
   tl.to(lines.l2, { autoAlpha: 1, y: 0, duration: 0.09, ease: 'power1.out' }, 0.68);
+
+  /* Story slot, pinned to the SAME beats as the headlines above.
+     Keyed off the timeline, never off [data-chapter]: that attribute flips at
+     heroBeats (0.34 / 0.72), which trails the headline crossfades (0.31 / 0.68)
+     just enough to leave the previous element sitting under the new headline
+     across the band readers actually stop in. */
+  if (pipe)   gsap.set(pipe,   { autoAlpha: 0, y: 10 });
+  if (payoff) gsap.set(payoff, { autoAlpha: 0, y: 10 });
+  // beat 2 — the pipeline arrives with "Then, flow."
+  if (pipe) {
+    tl.to(pipe, { autoAlpha: 1, y: 0, duration: 0.07, ease: 'power1.out' }, 0.31);
+    tl.to(pipe, { autoAlpha: 0, y: -10, duration: 0.06, ease: 'power1.in' }, 0.60);
+  }
+  // beat 3 — it hands over to the payoff, exactly as the final headline lands
+  if (payoff) tl.to(payoff, { autoAlpha: 1, y: 0, duration: 0.08, ease: 'power1.out' }, 0.68);
 
   // scroll hint fades once flow is reached
   tl.to('.hero__hint', { autoAlpha: 0, duration: 0.06 }, 0.70);

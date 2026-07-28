@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20">
+  <link rel="stylesheet" href="styles.css?v=23">
 </head>
 <body>
   <div class="atmosphere" aria-hidden="true"></div>
@@ -70,14 +70,28 @@
           <span class="line hl-2">Automate the busywork.<br>Focus on growth.</span>
         </div>
         <p class="hero__sub">We map how your business runs on the inside, then automate the parts that slow it down. One customer message, handled end-to-end by AI, in the time it takes to read this.</p>
-        <!-- the pipeline that emerges — grows in above the CTA (desktop only) -->
-        <div class="hero__pipe" aria-hidden="true">
-          <div class="pipe-node"><span class="lbl">Customer DM</span><span class="val">"where's my order?"</span></div>
-          <span class="pipe-arrow"></span>
-          <div class="pipe-node"><span class="lbl">AI core</span><span class="val">read · matched · routed</span></div>
-          <span class="pipe-arrow"></span>
-          <div class="pipe-node"><span class="lbl">CRM + team</span><span class="val ok">reply sent ✓</span></div>
-          <span class="pipe-pulse"></span>
+        <!-- story slot above the CTA (desktop only). Holds two different KINDS
+             of element in one grid cell, so the swap can never shift the CTA:
+               ch2 "Then, flow."  → the pipeline, proving the mechanism
+               ch3 final headline → the payoff stat, no container at all
+             Swap timing lives in the GSAP timeline (main.js buildDesktopHero)
+             so it lands ON the headline crossfade. It must NOT be keyed to
+             [data-chapter], which flips at 0.72 while the final headline
+             arrives at 0.68 — that gap left the pipeline stranded under the
+             final headline for the whole band a reader actually stops in. -->
+        <div class="hero__slot" aria-hidden="true">
+          <div class="hero__pipe">
+            <div class="pipe-node"><span class="lbl">Customer DM</span><span class="val">"where's my order?"</span></div>
+            <span class="pipe-arrow"></span>
+            <div class="pipe-node"><span class="lbl">AI core</span><span class="val">read · matched · routed</span></div>
+            <span class="pipe-arrow"></span>
+            <div class="pipe-node"><span class="lbl">CRM + team</span><span class="val ok">reply sent ✓</span></div>
+            <span class="pipe-pulse"></span>
+          </div>
+          <p class="hero__payoff">
+            <span class="payoff-line"><b>9–12 hrs</b> a week, back to your team</span>
+            <span class="payoff-meta"><i></i>support · stock · follow-ups, running without you</span>
+          </p>
         </div>
         <div class="hero__cta">
           <a href="#contact" class="btn btn-primary" data-magnetic>Get Started</a>
@@ -403,6 +417,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
-  <script src="main.js?v=20"></script>
+  <script src="main.js?v=23"></script>
 </body>
 </html>

@@ -461,27 +461,61 @@ h1, h2, h3 {
   opacity: 0;
 }
 
-/* the pipeline that emerges — sits above the CTA, grows in during the flow chapter */
-.hero__pipe {
+/* story slot — one grid cell shared by the pipeline and the payoff stat.
+   Only the SLOT collapses/grows (chapter 0 → 1); the two children just
+   crossfade inside it, so the CTA below never moves when they swap. */
+.hero__slot {
   position: relative; z-index: 3;
-  width: fit-content; max-width: 100%; margin: 0 auto;
+  display: grid; place-items: center;
+  width: 100%; margin: 0 auto;
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.7s var(--ease-out), margin 0.7s var(--ease-out);
+}
+.hero:not([data-chapter="0"]) .hero__slot { max-height: 220px; margin: 0.2rem auto 1.6rem; }
+.hero__pipe, .hero__payoff { grid-area: 1 / 1; }
+
+/* the pipeline — proves the mechanism during "Then, flow." */
+.hero__pipe {
+  position: relative;
+  width: fit-content; max-width: 100%;
   display: flex; align-items: center; justify-content: center; gap: clamp(0.5rem, 2vw, 1.4rem);
   border-radius: var(--r-lg);
-  border: 1px solid transparent;
-  background: rgba(10,10,12,0);
-  backdrop-filter: blur(6px);
-  overflow: hidden;
-  max-height: 0; opacity: 0; padding: 0 1.2rem;
-  transition: max-height 0.7s var(--ease-out), opacity 0.6s var(--ease-out),
-              padding 0.7s var(--ease-out), margin 0.7s var(--ease-out),
-              border-color 0.7s, background 0.7s;
-}
-.hero:not([data-chapter="0"]) .hero__pipe {
-  max-height: 200px; opacity: 1; padding: 1rem 1.2rem;
-  margin: 0.2rem auto 1.6rem;
-  border-color: var(--hair);
+  border: 1px solid var(--hair);
   background: rgba(10,10,12,0.55);
+  backdrop-filter: blur(6px);
+  padding: 1rem 1.2rem;
+  opacity: 0;
 }
+
+/* the payoff — deliberately NOT a box. One line of type, so the final beat
+   reads as a statement instead of a second diagram competing with the CTA. */
+.hero__payoff {
+  display: flex; flex-direction: column; align-items: center; gap: 0.55rem;
+  text-align: center; opacity: 0; margin: 0;
+}
+.payoff-line {
+  font-size: clamp(1.05rem, 1.9vw, 1.4rem); font-weight: 500;
+  color: var(--ink-2); letter-spacing: -0.01em;
+}
+.payoff-line b {
+  font-weight: 800; font-size: 1.22em; letter-spacing: -0.03em;
+  color: var(--wa-soft);
+}
+.payoff-meta {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-mono); font-size: 0.64rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--ink-3);
+}
+.payoff-meta i {
+  width: 6px; height: 6px; border-radius: 50%; flex: none;
+  background: var(--wa); box-shadow: 0 0 10px var(--wa);
+  animation: payoffPulse 2.4s ease-in-out infinite;
+}
+@keyframes payoffPulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.82); }
+  50%      { opacity: 1;    transform: scale(1); }
+}
+
 .pipe-node {
   display: flex; flex-direction: column; gap: 0.25rem; min-width: 92px;
   text-align: left;
@@ -773,7 +807,11 @@ html.gsap-on .hg { transition: none; }
 .hero.hero--static .hero__chapters,
 .hero.hero--static .hero-m,
 .hero.hero--static .hero__hint { display: none; }
-.hero.hero--static .hero__pipe { opacity: 1; max-height: 200px; padding: 1rem 1.2rem; margin: 0.2rem auto 1.6rem; border-color: var(--hair); background: rgba(10,10,12,0.55); }
+/* static fallback resolves to the final headline, so it gets the payoff, and
+   the pipeline (a mid-story beat with no story to sit in) is dropped */
+.hero.hero--static .hero__slot { max-height: 220px; margin: 0.2rem auto 1.6rem; }
+.hero.hero--static .hero__pipe { display: none; }
+.hero.hero--static .hero__payoff { opacity: 1; }
 .hero.hero--static .hl-0, .hero.hero--static .hl-1 { display: none; }
 .hero.hero--static .hl-2 { opacity: 1; transform: none; }
 
@@ -997,7 +1035,11 @@ html.gsap-on .hg { transition: none; }
 }
 
 @media (max-width: 560px) {
+  .hero__slot { max-height: none; }
+  .hero:not([data-chapter="0"]) .hero__slot,
+  .hero.hero--static .hero__slot { max-height: 420px; }
   .hero__pipe { flex-direction: column; align-items: stretch; gap: 0.5rem; width: min(320px, 86vw); }
+  .payoff-meta { max-width: 86vw; text-align: center; line-height: 1.6; }
   .pipe-arrow { display: none; }
   .pipe-node { min-width: 0; }
   .hero__cta { flex-direction: column; }

@@ -20,20 +20,24 @@ const MIME = {
   '.woff2': 'font/woff2',
 };
 
+/* preview server: never let the browser cache, or an edit looks like it
+   "did nothing" until a hard refresh */
+const NO_CACHE = { 'Cache-Control': 'no-store, must-revalidate' };
+
 createServer(async (req, res) => {
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
   if (urlPath.endsWith('/')) urlPath += 'index.html';
   const filePath = join(__dirname, urlPath);
   try {
     const data = await readFile(filePath);
-    res.writeHead(200, { 'Content-Type': MIME[extname(filePath)] || 'application/octet-stream' });
+    res.writeHead(200, { 'Content-Type': MIME[extname(filePath)] || 'application/octet-stream', ...NO_CACHE });
     res.end(data);
   } catch {
     // Clean URL fallback: try appending .html (mirrors Vercel cleanUrls behaviour)
     try {
       const htmlPath = filePath + '.html';
       const data = await readFile(htmlPath);
-      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.writeHead(200, { 'Content-Type': 'text/html', ...NO_CACHE });
       res.end(data);
     } catch {
       res.writeHead(404, { 'Content-Type': 'text/plain' });

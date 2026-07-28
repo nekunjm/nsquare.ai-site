@@ -29,7 +29,9 @@
 
 **Eyebrow:** Operations automation · Mumbai
 
-**Chaos → flow pipeline:** Customer DM ("where's my order?") → AI core (read · matched · routed) → CRM + team (reply sent ✓)
+**Story slot** *(one slot above the CTA, holding a different kind of element per chapter, timed to the headline crossfade)*:
+- Chapter 2, "Then, flow." — the boxed pipeline: Customer DM ("where's my order?") → AI core (read · matched · routed) → CRM + team (reply sent ✓)
+- Chapter 3, "Automate the busywork. Focus on growth." — no box. A single payoff line: **9–12 hrs** a week, back to your team / `support · stock · follow-ups, running without you`. Deliberately a different *kind* of element, so the final beat states an outcome instead of showing a second diagram next to the CTA. The 9–12 range is the span of the per-industry figures already published on the services page (~9 to ~12 hrs saved / week).
 
 **Mobile cinematic beats (<901px, motion-enabled):** the mobile hero is one sticky stage driven by a single scroll-scrubbed timeline, using the SAME three chapters as the desktop hero so the two don't read as different sites. Scrolling is free and continuous; the timeline only magnetises onto a beat when you come to rest genuinely near one, so a slow scroll passes through every frame instead of being yanked forward. Masked words rise in and exit through the top, with each line starting before the previous has finished leaving so the headline is never absent. Behind them, ONE persistent story layer carries elements that morph from beat to beat, so it reads as a single continuous story rather than separate slides. The particle stream is full strength on the flow beat, then recedes below the copy and dims to background texture for the payoff so the type stays readable. The subheading paragraph and the Get Started CTA appear only on the final state.
 1. First, the chaos. *(shared with desktop)* — a handful of scattered alert chips, kept clear of the centre so the headline reads (mobile echo of the desktop chaos chips): `"where's my order?"`, `refund?`, `STOCK SYNC ERROR`, `+47 unread`, `payment failed`.
