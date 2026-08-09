@@ -207,6 +207,12 @@
 > Message received!
 > We'll get back to you soon.
 
+**Failure State:** *(shown when the message could not be delivered; the typed message is left in the form so nothing is lost)*
+> Couldn't send that
+> Your message is still in the box, nothing was lost. Reach Nekunj directly and it comes straight through:
+> - nekunj@nsquareai.in
+> - WhatsApp +91 88798 97814
+
 **Trust Signals:**
 - No commitment required
 - Usually respond within 24 hours
@@ -808,7 +814,7 @@ Scrapes Google for a target type of business, then runs each result through conf
 
 **Trust Signals:** No commitment required · Usually respond within 24 hours
 
-(Form fields and success state are the same as the home-page contact section.)
+(Form fields, success state and failure state are the same as the home-page contact section.)
 
 ---
 ---

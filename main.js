@@ -907,22 +907,55 @@ if (faq) {
   });
 }
 
-/* ── Contact form → Web3Forms (reuses live access key) ── */
+/* ── Contact form → Web3Forms ──
+   Access key for the nsquareai Web3Forms account. Public by design: it is an
+   alias for the destination email, not a secret.
+   Set to '' to make the form submit nowhere and show the direct-contact
+   fallback instead, which is the right state if the key is ever in doubt.
+   Note: a submission reaching Web3Forms is NOT proof it reached an inbox.
+   Submissions are always stored in the Web3Forms dashboard, so that is the
+   backstop (30 days on the free plan) whenever the mail leg misbehaves. It
+   has misbehaved once already: notifications spent six weeks in Gmail spam.
+   The stable `subject` below is deliberate, it is what the inbox filters
+   that keep this out of junk are keyed on. Don't change it casually. */
+const WEB3FORMS_KEY = '0c1b7aae-f345-4c31-9243-25366ed2f725';
+const ENQUIRY_SUBJECT = 'New enquiry via nsquareai.in';
+
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
     const btn = form.querySelector('button[type="submit"]');
+    const errorBox = document.getElementById('form-error');
+
+    // Never clears the fields: whatever they typed stays there to copy out.
+    const showFallback = () => {
+      btn.disabled = false; btn.textContent = 'Send Message';
+      if (errorBox) errorBox.classList.remove('hidden');
+    };
+
+    if (!WEB3FORMS_KEY) { showFallback(); return; }
+
+    if (errorBox) errorBox.classList.add('hidden');
     btn.disabled = true; btn.textContent = 'Sending…';
+    // "Email or phone" accepts either, so only offer it as reply-to when it
+    // actually looks like an address. Hitting Reply then answers the enquirer
+    // directly instead of bouncing off a phone number.
+    const contactValue = form['contact-info'].value.trim();
+    const looksLikeEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactValue);
+
     const payload = {
-      access_key: '0c1b7aae-f345-4c31-9243-25366ed2f725',
-      subject: 'New enquiry via nsquareai.in',
+      access_key: WEB3FORMS_KEY,
+      subject: ENQUIRY_SUBJECT,
+      from_name: 'nsquareai website',
       name: form.name.value,
       business: form.business.value,
-      contact: form['contact-info'].value,
+      contact: contactValue,
       message: form.message.value,
+      botcheck: form.botcheck ? form.botcheck.checked : false,
     };
+    if (looksLikeEmail) payload.replyto = contactValue;
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -930,13 +963,13 @@ if (contactForm) {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-      if (data.success) {
-        document.getElementById('form-success').classList.remove('hidden');
-        form.classList.add('hidden');
-      } else { throw new Error(data.message || 'failed'); }
+      // Only ever confirm on a real success response. Assuming delivery is
+      // what let this form look healthy while sending nothing anywhere useful.
+      if (!data.success) throw new Error(data.message || 'failed');
+      document.getElementById('form-success').classList.remove('hidden');
+      form.classList.add('hidden');
     } catch (err) {
-      btn.disabled = false; btn.textContent = 'Send Message';
-      alert('Something went wrong. Please try again or email nekunj@nsquareai.in directly.');
+      showFallback();
     }
   });
 }
